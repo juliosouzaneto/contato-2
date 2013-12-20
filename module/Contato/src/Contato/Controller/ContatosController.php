@@ -4,12 +4,20 @@ namespace Contato\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
+// imort Model\ContatoTable com alias
+use Contato\Model\ContatoTable as ModelContato;
 
 class ContatosController extends AbstractActionController {
 
     // GET /contatos
     public function indexAction() {
-        return new ViewModel();
+        // localizar adapter do banco
+        $adapter = $this->getServiceLocator()->get('AdapterDb');
+
+        // model ContatoTable instanciadoo
+        $modelContato = new ModelContato($adapter); // alias para ContatoTable
+        // enviar para view o array com key contatos e value com todos os contatos
+        return new ViewModel(array('contatos' => $modelContato->fetchAll()));
     }
 
     // GET /contatos/novo
@@ -94,13 +102,31 @@ class ContatosController extends AbstractActionController {
         // 1 - solicitar serviço para pegar o model responsável pelo find
         // 2 - solicitar form com dados desse contato encontrado
         // formulário com dados preenchidos
-        $form = array(
-            'nome' => 'Igor Rocha',
-            "telefone_principal" => "(085) 8585-8585",
-            "telefone_secundario" => "(085) 8585-8585",
-            "data_criacao" => "02/03/2013",
-            "data_atualizacao" => "02/03/2013",
-        );
+//        $form = array(
+//            'nome' => 'Igor Rocha',
+//            "telefone_principal" => "(085) 8585-8585",
+//            "telefone_secundario" => "(085) 8585-8585",
+//            "data_criacao" => "02/03/2013",
+//            "data_atualizacao" => "02/03/2013",
+//        );
+        //localizar adapter do banco
+        $adapter = $this->getServiceLocator()->get('AdapterDb');
+       
+        //model ContatoTable instanciado
+        $modelContato = new ModelContato($adapter);
+
+        try {
+            $form = (array) $modelContato->find($id);
+        } catch (\Exception $exc) {
+            // adicionar mensagem
+            $this->flashMessenger()->addErrorMessage($exc->getMessage());
+
+            // redirecionar para action index
+            return $this->redirect()->toRoute('contatos');
+        }
+
+
+
 
         // dados eviados para detalhes.phtml
         return array('id' => $id, 'form' => $form);
