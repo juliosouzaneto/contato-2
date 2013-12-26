@@ -1,13 +1,13 @@
 <?php
 
-namespace Contato\Controller;
+namespace Prestadora\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 // imort Model\ContatoTable com alias
-use Contato\Model\ContatoTable as ModelPrestadora;
+use Prestadora\Model\PrestadoraTable  as ModelPrestadora;
 
-class ContatosController extends AbstractActionController {
+class PrestadoraController extends AbstractActionController {
 
     // GET /contatos
     public function indexAction() {
@@ -15,9 +15,9 @@ class ContatosController extends AbstractActionController {
         $adapter = $this->getServiceLocator()->get('AdapterDb');
 
         // model ContatoTable instanciadoo
-        $modelContato = new ModelPrestadora($adapter); // alias para ContatoTable
+        $modelPrestadora = new ModelPrestadora($adapter); // alias para ContatoTable
         // enviar para view o array com key contatos e value com todos os contatos
-        return new ViewModel(array('contatos' => $modelContato->fetchAll()));
+        return new ViewModel(array('prestadora' => $modelPrestadora->fetchAll()));
     }
 
     // GET /contatos/novo
@@ -67,7 +67,7 @@ class ContatosController extends AbstractActionController {
             $this->flashMessenger()->addMessage("Contato não encotrado");
 
             // redirecionar para action index
-            return $this->redirect()->toRoute('contatos');
+            return $this->redirect()->toRoute('prestadora');
         }
 
         // aqui vai a lógica para pegar os dados referente ao contato

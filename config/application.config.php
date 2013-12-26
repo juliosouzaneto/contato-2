@@ -8,10 +8,12 @@
 return array(
     'modules' => array(
         'Application',
-        'Contato',
+     
         'ZendDeveloperTools',
         'BjyProfiler',
-      
+        'Contato',
+        'Prestadora',
+         
         ),
     'module_listener_options' => array(
         'module_paths' => array(

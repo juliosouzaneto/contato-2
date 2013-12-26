@@ -25,6 +25,11 @@ return array(
     'service_manager' => array(
         'factories' => array(
             'AdapterDb'   => 'Zend\Db\Adapter\AdapterServiceFactory', // new \Zend\Db\Adapter\AdapterServiceFactory
-        ),
+        ),     
+    ),
+    'service_manager_2' => array(
+        'factories' => array(
+            'AdapterDb2'   => 'Zend\Db\Adapter\AdapterServiceFactory', // new \Zend\Db\Adapter\AdapterServiceFactory
+        ),     
     ),
 );

@@ -40,13 +40,13 @@
         </thead>
 
         <tbody>
-            <?php foreach ($this->contatos as $prestadora) : ?>
+            <?php foreach ($this->prestadora as $prestadora) : ?>
                 <tr>
-                    <td><?php echo $this->escapeHtml($prestadora->id); ?></td>
-                    <td><?php echo $this->escapeHtml($prestadora->nome); ?></td>
-                    <td><?php echo $this->escapeHtml($prestadora->telefone_principal); ?></td>
+                    <td><?php echo $this->escapeHtml($prestadora->emp_prest_id); ?></td>
+                    <td><?php echo $this->escapeHtml($prestadora->emp_prest_cnpj); ?></td>
+                    <td><?php echo $this->escapeHtml($prestadora->emp_prest_insc_estadual); ?></td>
                     <td class="text-center">2</td>
-                    <td><?php echo $this->escapeHtml($prestadora->data_criacao); ?></td>
+                    <td><?php echo $this->escapeHtml($prestadora->emp_prest_data_cadastro); ?></td>
                     <td>
                         <a class="btn btn-xs btn-info" title="Visualizar" href="<?php echo $this->url('contatos', array("action" => "detalhes", "id" => $prestadora->id,)); ?>"><span class="glyphicon glyphicon-new-window"></span></a>
                         <a class="btn btn-xs btn-warning" title="Editar" href="<?php echo $this->url('contatos', array("action" => "editar", "id" => $prestadora->id,)); ?>"><span class="glyphicon glyphicon-edit"></span></a>

@@ -1,0 +1,48 @@
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <div class="panel-title">
+            Cadastro Empresa Prestadora          
+        </div>
+    </div>
+    <form class="form-horizontal" role="form" method="POST" action="<?php echo $this->url('contatos', array('action' => 'adicionar')); ?>">
+        <div class="panel-body">
+            <div class="input-group">
+                <label for="inputCNPJ" class="col-lg-3 col-md-3 control-label">CNPJ:</label>
+                <div class="col-lg-9 col-md-9">
+                    <input type="text" name="emp_prest_cnpj" class="form-control" id="inputNome" placeholder="Digite seu CNPJ">
+                </div>
+                
+                 <label for="inputInscEstadul" class="col-lg-3 col-md-3 control-label">Inscrição Estadual</label>
+                <div class="col-lg-9  col-md-9">
+                    <input type="text" name="emp_prest_insc_estadual" class="form-control" id="inputTelefonePrincipal" placeholder="Digite a inscrição estadual">
+                </div>
+                
+            </div>
+ 
+            <div class="form-group">
+                <label for="inputInscEstadul" class="col-lg-3 col-md-3 control-label">Inscrição Estadual</label>
+                <div class="col-lg-9  col-md-9">
+                    <input type="text" name="emp_prest_insc_estadual" class="form-control" id="inputTelefonePrincipal" placeholder="Digite a inscrição estadual">
+                </div>
+            </div>
+ 
+            <div class="form-group">
+                <label for="inputEmail" class="col-lg-3 col-md-3 control-label">Email:</label>
+                <div class="col-lg-9  col-md-9">
+                    <input type="text" name="emp_prest_email" class="form-control" id="inputEmail" placeholder="Digite seu e-mail">
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="inputEmail" class="col-lg-3 col-md-3 control-label">Email:</label>
+                <div class="col-lg-9  col-md-9">
+                    <input type="text" name="emp_prest_email" class="form-control" id="inputEmail" placeholder="Digite seu e-mail">
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer">
+            <button type="submit" class="btn btn-primary">Salvar Contato</button>
+            <a href="<?php echo $this->url('contatos'); ?>" class="btn btn-default">Voltar</a>
+        </div>
+    </form>
+</div>
