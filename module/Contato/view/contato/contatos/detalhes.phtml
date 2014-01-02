@@ -1,7 +1,7 @@
 <div class="panel panel-primary">
      <div class="panel-heading">
         <div class="panel-title">
-            Detalhes Contato ID <?php echo $this->escapeHtml($this->id); ?>            
+            Detalhes Contato ID <?php echo $this->escapeHtml($this->grande_gerador_id); ?>            
         </div>
     </div>
     <div class="panel-body">
@@ -19,7 +19,7 @@
         </dl>
     </div>
     <div class="panel-footer">
-        <a href="<?php echo $this->url('contatos', array('action' => 'editar', 'id' => $this->id)); ?>" class="btn btn-warning btn-sm">Editar Contato</a>
+        <a href="<?php echo $this->url('contatos', array('action' => 'editar', 'id' => $this->grande_gerador_id)); ?>" class="btn btn-warning btn-sm">Editar Contato</a>
         <a href="<?php echo $this->url('contatos'); ?>" class="btn btn-default btn-sm">Voltar</a>
     </div>
 </div>

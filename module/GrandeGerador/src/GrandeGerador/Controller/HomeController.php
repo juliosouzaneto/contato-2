@@ -1,6 +1,6 @@
 <?php
 
-namespace Prestadora\Controller;
+namespace Contato\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
@@ -45,14 +45,14 @@ class HomeController extends AbstractActionController {
          * contar quantidade de elementos da nossa tabela
          */
         $myVarDump(
-                "Quantidade elementos tabela contatos", $adapter->query("SELECT * FROM `emp_prestadora`")->execute()->count()
+                "Quantidade elementos tabela contatos", $adapter->query("SELECT * FROM `contatos`")->execute()->count()
         );
 
         /**
          * montar objeto sql e executar
          */
         $sql = new \Zend\Db\Sql\Sql($adapter);
-        $select = $sql->select()->from('emp_prestadora');
+        $select = $sql->select()->from('contatos');
         $statement = $sql->prepareStatementForSqlObject($select);
         $resultsSql = $statement->execute();
         $myVarDump(

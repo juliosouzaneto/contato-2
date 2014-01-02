@@ -1,0 +1,100 @@
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <div class="panel-title">
+            Tela Cadastro Grande Gerador           
+        </div>
+    </div>
+    <form class="form-horizontal" role="form" method="POST" action="<?php echo $this->url('grande-gerador', array('action' => 'adicionar')); ?>">
+        <div class="panel-body">
+            <div class="form-group">
+
+                <div class="form-group">
+                    <label for="inputTelefonePrincipal" class="col-lg-3 col-md-3 control-label">Empresa Prestadora</label>
+                    <div class="col-lg-9  col-md-9">
+
+
+                        <select class="combobox" name="emp_prestadora_fk" id="emp_prestadora_fk" itemscope="4564" >
+
+                            <option  value="0"> Selecione uma empresa prestadora</option>
+                            <?php foreach ($this->grandegerador as $grande_gerador) : ?>
+                                <option  value="<?= $grande_gerador->emp_prestadora_fk ?>">  <?php echo $this->escapeHtml($grande_gerador->emp_prestadora_fk); ?></option>
+                            <?php endforeach; ?>
+                        </select>
+
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="inputNomeFantasia" class="col-lg-3 col-md-3 control-label">Nome Fantasia</label>
+                    <div class="col-lg-9 col-md-9">
+                        <input type="text" name="grande_gerador_razao_social" class="form-control" id="inputNomeFantasia" placeholder="Nome Completo" value="<?php echo $this->escapeHtml($this->form['grande_gerador_razao_social']); ?>">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="inputRazaoSocial" class="col-lg-3 col-md-3 control-label">Razão Social</label>
+                    <div class="col-lg-9  col-md-9">
+                        <input type="text" name="grande_gerador_cnpj" class="form-control" id="inputRazaoSocial" placeholder="Digite seu telefone principal" value="<?php echo $this->escapeHtml($this->form['grande_gerador_cnpj']); ?>">                </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="inputCnpj" class="col-lg-3 col-md-3 control-label">CNPJ</label>
+                    <div class="col-lg-9  col-md-9">
+                        <input type="text" name="grande_gerador_cnpj" class="form-control" id="inputTelefonePrincipal" placeholder="Digite seu telefone principal" value="<?php echo $this->escapeHtml($this->form['grande_gerador_cnpj']); ?>">                </div>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="inputRua" class="col-lg-3 col-md-3 control-label">Rua</label>
+                    <div class="col-lg-9  col-md-9">
+                        <input type="text" name="grande_gerador_rua" class="form-control" id="inputTelefoneSecundario" placeholder="Digite seu telefone secundário(opcional)" value="<?php echo $this->escapeHtml($this->form['grande_gerador_rua']); ?>">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="inputBairro" class="col-lg-3 col-md-3 control-label">Bairro</label>
+                    <div class="col-lg-9  col-md-9">
+                        <input type="text" name="grande_gerador_barro" class="form-control" id="inputTelefoneSecundario" placeholder="Digite o seu bairro(opcional)" value="<?php echo $this->escapeHtml($this->form['grande_gerador_barro']); ?>">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="inputCep" class="col-lg-3 col-md-3 control-label">CEP</label>
+                    <div class="col-lg-9  col-md-9">
+                        <input type="text" name="grande_gerador_cep" class="form-control" id="inputTelefoneSecundario" placeholder="Digite seu telefone secundário(opcional)" value="<?php echo $this->escapeHtml($this->form['grande_gerador_cep']); ?>">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="inputTelefone" class="col-lg-3 col-md-3 control-label">Telefone</label>
+                    <div class="col-lg-9  col-md-9">
+                        <input type="text" name="grande_gerador_telefone" class="form-control" id="inputTelefoneSecundario" placeholder="Digite seu telefone secundário(opcional)" value="<?php echo $this->escapeHtml($this->form['grande_gerador_telefone']); ?>">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="inputEmail" class="col-lg-3 col-md-3 control-label">Email</label>
+                    <div class="col-lg-9  col-md-9">
+                        <input type="text" name="grande_gerador_email" class="form-control" id="inputEmail" placeholder="Digite seu telefone secundário(opcional)" value="<?php echo $this->escapeHtml($this->form['grande_gerador_email']); ?>">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputRespLegal" class="col-lg-3 col-md-3 control-label">Responsável Legal</label>
+                    <div class="col-lg-9  col-md-9">
+                        <input type="text" name="grande_gerador_resp_legal" class="form-control" id="inputRespLegal" placeholder="Digite seu telefone secundário(opcional)" value="<?php echo $this->escapeHtml($this->form['grande_gerador_resp_legal']); ?>">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputEmail" class="col-lg-3 col-md-3 control-label">Email</label>
+                    <div class="col-lg-9  col-md-9">
+                        <input type="text" name="grande_gerador_email" class="form-control" id="inputEmail" placeholder="Digite seu telefone secundário(opcional)" value="<?php echo $this->escapeHtml($this->form['grande_gerador_email']); ?>">
+                    </div>
+                </div>
+            </div>
+            <div class="panel-footer">
+                <button type="submit" class="btn btn-primary">Salvar Contato</button>
+                <?php print_r($grande_gerador->emp_prestadora_fk) ?> <a href="<?php echo $this->url('grande-gerador'); ?>" class="btn btn-default">Voltar</a>
+            </div>
+    </form>
+</div>

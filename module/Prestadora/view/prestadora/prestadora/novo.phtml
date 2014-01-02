@@ -1,48 +1,84 @@
-<div class="panel panel-primary">
+<div class="panel panel-primary" style=" width: 800px; height: 600px; position: relative;
+     margin: auto auto ">
     <div class="panel-heading">
         <div class="panel-title">
             Cadastro Empresa Prestadora          
         </div>
     </div>
-    <form class="form-horizontal" role="form" method="POST" action="<?php echo $this->url('contatos', array('action' => 'adicionar')); ?>">
-        <div class="panel-body">
-            <div class="input-group">
-                <label for="inputCNPJ" class="col-lg-3 col-md-3 control-label">CNPJ:</label>
-                <div class="col-lg-9 col-md-9">
-                    <input type="text" name="emp_prest_cnpj" class="form-control" id="inputNome" placeholder="Digite seu CNPJ">
+    <form class="form-horizontal" role="form" method="POST" action="<?php echo $this->url('prestadora', array('action' => 'novo')); ?>" style=" width: 800px; height: 1000px;">
+        <div class="panel-body" style=" width: 760px; height: 700px;">
+
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="input-group">
+                        <span class="input-group-addon ">
+                            <label for="inputCNPJ" class="col-lg-2 col-md-2 control-label">CNPJ:</label>
+                        </span>
+                        <input type="text" name="emp_prest_cnpj" class="form-control col-lg-1" id="inputNome" placeholder="Digite seu CNPJ">
+                    </div>
                 </div>
-                
-                 <label for="inputInscEstadul" class="col-lg-3 col-md-3 control-label">Inscrição Estadual</label>
-                <div class="col-lg-9  col-md-9">
-                    <input type="text" name="emp_prest_insc_estadual" class="form-control" id="inputTelefonePrincipal" placeholder="Digite a inscrição estadual">
-                </div>
-                
-            </div>
- 
-            <div class="form-group">
-                <label for="inputInscEstadul" class="col-lg-3 col-md-3 control-label">Inscrição Estadual</label>
-                <div class="col-lg-9  col-md-9">
-                    <input type="text" name="emp_prest_insc_estadual" class="form-control" id="inputTelefonePrincipal" placeholder="Digite a inscrição estadual">
-                </div>
-            </div>
- 
-            <div class="form-group">
-                <label for="inputEmail" class="col-lg-3 col-md-3 control-label">Email:</label>
-                <div class="col-lg-9  col-md-9">
-                    <input type="text" name="emp_prest_email" class="form-control" id="inputEmail" placeholder="Digite seu e-mail">
+
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <label for="inputInscEstadul" class="col-lg-2 col-md-3 control-label">Insc. Estadual</label>
+                        </span>
+
+                        <input type="text" name="emp_prest_insc_estadual" class="form-control" id="inputTelefonePrincipal" placeholder="Digite a inscrição estadual">
+                    </div>
                 </div>
             </div>
             
-            <div class="form-group">
-                <label for="inputEmail" class="col-lg-3 col-md-3 control-label">Email:</label>
-                <div class="col-lg-9  col-md-9">
-                    <input type="text" name="emp_prest_email" class="form-control" id="inputEmail" placeholder="Digite seu e-mail">
+       
+            
+            
+             <div class="row">
+                <div class="col-lg-7">
+                    <div class="input-group">
+                        <span class="input-group-addon ">
+                            <label for="inputTelefone" class="col-lg-1 col-md-2 control-label">Email:</label>
+                        </span>
+                        <input type="text" name="emp_prest_telefone" class="form-control col-lg-3" id="inputTelefone" placeholder="Digite seu CNPJ">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <label for="inputCelular" class="col-lg-2 col-md-2 control-label">Data Cadastro</label>
+                        </span>
+
+                        <input type="date" name="emp_prest_insc_estadual" class="form-control col-lg-2" id="inputCelular" placeholder="Digite a inscrição estadual">
+                    </div>
                 </div>
             </div>
+            
+
+             <div class="row">
+                <div class="col-lg-6">
+                    <div class="input-group">
+                        <span class="input-group-addon ">
+                            <label for="inputTelefone" class="col-lg-2 col-md-2 control-label">Telefone:</label>
+                        </span>
+                        <input type="text" name="emp_prest_telefone" class="form-control col-lg-1" id="inputTelefone" placeholder="Digite seu CNPJ">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <label for="inputCelular" class="col-lg-2 col-md-2 control-label">Celular</label>
+                        </span>
+
+                        <input type="text" name="emp_prest_insc_estadual" class="form-control" id="inputCelular" placeholder="Digite a inscrição estadual">
+                    </div>
+                </div>
+            </div>
+
         </div>
         <div class="panel-footer">
-            <button type="submit" class="btn btn-primary">Salvar Contato</button>
-            <a href="<?php echo $this->url('contatos'); ?>" class="btn btn-default">Voltar</a>
+            <button type="submit" class="btn btn-primary">Salvar</button>
+            <a href="<?php echo $this->url('prestadora'); ?>" class="btn btn-default">Voltar</a>
         </div>
     </form>
 </div>

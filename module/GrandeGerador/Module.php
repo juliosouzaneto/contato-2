@@ -1,14 +1,14 @@
 <?php
 
 /**
- * namespace para nosso modulo contato
+ * namespace para nosso modulo GrandeGerador
  */
 
-namespace Contato;
+namespace GrandeGerador;
 
-// import Model\Contato
-use Contato\Model\Contato,
-    Contato\Model\ContatoTable;
+// import Model\GrandeGerador
+use GrandeGerador\Model\GrandeGerador,
+    GrandeGerador\Model\GrandeGeradorTable;
 // import Zend\Db
 use Zend\Db\ResultSet\ResultSet,
     Zend\Db\TableGateway\TableGateway;
@@ -58,20 +58,20 @@ class Module {
     public function getServiceConfig() {
         return array(
             'factories' => array(
-                'ContatoTableGateway' => function ($sm) {
+                'GrandeGeradorTableGateway' => function ($sm) {
             // obter adapter db atraves do service manager
             $adapter = $sm->get('Zend\Db\Adapter\Adapter');
 
-            // configurar ResultSet com nosso model Contato
+            // configurar ResultSet com nosso model GrandeGerador
             $resultSetPrototype = new ResultSet();
-            $resultSetPrototype->setArrayObjectPrototype(new Contato());
+            $resultSetPrototype->setArrayObjectPrototype(new GrandeGerador());
 
-            // return TableGateway configurado para nosso model Contato
-            return new TableGateway('contatos', $adapter, null, $resultSetPrototype);
+            // return TableGateway configurado para nosso model GrandeGerador
+            return new TableGateway('grande_gerador', $adapter, null, $resultSetPrototype);
         },
-                'ModelContato' => function ($sm) {
-            // return instacia Model ContatoTable
-            return new ContatoTable($sm->get('ContatoTableGateway'));
+                'ModelGrandeGerador' => function ($sm) {
+            // return instacia Model GrandeGeradorTable
+            return new GrandeGeradorTable($sm->get('GrandeGeradorTableGateway'));
         }
             )
         );

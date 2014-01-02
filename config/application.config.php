@@ -8,11 +8,11 @@
 return array(
     'modules' => array(
         'Application',
-     
         'ZendDeveloperTools',
         'BjyProfiler',
-        'Contato',
         'Prestadora',
+        'Contato',
+        'GrandeGerador',
          
         ),
     'module_listener_options' => array(

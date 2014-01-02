@@ -1,5 +1,5 @@
 <div class="topo-table">
-    <a href="<?php echo $this->url('contatos', array('action' => 'novo')) ?>" class="btn btn-success" title="Novo"><span class="glyphicon glyphicon-plus"></span></a>
+    <a href="<?php echo $this->url('prestadora', array('action' => 'novo')) ?>" class="btn btn-success" title="Novo"><span class="glyphicon glyphicon-plus"></span></a>
 
     <div class="btn-group" title="Quantidades por Página">
         <button type="button" class="btn btn-default">005</button>
@@ -40,17 +40,17 @@
         </thead>
 
         <tbody>
-            <?php foreach ($this->prestadora as $prestadora) : ?>
+            <?php foreach ($this->prestadora as $grande_gerador) : ?>
                 <tr>
-                    <td><?php echo $this->escapeHtml($prestadora->emp_prest_id); ?></td>
-                    <td><?php echo $this->escapeHtml($prestadora->emp_prest_cnpj); ?></td>
-                    <td><?php echo $this->escapeHtml($prestadora->emp_prest_insc_estadual); ?></td>
+                    <td><?php echo $this->escapeHtml($grande_gerador->emp_prest_id); ?></td>
+                    <td><?php echo $this->escapeHtml($grande_gerador->emp_prest_cnpj); ?></td>
+                    <td><?php echo $this->escapeHtml($grande_gerador->emp_prest_insc_estadual); ?></td>
                     <td class="text-center">2</td>
-                    <td><?php echo $this->escapeHtml($prestadora->emp_prest_data_cadastro); ?></td>
+                    <td><?php echo $this->escapeHtml($grande_gerador->emp_prest_data_cadastro); ?></td>
                     <td>
-                        <a class="btn btn-xs btn-info" title="Visualizar" href="<?php echo $this->url('contatos', array("action" => "detalhes", "id" => $prestadora->id,)); ?>"><span class="glyphicon glyphicon-new-window"></span></a>
-                        <a class="btn btn-xs btn-warning" title="Editar" href="<?php echo $this->url('contatos', array("action" => "editar", "id" => $prestadora->id,)); ?>"><span class="glyphicon glyphicon-edit"></span></a>
-                        <a class="btn btn-xs btn-danger" title="Deletar" href="<?php echo $this->url('contatos', array("action" => "deletar", "id" => $prestadora->id,)); ?>"><span class="glyphicon glyphicon-floppy-remove"></span></a>
+                        <a class="btn btn-xs btn-info" title="Visualizar" href="<?php echo $this->url('prestadora', array("action" => "detalhes", "id" => $grande_gerador->grande_gerador_id,)); ?>"><span class="glyphicon glyphicon-new-window"></span></a>
+                        <a class="btn btn-xs btn-warning" title="Editar" href="<?php echo $this->url('prestadora', array("action" => "editar", "id" => $grande_gerador->grande_gerador_id,)); ?>"><span class="glyphicon glyphicon-edit"></span></a>
+                        <a class="btn btn-xs btn-danger" title="Deletar" href="<?php echo $this->url('prestadora', array("action" => "deletar", "id" => $grande_gerador->grande_gerador_id,)); ?>"><span class="glyphicon glyphicon-floppy-remove"></span></a>
                     </td>
                 </tr>
             <?php endforeach; ?>
@@ -73,7 +73,7 @@
 <?php $this->headScript()->captureStart(); ?>
 $(function(){
 // variável para conter a url deletar
-var url_deletar     = '<?php echo $this->url('contatos', array("action" => "deletar")); ?>' + '/';
+var url_deletar     = '<?php echo $this->url('prestadora', array("action" => "deletar")); ?>' + '/';
 
 // qualquer link que tiver a url deletar vai sofrer um evento quando for clicada
 $("a[href*='" + url_deletar + "']").click(function (event) {

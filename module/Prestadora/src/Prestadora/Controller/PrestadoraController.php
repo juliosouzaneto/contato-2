@@ -4,10 +4,22 @@ namespace Prestadora\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
+use Prestadora\Model\Prestadora;
+use Prestadora\Model\PrestadoraTable;
 // imort Model\ContatoTable com alias
-use Prestadora\Model\PrestadoraTable  as ModelPrestadora;
+use Prestadora\Model\PrestadoraTable as ModelPrestadora;
 
 class PrestadoraController extends AbstractActionController {
+
+    protected $pretadoraTable;
+
+    public function getPrestadoraTable() {
+        if (!$this->pretadoraTable) {
+            $sm = $this->getServiceLocator();
+            $this->pretadoraTable = $sm->get('AdapterDb');
+        }
+        return $this->pretadoraTable;
+    }
 
     // GET /contatos
     public function indexAction() {
@@ -22,11 +34,6 @@ class PrestadoraController extends AbstractActionController {
 
     // GET /contatos/novo
     public function novoAction() {
-        
-    }
-
-    // POST /contatos/adicionar
-    public function adicionarAction() {
         // obtém a requisição
         $request = $this->getRequest();
 
@@ -34,10 +41,26 @@ class PrestadoraController extends AbstractActionController {
         if ($request->isPost()) {
             // obter e armazenar valores do post
             $postData = $request->getPost()->toArray();
-            $formularioValido = false;
+
+            // $formularioValido = get('submit')->setValue('Add');
+
+            $formularioValido = true;
 
             // verifica se o formulário segue a validação proposta
             if ($formularioValido) {
+
+                $prestadora = new Prestadora();
+                $prestadora->exchangeArray($postData);
+
+
+                $adapter = $this->getServiceLocator()->get('AdapterDb');
+
+                // model ContatoTable instanciadoo
+                $modelPrestadora = new ModelPrestadora($adapter); // alias para ContatoTable
+                
+                $modelPrestadora->savePrestadora($prestadora);
+                //$this->
+                //  $prestadora->
                 // aqui vai a lógica para adicionar os dados à tabela no banco
                 // 1 - solicitar serviço para pegar o model responsável pela adição
                 // 2 - inserir dados no banco pelo model
@@ -45,15 +68,20 @@ class PrestadoraController extends AbstractActionController {
                 $this->flashMessenger()->addSuccessMessage("Contato criado com sucesso");
 
                 // redirecionar para action index no controller contatos
-                return $this->redirect()->toRoute('contatos');
+                return $this->redirect()->toRoute('prestadora');
             } else {
                 // adicionar mensagem de erro
                 $this->flashMessenger()->addErrorMessage("Erro ao criar contato");
 
                 // redirecionar para action novo no controllers contatos
-                return $this->redirect()->toRoute('contatos', array('action' => 'novo'));
+                return $this->redirect()->toRoute('prestadora', array('action' => 'novo'));
             }
         }
+    }
+
+    // POST /contatos/adicionar
+    public function adicionarAction() {
+        
     }
 
     // GET /contatos/editar/id
@@ -95,7 +123,7 @@ class PrestadoraController extends AbstractActionController {
             $this->flashMessenger()->addMessage("Contato não encotrado");
 
             // redirecionar para action index
-            return $this->redirect()->toRoute('contatos');
+            return $this->redirect()->toRoute('prestadora');
         }
 
         // aqui vai a lógica para pegar os dados referente ao contato
@@ -111,12 +139,12 @@ class PrestadoraController extends AbstractActionController {
 //        );
         //localizar adapter do banco
         $adapter = $this->getServiceLocator()->get('AdapterDb');
-       
+
         //model ContatoTable instanciado
-        $modelContato = new ModelPrestadora($adapter);
+        $modelPrestadora = new ModelPrestadora($adapter);
 
         try {
-            $form = (array) $modelContato->find($id);
+            $form = (array) $modelPrestadora->find($id);
         } catch (\Exception $exc) {
             // adicionar mensagem
             $this->flashMessenger()->addErrorMessage($exc->getMessage());

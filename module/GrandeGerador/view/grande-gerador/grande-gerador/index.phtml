@@ -1,5 +1,5 @@
 <div class="topo-table">
-    <a href="<?php echo $this->url('contatos', array('action' => 'novo')) ?>" class="btn btn-success" title="Novo"><span class="glyphicon glyphicon-plus"></span></a>
+    <a href="<?php echo $this->url('grande-gerador', array('action' => 'novo')) ?>" class="btn btn-success" title="Novo"><span class="glyphicon glyphicon-plus"></span></a>
 
     <div class="btn-group" title="Quantidades por Página">
         <button type="button" class="btn btn-default">005</button>
@@ -30,27 +30,26 @@
     <table class="table table-striped table-bordered table-hover">
         <thead>
             <tr>
-                <th>#</th>
-                <th>Nome</th>
-                <th>Tel. Principal</th>
-                <th>Tel. Qua.</th>
-                <th>Data Criação</th>  
+                <th>Codigo</th>
+                <th>Nome Fantasia</th>
+                <th>CNPJ</th>
+                <th>Inscrição Estadual</th>
                 <th>Ação</th>  
             </tr>
         </thead>
 
         <tbody>
-            <?php foreach ($this->contatos as $grande_gerador) : ?>
+            <?php foreach ($this->grandegerador as $grande_gerador) : ?>
                 <tr>
                     <td><?php echo $this->escapeHtml($grande_gerador->grande_gerador_id); ?></td>
                     <td><?php echo $this->escapeHtml($grande_gerador->grande_gerador_razao_social); ?></td>
-                    <td><?php echo $this->escapeHtml($grande_gerador->telefone_principal); ?></td>
-                    <td class="text-center">2</td>
-                    <td><?php echo $this->escapeHtml($grande_gerador->data_criacao); ?></td>
+                    <td><?php echo $this->escapeHtml($grande_gerador->grande_gerador_cnpj); ?></td>
+                   
+                  
                     <td>
-                        <a class="btn btn-xs btn-info" title="Visualizar" href="<?php echo $this->url('contatos', array("action" => "detalhes", "id" => $grande_gerador->grande_gerador_id,)); ?>"><span class="glyphicon glyphicon-new-window"></span></a>
-                        <a class="btn btn-xs btn-warning" title="Editar" href="<?php echo $this->url('contatos', array("action" => "editar", "id" => $grande_gerador->grande_gerador_id,)); ?>"><span class="glyphicon glyphicon-edit"></span></a>
-                        <a class="btn btn-xs btn-danger" title="Deletar" href="<?php echo $this->url('contatos', array("action" => "deletar", "id" => $grande_gerador->grande_gerador_id,)); ?>"><span class="glyphicon glyphicon-floppy-remove"></span></a>
+                        <a class="btn btn-xs btn-info" title="Visualizar" href="<?php echo $this->url('grande-gerador', array("action" => "detalhes", "id" => $grande_gerador->grande_gerador_id,)); ?>"><span class="glyphicon glyphicon-new-window"></span></a>
+                        <a class="btn btn-xs btn-warning" title="Editar" href="<?php echo $this->url('grande-gerador', array("action" => "editar", "id" => $grande_gerador->grande_gerador_id,)); ?>"><span class="glyphicon glyphicon-edit"></span></a>
+                        <a class="btn btn-xs btn-danger" title="Deletar" href="<?php echo $this->url('grande-gerador', array("action" => "deletar", "id" => $grande_gerador->grande_gerador_id,)); ?>"><span class="glyphicon glyphicon-floppy-remove"></span></a>
                     </td>
                 </tr>
             <?php endforeach; ?>
@@ -73,7 +72,7 @@
 <?php $this->headScript()->captureStart(); ?>
 $(function(){
 // variável para conter a url deletar
-var url_deletar     = '<?php echo $this->url('grande-gerador', array("action" => "deletar")); ?>' + '/';
+            var url_deletar     = '<?php echo $this->url('grande-gerador', array("action" => "deletar")); ?>' + '/';
 
 // qualquer link que tiver a url deletar vai sofrer um evento quando for clicada
 $("a[href*='" + url_deletar + "']").click(function (event) {

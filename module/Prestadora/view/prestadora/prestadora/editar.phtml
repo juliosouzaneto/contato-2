@@ -1,7 +1,7 @@
 <div class="panel panel-primary">
     <div class="panel-heading">
         <div class="panel-title">
-            Editar Contato ID <?php echo $this->id; ?>        
+            Editar Contato ID <?php echo $this->grande_gerador_id; ?>        
         </div>
     </div>
     <form class="form-horizontal" role="form" method="POST" action="<?php echo $this->url('contatos', array('action' => 'atualizar')); ?>">
@@ -28,7 +28,7 @@
             </div>
         </div>
         <div class="panel-footer">
-            <input type="hidden" name="id" value="<?php echo $this->id; ?>">
+            <input type="hidden" name="id" value="<?php echo $this->grande_gerador_id; ?>">
             <button type="submit" class="btn btn-primary">Atualizar Contato</button>
             <a href="<?php echo $this->url('contatos'); ?>" class="btn btn-default">Voltar</a>
         </div>

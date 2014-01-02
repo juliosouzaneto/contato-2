@@ -17,7 +17,7 @@
 return array(
     'db' => array(
         'driver'            => 'Pdo',
-        'dsn'               => 'mysql:dbname=zend2;host=localhost',
+        'dsn'               => 'mysql:dbname=SG_COL_LIXO;host=localhost',
         'driver_options'    => array(
             PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'UTF8\''
         ),
