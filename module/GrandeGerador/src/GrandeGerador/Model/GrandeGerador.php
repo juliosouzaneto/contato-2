@@ -21,6 +21,7 @@ class GrandeGerador {
     public $grande_gerador_telefone;
     public $grande_gerador_email;
     public $grande_gerador_resp_legal;
+    public $grande_gerador_nome_fantasia;
     public $emp_prestadora_fk;
 
     public function exchangeArray($data) {
@@ -35,6 +36,7 @@ class GrandeGerador {
         $this->grande_gerador_resp_legal = (!empty($data['grande_gerador_resp_legal'])) ? $data['grande_gerador_resp_legal'] : null;
         $this->grande_gerador_rua = (!empty($data['grande_gerador_rua'])) ? $data['grande_gerador_rua'] : null;
         $this->grande_gerador_telefone = (!empty($data['grande_gerador_telefone'])) ? $data['grande_gerador_telefone'] : null;
+        $this->grande_gerador_nome_fantasia = (!empty($data['grande_gerador_nome_fantasia'])) ? $data['grande_gerador_nome_fantasia'] : null;
         $this->emp_prestadora_fk = (!empty($data['emp_prestadora_fk'])) ? $data['emp_prestadora_fk'] : null;
        
         

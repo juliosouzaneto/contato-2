@@ -39,17 +39,18 @@
         </thead>
 
         <tbody>
-            <?php foreach ($this->grandegerador as $grande_gerador) : ?>
+            <?php foreach ($this->grandegerador as $emp_prestadora) : ?>
                 <tr>
-                    <td><?php echo $this->escapeHtml($grande_gerador->grande_gerador_id); ?></td>
-                    <td><?php echo $this->escapeHtml($grande_gerador->grande_gerador_razao_social); ?></td>
-                    <td><?php echo $this->escapeHtml($grande_gerador->grande_gerador_cnpj); ?></td>
-                   
-                  
+                    <td><?php echo $this->escapeHtml($emp_prestadora->grande_gerador_id); ?></td>
+                    <td><?php echo $this->escapeHtml($emp_prestadora->grande_gerador_nome_fantasia); ?></td>
+                    <td><?php echo $this->escapeHtml($emp_prestadora->grande_gerador_razao_social); ?></td>
+                    <td><?php echo $this->escapeHtml($emp_prestadora->grande_gerador_cnpj); ?></td>
+
+
                     <td>
-                        <a class="btn btn-xs btn-info" title="Visualizar" href="<?php echo $this->url('grande-gerador', array("action" => "detalhes", "id" => $grande_gerador->grande_gerador_id,)); ?>"><span class="glyphicon glyphicon-new-window"></span></a>
-                        <a class="btn btn-xs btn-warning" title="Editar" href="<?php echo $this->url('grande-gerador', array("action" => "editar", "id" => $grande_gerador->grande_gerador_id,)); ?>"><span class="glyphicon glyphicon-edit"></span></a>
-                        <a class="btn btn-xs btn-danger" title="Deletar" href="<?php echo $this->url('grande-gerador', array("action" => "deletar", "id" => $grande_gerador->grande_gerador_id,)); ?>"><span class="glyphicon glyphicon-floppy-remove"></span></a>
+                        <a class="btn btn-xs btn-info" title="Visualizar" href="<?php echo $this->url('grande-gerador', array("action" => "detalhes", "id" => $emp_prestadora->grande_gerador_id,)); ?>"><span class="glyphicon glyphicon-new-window"></span></a>
+                        <a class="btn btn-xs btn-warning" title="Editar" href="<?php echo $this->url('grande-gerador', array("action" => "editar", "id" => $emp_prestadora->grande_gerador_id,)); ?>"><span class="glyphicon glyphicon-edit"></span></a>
+                        <a class="btn btn-xs btn-danger" title="Deletar" href="<?php echo $this->url('grande-gerador', array("action" => "deletar", "id" => $emp_prestadora->grande_gerador_id,)); ?>"><span class="glyphicon glyphicon-floppy-remove"></span></a>
                     </td>
                 </tr>
             <?php endforeach; ?>
@@ -68,25 +69,28 @@
 
 
 
-
+<script>
 <?php $this->headScript()->captureStart(); ?>
-$(function(){
-// variável para conter a url deletar
-            var url_deletar     = '<?php echo $this->url('grande-gerador', array("action" => "deletar")); ?>' + '/';
 
-// qualquer link que tiver a url deletar vai sofrer um evento quando for clicada
-$("a[href*='" + url_deletar + "']").click(function (event) {
-// variável contendo o id referente ao botão clicado
-var contato_id  = $(this).attr('href').split(url_deletar).pop();
-// variável contendo mensagem da janela
-var mensagem = "Deseja realmente apagar o contato de ID " + contato_id + "?";
-// variável com resposta da mensagem colocada na janela
-var confirmacao = confirm(mensagem);
+    $(function() {
+        // variável para conter a url deletar
+        var url_deletar = '<?php echo $this->url('grande-gerador', array("action" => "deletar")); ?>' + '/';
 
-// se a confirmação for false o fluxo é interrompido
-if (!confirmacao)
-// elimar o evendo do botão clicado
-event.preventDefault();
-});
-});
+        // qualquer link que tiver a url deletar vai sofrer um evento quando for clicada
+        $("a[href*='" + url_deletar + "']").click(function(event) {
+            // variável contendo o id referente ao botão clicado
+            var contato_id = $(this).attr('href').split(url_deletar).pop();
+            // variável contendo mensagem da janela
+            var mensagem = "Deseja realmente apagar o contato de ID " + contato_id + "?";
+            // variável com resposta da mensagem colocada na janela
+            var confirmacao = confirm(mensagem);
+
+            // se a confirmação for false o fluxo é interrompido
+            if (!confirmacao)
+                // elimar o evendo do botão clicado
+                event.preventDefault();
+        });
+    });
+
 <?php $this->headScript()->captureEnd(); ?>
+</script>

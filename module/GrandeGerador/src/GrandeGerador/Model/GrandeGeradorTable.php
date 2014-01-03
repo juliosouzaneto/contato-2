@@ -20,7 +20,7 @@ class GrandeGeradorTable {
 }
 
  public function saveGrandeGerador(GrandeGerador $grandegerador) {
-    // $grandegerador->id = 11;
+    // $grandegerador->grande_gerador_id= 13;
      //$grandegerador->emp_prestadora_fk = 6;
      echo '<br>código emp_prestadora_fk ';
      //echo $grandegerador->emp_prestadora_fk;
@@ -28,10 +28,11 @@ class GrandeGeradorTable {
      
      
      print_r( $grandegerador->emp_prestadora_fk);
-    // print_r( $grandegerador->grande_gerador_razao_social);
+     print_r( $grandegerador->grande_gerador_razao_social);
     
         $data = array(
             'grande_gerador_razao_social' => $grandegerador->grande_gerador_razao_social,
+            'grande_gerador_nome_fantasia' => $grandegerador->grande_gerador_nome_fantasia,
             'grande_gerador_cnpj' => $grandegerador->grande_gerador_cnpj,
             'emp_prestadora_fk' => $grandegerador->emp_prestadora_fk,
             'grande_gerador_endereco' => $grandegerador->grande_gerador_endereco,
@@ -43,7 +44,7 @@ class GrandeGeradorTable {
 
      //   $codorgao = (int) $grandegerador>codorgao;
 
-        if ($grandegerador->emp_prestadora_fk == -1) {
+       // if ($grandegerador->emp_prestadora_fk == -1) {
             try {
                           $this->tableGateway->insert($data);
             } catch (Exception $e) {
@@ -58,13 +59,14 @@ class GrandeGeradorTable {
 //            } else {
 //                throw new \Exception("Orgao ID# $codorgao não lozalizado no banco de dados!");
 //            }
-        }
+    //    }
     }
     
     public  function  validaCamposGrandeGerador(GrandeGerador $grandegerador)
     {
         if($grandegerador->emp_prestadora_fk == 0)
         {
+            $this->flashMessenger()->addSuccessMessage("GrandeGerador de ID $id deletado com sucesso");
             return false;
         }
         
@@ -121,6 +123,18 @@ class GrandeGeradorTable {
             throw new \Exception("Não foi encontrado contado de id = {$id}");
 
         return $row;
+    }
+    public function deleteGrandeGerador($id) {
+        $id = (int) $id;
+         
+        try {
+                      $this->tableGateway->delete(array('grande_gerador_id' => $id));
+        } catch (Exception $e) {
+                     $pdoException = $e->getPrevious();
+              var_dump($e);
+            echo "<br>exceção ao salvar";
+            exit;
+        }
     }
     
     

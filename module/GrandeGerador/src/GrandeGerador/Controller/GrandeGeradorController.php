@@ -9,7 +9,9 @@ namespace GrandeGerador\Controller;
 // import Zend\Mvc
 use Zend\Mvc\Controller\AbstractActionController;
 // import Zend\View
-use Zend\View\Model\ViewModel;
+use Zend\View\Model\ViewModel, 
+    Prestadora\Model\PrestadoraTable,
+    GrandeGerador\Model\GrandeGerador;
 
 class GrandeGeradorController extends AbstractActionController {
 
@@ -22,10 +24,15 @@ class GrandeGeradorController extends AbstractActionController {
         return new ViewModel(array('grandegerador' => $this->getGrandeGeradorTable()->fetchAll()));
     }
 
+    
     // GET /contGrandeGeradoratos/novo
     public function novoAction() {
-        return new ViewModel(array('grandegerador' => $this->getGrandeGeradorTable()->fetchAll()));
         
+         $adapter = $this->getServiceLocator()->get('AdapterDb');
+        
+        $prestadoraTable = new PrestadoraTable($adapter);
+        
+        return new ViewModel(array('empresaPrestadora' => $prestadoraTable->fetchAll(), 'gradegerador' => $this->getGrandeGeradorTable()->fetchAll() ) );
     }
 
     // POST /GrandeGerador/adicionar
@@ -43,7 +50,11 @@ class GrandeGeradorController extends AbstractActionController {
             echo 'if request';
             // $formularioValido->setData($postData);
             $formularioValido = true;
-
+            
+           //  $grandegerador->exchangeArray($postData);
+           // validaCamposGrandeGerador( $grandegerador);
+                
+               
             // verifica se o formulário segue a validação proposta
             if ($formularioValido) {
                 echo "<br>if formulario válido";
@@ -185,11 +196,12 @@ class GrandeGeradorController extends AbstractActionController {
             // 1 - solicitar serviço para pegar o model responsável pelo delete
             // 2 - deleta GrandeGerador
             // adicionar mensagem de sucesso
+            $this->getGrandeGeradorTable()->deleteGrandeGerador($id);
             $this->flashMessenger()->addSuccessMessage("GrandeGerador de ID $id deletado com sucesso");
         }
 
         // redirecionar para action index
-        return $this->redirect()->toRoute('grandegerador');
+        return $this->redirect()->toRoute('grande-gerador');
     }
 
     /**
@@ -205,6 +217,24 @@ class GrandeGeradorController extends AbstractActionController {
 
         // return vairavel de classe com service ModelGrandeGerador
         return $this->grandeGeradorTable;
+    }
+    
+    
+    /**
+     * Valida os campos do formulário
+     * @param \GrandeGerador\Controller\GrandeGerador $grandegerador
+     * @return boolean
+     */
+     public  function  ValidaCamposGrandeGerador(GrandeGerador $grandegerador)
+    {
+         //!isset($_POST['Idade']) || ($_POST['Idade']=="")
+        if(!isset($grandegerador->grande_gerador_cnpj) || $grandegerador->grande_gerador_cnpj == "")
+        {
+            $this->flashMessenger()->addErrorMessage("O CNPJ deve ser preenchindo");
+            return false;
+        }
+        
+        return true;
     }
 
 }

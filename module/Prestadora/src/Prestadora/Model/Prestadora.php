@@ -15,6 +15,7 @@ class Prestadora {
     public $emp_prest_resp_legal_rg;
     public $emp_prest_resp_legal_emissor_rg;
     public $emp_prest_resp_legal_uf_orgao_emissor;
+    public $emp_prest_nome_fantasia;
 
     public function exchangeArray($data) {
         $this->id = (!empty($data['id'])) ? $data['id'] : null;
@@ -29,6 +30,7 @@ class Prestadora {
         $this->emp_prest_resp_legal_rg = (!empty($data['emp_prest_resp_legal_rg'])) ? $data['emp_prest_resp_legal_rg'] : null;
         $this->emp_prest_resp_legal_emissor_rg = (!empty($data['emp_prest_resp_legal_emissor_rg'])) ? $data['emp_prest_resp_legal_emissor_rg'] : null;
         $this->emp_prest_resp_legal_uf_orgao_emissor = (!empty($data['emp_prest_resp_legal_uf_orgao_emissor'])) ? $data['emp_prest_resp_legal_uf_orgao_emissor'] : null;
+        $this->emp_prest_nome_fantasia = (!empty($data['emp_prest_nome_fantasia'])) ? $data['emp_prest_nome_fantasia'] : null;
     }
 
     public function getInputFilter() {

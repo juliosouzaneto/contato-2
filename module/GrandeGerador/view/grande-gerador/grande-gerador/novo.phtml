@@ -1,4 +1,5 @@
 <div class="panel panel-primary">
+
     <div class="panel-heading">
         <div class="panel-title">
             Tela Cadastro Grande Gerador           
@@ -11,16 +12,15 @@
                 <div class="form-group">
                     <label for="inputTelefonePrincipal" class="col-lg-3 col-md-3 control-label">Empresa Prestadora</label>
                     <div class="col-lg-9  col-md-9">
+                        <select class="combobox" name="emp_prestadora_fk" id="emp_prestadora_fk" itemscope="4564"  >
 
-
-                        <select class="combobox" name="emp_prestadora_fk" id="emp_prestadora_fk" itemscope="4564" >
-
-                            <option  value="0"> Selecione uma empresa prestadora</option>
-                            <?php foreach ($this->grandegerador as $grande_gerador) : ?>
-                                <option  value="<?= $grande_gerador->emp_prestadora_fk ?>">  <?php echo $this->escapeHtml($grande_gerador->emp_prestadora_fk); ?></option>
+                            <option  value="0"> 
+                                Selecione uma empresa prestadora
+                            </option>
+                            <?php foreach ($this->empresaPrestadora as $emp_prestadora) : ?>
+                                <option  value="<?= $emp_prestadora->emp_prest_id ?>">  <?php echo $this->escapeHtml($emp_prestadora->emp_prest_nome_fantasia); ?></option>
                             <?php endforeach; ?>
                         </select>
-
 
                     </div>
                 </div>
@@ -28,20 +28,21 @@
                 <div class="form-group">
                     <label for="inputNomeFantasia" class="col-lg-3 col-md-3 control-label">Nome Fantasia</label>
                     <div class="col-lg-9 col-md-9">
-                        <input type="text" name="grande_gerador_razao_social" class="form-control" id="inputNomeFantasia" placeholder="Nome Completo" value="<?php echo $this->escapeHtml($this->form['grande_gerador_razao_social']); ?>">
+                        <input type="text" name="grande_gerador_nome_fantasia" class="form-control" id="inputNomeFantasia" placeholder="Nome Completo" value="<?php echo $this->escapeHtml($this->form['grande_gerador_nome_fantasia']); ?>">
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="inputRazaoSocial" class="col-lg-3 col-md-3 control-label">Razão Social</label>
                     <div class="col-lg-9  col-md-9">
-                        <input type="text" name="grande_gerador_cnpj" class="form-control" id="inputRazaoSocial" placeholder="Digite seu telefone principal" value="<?php echo $this->escapeHtml($this->form['grande_gerador_cnpj']); ?>">                </div>
+                        <input type="text" name="grande_gerador_razao_social" class="form-control" id="inputRazaoSocial" placeholder="Digite seu telefone principal" />      
+                    </div>
                 </div>
 
                 <div class="form-group">
                     <label for="inputCnpj" class="col-lg-3 col-md-3 control-label">CNPJ</label>
                     <div class="col-lg-9  col-md-9">
-                        <input type="text" name="grande_gerador_cnpj" class="form-control" id="inputTelefonePrincipal" placeholder="Digite seu telefone principal" value="<?php echo $this->escapeHtml($this->form['grande_gerador_cnpj']); ?>">                </div>
+                        <input type="text" name="grande_gerador_cnpj" class="form-control cnpj" id="inputTelefonePrincipal" placeholder="Digite seu telefone principal" value="<?php echo $this->escapeHtml($this->form['grande_gerador_cnpj']); ?>">                </div>
                 </div>
 
 
@@ -62,19 +63,19 @@
                 <div class="form-group">
                     <label for="inputCep" class="col-lg-3 col-md-3 control-label">CEP</label>
                     <div class="col-lg-9  col-md-9">
-                        <input type="text" name="grande_gerador_cep" class="form-control" id="inputTelefoneSecundario" placeholder="Digite seu telefone secundário(opcional)" value="<?php echo $this->escapeHtml($this->form['grande_gerador_cep']); ?>">
+                        <input type="text" name="grande_gerador_cep" class="form-control cep" id="inputTelefoneSecundario" placeholder="Digite seu telefone secundário(opcional)" value="<?php echo $this->escapeHtml($this->form['grande_gerador_cep']); ?>">
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="inputTelefone" class="col-lg-3 col-md-3 control-label">Telefone</label>
                     <div class="col-lg-9  col-md-9">
-                        <input type="text" name="grande_gerador_telefone" class="form-control" id="inputTelefoneSecundario" placeholder="Digite seu telefone secundário(opcional)" value="<?php echo $this->escapeHtml($this->form['grande_gerador_telefone']); ?>">
+                        <input type="text" name="grande_gerador_telefone" class="form-control telefone" id="inputTelefoneSecundario" placeholder="Digite seu telefone secundário(opcional)" value="<?php echo $this->escapeHtml($this->form['grande_gerador_telefone']); ?>">
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="inputEmail" class="col-lg-3 col-md-3 control-label">Email</label>
+                    <label for="inputEmail" class="col-lg-3 col-md-3 control-label" pattern="^@\w{2,}" >Email</label>
                     <div class="col-lg-9  col-md-9">
                         <input type="text" name="grande_gerador_email" class="form-control" id="inputEmail" placeholder="Digite seu telefone secundário(opcional)" value="<?php echo $this->escapeHtml($this->form['grande_gerador_email']); ?>">
                     </div>
@@ -84,17 +85,127 @@
                     <div class="col-lg-9  col-md-9">
                         <input type="text" name="grande_gerador_resp_legal" class="form-control" id="inputRespLegal" placeholder="Digite seu telefone secundário(opcional)" value="<?php echo $this->escapeHtml($this->form['grande_gerador_resp_legal']); ?>">
                     </div>
-                </div>
-                <div class="form-group">
-                    <label for="inputEmail" class="col-lg-3 col-md-3 control-label">Email</label>
-                    <div class="col-lg-9  col-md-9">
-                        <input type="text" name="grande_gerador_email" class="form-control" id="inputEmail" placeholder="Digite seu telefone secundário(opcional)" value="<?php echo $this->escapeHtml($this->form['grande_gerador_email']); ?>">
-                    </div>
-                </div>
+                </div>  
+
+
+
+
+
             </div>
+            
+            
+                <table class="table table-striped table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Codigo</th>
+                <th>Nome Fantasia</th>
+                <th>CNPJ</th>
+                <th>Inscrição Estadual</th>
+                <th>Ação</th>  
+            </tr>
+        </thead>
+
+        <tbody>
+            <?php foreach ($this->grandegerador as $emp_prestadora) : ?>
+                <tr>
+                    <td><?php echo $this->escapeHtml($emp_prestadora->grande_gerador_id); ?></td>
+                    <td><?php echo $this->escapeHtml($emp_prestadora->grande_gerador_nome_fantasia); ?></td>
+                    <td><?php echo $this->escapeHtml($emp_prestadora->grande_gerador_razao_social); ?></td>
+                    <td><?php echo $this->escapeHtml($emp_prestadora->grande_gerador_cnpj); ?></td>
+
+
+                    <td>
+                        <a class="btn btn-xs btn-info" title="Visualizar" href="<?php echo $this->url('grande-gerador', array("action" => "detalhes", "id" => $emp_prestadora->grande_gerador_id,)); ?>"><span class="glyphicon glyphicon-new-window"></span></a>
+                        <a class="btn btn-xs btn-warning" title="Editar" href="<?php echo $this->url('grande-gerador', array("action" => "editar", "id" => $emp_prestadora->grande_gerador_id,)); ?>"><span class="glyphicon glyphicon-edit"></span></a>
+                        <a class="btn btn-xs btn-danger" title="Deletar" href="<?php echo $this->url('grande-gerador', array("action" => "deletar", "id" => $emp_prestadora->grande_gerador_id,)); ?>"><span class="glyphicon glyphicon-floppy-remove"></span></a>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+
+          
+
+
+          
+
+
+
+
+
+
+
+
             <div class="panel-footer">
-                <button type="submit" class="btn btn-primary">Salvar Contato</button>
-                <?php print_r($grande_gerador->emp_prestadora_fk) ?> <a href="<?php echo $this->url('grande-gerador'); ?>" class="btn btn-default">Voltar</a>
+                <button type="submit" class="btn btn-primary" >Salvar Contato</button>
+                <a href="<?php echo $this->url('grande-gerador'); ?>" class="btn btn-default">Voltar</a>
             </div>
     </form>
 </div>
+
+<script type="text/javascript">
+
+<?php $this->headScript()->captureStart(); ?>
+
+    $(document).ready(function() {
+        // jQuery.noConflict();
+        // alert('Teste');
+
+        $('.fone').mask('(99) 999-9999'); //telefone
+        $('cnpj').mask("99.999.999/9999-99");
+        $('.cpf').mask("999.999.999-99");
+        $('.cpf-sem-underline').mask("999.999.999-99", {placeholder: " "});
+        $('.nascimento').mask("99/99/9999");
+        $('.placa').mask("aaa-9999");
+        $('.cep').mask("99999-999");
+        $('.cnpj').mask("99.999.999/9999-99");
+        $('.telefone').mask("(99) 9999-9999");
+        $('.fax').mask("(99) 9999-9999");
+        $('.inscricao-estadual').mask("999.999.999.999");
+
+    });
+
+    function chamaURL(campo) {
+
+        alert('Teste');
+        document.location.href = "http://www.teste.com.br" + campo.options[campo.selectedIndex].value;
+    }
+
+
+    $(function() {
+        // variável para conter a url deletar
+        //var url_deletar = '<?php echo $this->url('grande-gerador', array("action" => "deletar")); ?>' + '/';
+
+        // qualquer link que tiver a url deletar vai sofrer um evento quando for clicada
+//        $('.cpf').focusout((function(event) {
+//            // variável contendo o id referente ao botão clicado
+//         //   var contato_id = $(this).attr('href').split(url_deletar).pop();
+//            // variável contendo mensagem da janela
+//            var mensagem = "Deseja realmente apagar o contato de ID " + contato_id + "?";
+//            // variável com resposta da mensagem colocada na janela
+//            var confirmacao = confirm(mensagem);
+//
+//            // se a confirmação for false o fluxo é interrompido
+//            if (!confirmacao)
+//                // elimar o evendo do botão clicado
+//                event.preventDefault();
+//        });
+    });
+
+
+
+//        jQuery(function() {
+//            jQuery("#cpf").mask("999.999.999-99");
+//            jQuery("#cpf-sem-underline").mask("999.999.999-99", {placeholder: " "});
+//            jQuery("#nascimento").mask("99/99/9999");
+//            jQuery("#placa").mask("aaa-9999");
+//            jQuery("#cep").mask("99999-999");
+//            jQuery("F#cnpj").mask("99.999.999/9999-99");
+//            jQuery("#telefone").mask("(99) 9999-9999");
+//            jQuery("#fax").mask("(99) 9999-9999");
+//            jQuery("#inscricao-estadual").mask("999.999.999.999");
+//        });
+
+<?php $this->headScript()->captureEnd(); ?>
+
+</script>
