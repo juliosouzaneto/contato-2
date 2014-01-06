@@ -2,22 +2,23 @@
 
 // namespace de localizacao do nosso model
 
-namespace GrandeGerador\Model;
+namespace Residuo\Model;
 
 // import Zend\Db
-use //Zend\Db\Adapter\Adapter,
-   // Zend\Db\ResultSet\ResultSet,
-    Zend\Db\TableGateway\TableGateway;
+use  Zend\Db\Adapter\Adapter,
+    Zend\Db\ResultSet\ResultSet,
+    Zend\Db\TableGateway\TableGateway,
+    Zend\Db\TableGateway\AbstractTableGateway;
 
 
-class GrandeGeradorTable {
+class TipoResiduoTable extends AbstractTableGateway {
 
     protected $tableGateway;
     
-    private function getGrandeGeradorTable()
-{
-    return $this->getServiceLocator()->get('ModelGrandeGerador');
-}
+//    private function getTipoResiduoTableTable()
+//{
+//    return $this->getServiceLocator()->get('ModelResiduo');
+//}
 
  public function saveGrandeGerador(GrandeGerador $grandegerador) {
     // $grandegerador->grande_gerador_id= 13;
@@ -78,16 +79,17 @@ class GrandeGeradorTable {
      *
      * @param \Zend\Db\Adapter\Adapter $adapter
      */
-//    public function __construct(Adapter $adapter) {
-//        $resultSetPrototype = new ResultSet();
-//        $resultSetPrototype->setArrayObjectPrototype(new GrandeGerador());
-//
-//        $this->tableGateway = new TableGateway('grandegerador', $adapter, null, $resultSetPrototype);
-//    }
+    public function __construct(Adapter $adapter) {
+        $resultSetPrototype = new ResultSet();
+        $resultSetPrototype->setArrayObjectPrototype(new TipoResiduo());
 
-    public function __construct(TableGateway $tableGateway) {
-        $this->tableGateway = $tableGateway;
+        $this->tableGateway = new TableGateway('tipo_residuo', $adapter, null, $resultSetPrototype);
     }
+    
+
+//    public function __construct(TableGateway $tableGateway) {
+//        $this->tableGateway = $tableGateway;
+//    }
 
     /**
      * Recuperar todos os elementos da tabela GrandeGerador
@@ -112,7 +114,8 @@ class GrandeGeradorTable {
      * Localizar linha especifico pelo id da tabela GrandeGerador
      *
      * @param type $id
-     * @return \Model\GrandeGeradoResiduoows \Exception
+     * @return \Model\GrandeGerador
+     * @throws \Exception
      */
     public function find($id) {
         $id = (int) $id;

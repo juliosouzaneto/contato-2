@@ -4,18 +4,16 @@
  * namespace de localizacao do nosso controller
  */
 
-namespace GrandeGerador\Controller;
+namespace Residuo\Controller;
 
 // import Zend\Mvc
 use Zend\Mvc\Controller\AbstractActionController;
 // import Zend\View
 use Zend\View\Model\ViewModel, 
-    Prestadora\Model\PrestadoraTable,
-    Residuo\Model\TipoResiduoTable,
-    Residuo\Model\ResiduoTable,
-    GrandeGerador\Model\GrandeGerador;
+ //   Residuo\Model\PrestadoraTable,
+    Residuo\Model\Residuo;
 
-class GrandeGeradorController extends AbstractActionController {
+class Residuo extends AbstractActionController {
 
     protected $grandeGeradorTable;
      
@@ -33,14 +31,8 @@ class GrandeGeradorController extends AbstractActionController {
          $adapter = $this->getServiceLocator()->get('AdapterDb');
         
         $prestadoraTable = new PrestadoraTable($adapter);
-        $residuoTable = new ResiduoTable($adapter);
-        $tipoResiduoTable = new TipoResiduoTable($adapter);
         
-        return new ViewModel(array('empresaPrestadora' => $prestadoraTable->fetchAll(), 
-                                   'gradegerador' => $this->getGrandeGeradorTable()->fetchAll(), 
-                                   'residuo' => $residuoTable->fetchAll(), 
-                                   'tipoResiduo' => $tipoResiduoTable->fetchAll() 
-                ) );
+        return new ViewModel(array('empresaPrestadora' => $prestadoraTable->fetchAll(), 'gradegerador' => $this->getGrandeGeradorTable()->fetchAll() ) );
     }
 
     // POST /GrandeGerador/adicionar
@@ -49,7 +41,9 @@ class GrandeGeradorController extends AbstractActionController {
         // return new ViewModel(array('grandegerador' => $this->getGrandeGeradorTable()->fetchAll()));
         echo "<br>clicou no método adicionarAction";
         $request = $this->getRequest();
-        $grandegerador = new \GrandeGerador\Model\GrandeGerador;       // verifica se a requisição é do tipo post
+        $grandegerador = new \GrandeGerador\Model\GrandeGerador();
+
+        // verifica se a requisição é do tipo post
         if ($request->isPost()) {
             // obter e armazenar valores do post
             $postData = $request->getPost();

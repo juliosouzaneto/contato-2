@@ -99,18 +99,13 @@
         <div class="form-group">
             <label for="inputTelefonePrincipal" class="col-lg-3 col-md-1 control-label">Tipo Resíduo</label>
             <div class="col-lg-2  col-md-2">
-                
-                   <select class="combobox" name="tipo_residuo_fk" id="tipo_residuo_fk" itemscope="4564"  >
-                            <option  value="0"> 
-                                Selecione o tipo do resíduo 
-                            </option>
-                            <?php foreach ($this->tipoResiduo as $tipo_residuo) : ?>
-                                <option  value="<?= $tipo_residuo->tipo_residuo_nome ?>">  <?php echo $this->escapeHtml($tipo_residuo->tipo_residuo_nome); ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                
-                
-         
+                <select class="combobox" name="tipo_residuo" id="emp_prestadora_fk" itemscope="4564"  >
+                    <option  value="0"> 
+                        Selecione o tipo do resíduo 
+                    </option>
+                    <option  value="">  </option>
+
+                </select>
             </div>
 
             <label for="inputTelefonePrincipal" class="col-lg-1 col-md-1 control-label">   Resíduo</label>

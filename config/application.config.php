@@ -12,6 +12,7 @@ return array(
         'BjyProfiler',
         'Prestadora',
         'Contato',
+        'Residuo',
         'GrandeGerador',
         
          

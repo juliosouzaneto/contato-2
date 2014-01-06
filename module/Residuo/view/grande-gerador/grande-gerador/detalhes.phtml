@@ -1,0 +1,22 @@
+<div class="panel panel-primary">
+     <div class="panel-heading">
+        <div class="panel-title">
+            Detalhes Contato ID <?php echo $this->escapeHtml($this->grande_gerador_id); ?>            
+        </div>
+    </div>
+    <div class="panel-body">
+        <dl class="dl-horizontal">
+            <dt>Nome:</dt>
+            <dd><?php echo $this->escapeHtml($this->form["grande_gerador_razao_social"]); ?></dd>
+            <dt>Telefone Principal:</dt>
+            <dd><?php echo $this->escapeHtml($this->form["grande_gerador_cnpj"]); ?></dd>
+            <dt>Telefone Secundario:</dt>
+            <dd><?php echo $this->escapeHtml($this->form["grande_gerador_estadual"]); ?></dd>
+            
+        </dl>
+    </div>
+    <div class="panel-footer">
+        <a href="<?php echo $this->url('grande-gerador', array('action' => 'editar', 'id' => $this->grande_gerador_id)); ?>" class="btn btn-warning btn-sm">Editar Contato</a>
+        <a href="<?php echo $this->url('grande-gerador'); ?>" class="btn btn-default btn-sm">Voltar</a>
+    </div>
+</div>

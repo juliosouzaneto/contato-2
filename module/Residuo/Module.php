@@ -4,11 +4,11 @@
  * namespace para nosso modulo GrandeGerador
  */
 
-namespace GrandeGerador;
+namespace Residuo;
 
 // import Model\GrandeGerador
-use GrandeGerador\Model\GrandeGerador,
-    GrandeGerador\Model\GrandeGeradorTable;
+use Residuo\Model\Residuo,
+    Residuo\Model\ResiduoTableable;
 // import Zend\Db
 use Zend\Db\ResultSet\ResultSet,
     Zend\Db\TableGateway\TableGateway;
@@ -55,25 +55,26 @@ class Module {
     /**
      * Register Services
      */
-    public function getServiceConfig() {
-        return array(
-            'factories' => array(
-                'GrandeGeradorTableGateway' => function ($sm) {
-            // obter adapter db atraves do service manager
-            $adapter = $sm->get('Zend\Db\Adapter\Adapter');
-
-            // configurar ResultSet com nosso model GrandeGerador
-            $resultSetPrototype = new ResultSet();
-            $resultSetPrototype->setArrayObjectPrototype(new GrandeGerador());           // return TableGateway configurado para nosso model GrandeGerador
-            return new TableGateway('grande_gerador', $adapter, null, $resultSetPrototype);
-        },
-                'ModelGrandeGerador' => function ($sm) {
-            // return instacia Model GrandeGeradorTable
-            return new GrandeGeradorTable($sm->get('GrandeGeradorTableGateway'));
-        }
-            )
-        );
-    }
- 
+//    public function getServiceConfig() {
+//        return array(
+//            'factories' => array(
+//                'GrandeGeradorTableGateway' => function ($sm) {
+//            // obter adapter db atraves do service manager
+//            $adapter = $sm->get('Zend\Db\Adapter\Adapter');
+//
+//            // configurar ResultSet com nosso model GrandeGerador
+//            $resultSetPrototype = new ResultSet();
+//            $resultSetPrototype->setArrayObjectPrototype(new GrandeGerador());
+//
+//            // return TableGateway configurado para nosso model GrandeGerador
+//            return new TableGateway('grande_gerador', $adapter, null, $resultSetPrototype);
+//        },
+//                'ModelGrandeGerador' => function ($sm) {
+//            // return instacia Model GrandeGeradorTable
+//            return new GrandeGeradorTable($sm->get('GrandeGeradorTableGateway'));
+//        }
+//            )
+//        );
+//    }
 
 }
