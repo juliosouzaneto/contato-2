@@ -1,189 +1,25 @@
-<div class="panel panel-primary">
+<div class="panel panel-primary col-lg-6 col-md-6 " style="position:  absolute; left: 270px; top: 200px; /* posiciona a 70px para baixo */">
 
-    <div class="panel-heading">
+    <div class="panel-heading ">
         <div class="panel-title">
-            Tela Cadastro Grande Gerador           
+            Tela   Autencicacao   Grande   Gerador           
         </div>
-    </div>
-    <form class="form-horizontal" role="form" method="POST" action="<?php echo $this->url('grande-gerador', array('action' => 'adicionar')); ?>">
+    </div  >
+    <form class="form-horizontal " role="form" method="POST" action="<?php echo $this->url('grande-gerador', array('action' => 'autenticar')); ?>">
         <div class="panel-body">
             <div class="form-group">
 
                 <div class="form-group">
-                    <label for="inputTelefonePrincipal" class="col-lg-3 col-md-3 control-label">Empresa Prestadora</label>
+                    <label for="inputCnpj" class="col-lg-3 col-md-3 control-label">Informe seu CNPJ</label>
                     <div class="col-lg-9  col-md-9">
-                        <select class="combobox" name="emp_prestadora_fk" id="emp_prestadora_fk" itemscope="4564"  >
-                            <option  value="0"> 
-                                Selecione uma empresa prestadora
-                            </option>
-                            <?php foreach ($this->empresaPrestadora as $tipo_residuo) : ?>
-                                <option  value="<?= $tipo_residuo->emp_prest_id ?>">  <?php echo $this->escapeHtml($tipo_residuo->emp_prest_nome_fantasia); ?></option>
-                            <?php endforeach; ?>
-                        </select>
-
-                    </div>
+                        <input type="text" name="grande_gerador_cnpj" class="form-control cnpj" id="inputTelefonePrincipal" placeholder="Digite seu telefone principal" value="<?php echo $this->escapeHtml($this->form['grande_gerador_cnpj']); ?>">                </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="inputNomeFantasia" class="col-lg-3 col-md-3 control-label">Nome Fantasia</label>
-                    <div class="col-lg-9 col-md-9">
-                        <input type="text" name="grande_gerador_nome_fantasia" class="form-control" id="inputNomeFantasia" placeholder="Nome Completo" value="<?php echo $this->escapeHtml($this->form['grande_gerador_nome_fantasia']); ?>">
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="inputRazaoSocial" class="col-lg-3 col-md-3 control-label">Razão Social</label>
-                    <div class="col-lg-9  col-md-9">
-                        <input type="text" name="grande_gerador_razao_social" class="form-control" id="inputRazaoSocial" placeholder="Digite seu telefone principal" value="<?php echo $this->escapeHtml($this->form['grande_gerador_cnpj']); ?>" />      
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="inputCnpj" class="col-lg-3 col-md-3 control-label">CNPJ</label>
-                    <div class="col-lg-9  col-md-9">
-                        <input type="text" name="grande_gerador_cnpj" class="form-control cnpj" id="inputTelefonePrincipal" placeholder="Digite seu telefone principal" value="<?php echo $this->escapeHtml($this->form['grande_gerador_cnpj']); ?>">               
-                    </div>
-                </div>
-
-
-                <div class="form-group">
-                    <label for="inputRua" class="col-lg-3 col-md-3 control-label">Rua</label>
-                    <div class="col-lg-9  col-md-9">
-                        <input type="text" name="grande_gerador_rua" class="form-control" id="inputTelefoneSecundario" placeholder="Digite seu telefone secundário(opcional)" value="<?php echo $this->escapeHtml($this->form['grande_gerador_rua']); ?>">
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="inputBairro" class="col-lg-3 col-md-3 control-label">Bairro</label>
-                    <div class="col-lg-9  col-md-9">
-                        <input type="text" name="grande_gerador_barro" class="form-control" id="inputTelefoneSecundario" placeholder="Digite o seu bairro(opcional)" value="<?php echo $this->escapeHtml($this->form['grande_gerador_barro']); ?>">
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="inputCep" class="col-lg-3 col-md-3 control-label">CEP</label>
-                    <div class="col-lg-9  col-md-9">
-                        <input type="text" name="grande_gerador_cep" class="form-control cep" id="inputTelefoneSecundario" placeholder="Digite seu telefone secundário(opcional)" value="<?php echo $this->escapeHtml($this->form['grande_gerador_cep']); ?>">
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="inputTelefone" class="col-lg-3 col-md-3 control-label">Telefone</label>
-                    <div class="col-lg-9  col-md-9">
-                        <input type="text" name="grande_gerador_telefone" class="form-control telefone" id="inputTelefoneSecundario" placeholder="Digite seu telefone secundário(opcional)" value="<?php echo $this->escapeHtml($this->form['grande_gerador_telefone']); ?>">
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="inputEmail" class="col-lg-3 col-md-3 control-label" pattern="^@\w{2,}" >Email</label>
-                    <div class="col-lg-9  col-md-9">
-                        <input type="text" name="grande_gerador_email" class="form-control" id="inputEmail" placeholder="Digite seu telefone secundário(opcional)" value="<?php echo $this->escapeHtml($this->form['grande_gerador_email']); ?>">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="inputRespLegal" class="col-lg-3 col-md-3 control-label">Responsável Legal</label>
-                    <div class="col-lg-9  col-md-9">
-                        <input type="text" name="grande_gerador_resp_legal" class="form-control" id="inputRespLegal" placeholder="Digite seu telefone secundário(opcional)" value="<?php echo $this->escapeHtml($this->form['grande_gerador_resp_legal']); ?>">
-                    </div>
-                </div>  
-
-            </div>
-        </div>
-
-
-
-        <div class="panel-heading">
-            <div class="panel-title">
-                Lixo Gerado         
-            </div>
-        </div>
-        <div class="panel-footer" title="Lixo Gerado">
-            <div class="panel-body">
-                <div class="form-group">
-                    <label for="inputTelefonePrincipal" class="col-lg-3 col-md-1 control-label">Tipo Resíduo</label>
-                    <select   class="combobox col-lg-2 col-md-2 " name="tipo_residuo_fk" id="tipo_residuo_fk" itemscope="4564" onclick="atualizaComboResidio(document.getElementById('tipo_residuo_fk').value)" >
-                        <option  value="0"> 
-                            Selecione....
-                        </option>
-                        <?php foreach ($this->tipoResiduo as $tipo_residuo) : ?>
-                            <option  value="<?= $tipo_residuo->tipo_residuo_id ?>">  <?php echo $this->escapeHtml($tipo_residuo->tipo_residuo_nome); ?></option>
-                        <?php endforeach; ?>
-                    </select>
-
-                    <label for="inputTelefonePrincipal" class="col-lg-1 col-md-1 control-label">   Resíduo</label>
-                    <div class="col-lg-1  col-md-2">
-                        <select class="combobox" name="residuo_id" id="residuo_id" itemscope="4564"  >
-                            <option  value="0"> 
-                                Selecione.... 
-                            </option>
-                            <?php foreach ($this->residuo as $residuo) : ?>
-                                <option  value="<?= $residuo->residuo_id ?>">  <?php echo $this->escapeHtml($residuo->residuo_descricao); ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
-                </div>  
-
-            </div>
-
-            <div class="form-group">
-                <label for="inputRespLegal" class="col-lg-3 col-md-1 control-label">Quantidade</label>
-                <div class="col-lg-2  col-md-2">
-                    <input type="text" name="grande_gerador_resp_legal" class="form-control" id="inputRespLegal" placeholder="Digite seu telefone secundário(opcional)" value="<?php echo $this->escapeHtml($this->form['grande_gerador_resp_legal']); ?>">
-                </div>
-                <label for="inputRespLegal" class="col-lg-0 col-md-1 control-label">Peso</label>
-                <div class="col-lg-3  col-md-3">
-                    <input type="text" name="grande_gerador_resp_legal" class="form-control" id="inputRespLegal" placeholder="Digite seu telefone secundário(opcional)" value="<?php echo $this->escapeHtml($this->form['grande_gerador_resp_legal']); ?>">
+                <div class="panel-footer">
+                    <button type="submit" class="btn btn-primary"  >Confirmar</button>
+                    <a href="<?php echo $this->url('grande-gerador'); ?>" class="btn btn-default">Cancelar</a>
                 </div>
             </div>
-
-            <button class="btn-primary col-md-3 col-md-3" title="Inserir Resíduo"  onclick="inserirResiduo()" >
-                Inserir Resíduo
-            </button>
-        </div>
-
-
-        <div class="form-group">
-
-        </div>  
-
-        <table  class="table table-striped table-bordered table-hover  " title=" Lixo Gerado " id="tabela_residuos" >
-            <thead>
-                <tr>
-                    <th>Tipo Resídio</th>
-                    <th>Cod Tr</th>
-                    <th>Resídio</th>
-                    <th >Cod R</th>
-                    <th>Quantidade</th>
-                    <th>Peso</th>
-                    <th>Ação</th>  
-                </tr>
-            </thead>
-
-            <tbody>
-                <?php foreach ($this->redisudoHasGrandeGerador as $residuoHasGerador) : ?>
-                    <tr>
-                        
-                        <td id="residuo_fk_descricao"><?php echo $this->escapeHtml($residuoHasGerador->residuo_fk_descricao); ?></td>
-                        <td id="residuos_gerados_grande_gerador_qtd_dia"><?php echo $this->escapeHtml($residuoHasGerador->residuos_gerados_grande_gerador_qtd_dia); ?></td>
-                        <td id="residuos_gerados_grande_gerador_peso_espc"><?php echo $this->escapeHtml($residuoHasGerador->residuos_gerados_grande_gerador_peso_espc); ?></td>
-                        <td id="grande_gerador_fk"><?php echo $this->escapeHtml($residuoHasGerador->grande_gerador_fk); ?></td>
-                        <td id="residuo_fk"><?php echo $this->escapeHtml($residuoHasGerador->residuo_fk); ?></td>
-
-
-                        <td> 
-                            <a class="btn btn-xs btn-danger" title="Deletar" href="<?php echo $this->url('grande-gerador', array("action" => "deletar", "id" => $residuoHasGerador->residuos_gerados_grande_gerador_id)); ?>"><span class="glyphicon glyphicon-floppy-remove"></span></a>
-                        </td>
-                    </tr>
-                <?php endforeach; ?>
-            </tbody>
-
-        </table>
-
-
-
-        <div class="panel-footer">
-            <button type="submit" class="btn btn-primary" onclick="salvarResiduoBanco(),  validaCadastro() " >Salvar Grande Gerador</button>
-            <a href="<?php echo $this->url('grande-gerador'); ?>" class="btn btn-default">Voltar</a>
         </div>
     </form>
 </div>
@@ -196,8 +32,8 @@
         // jQuery.noConflict();
         // alert('Teste');
 
-        $('.fone').mask('(99) 999-9999'); //telefone
-        $('cnpj').mask("99.999.999/9999-99");
+       
+       
         $('.cpf').mask("999.999.999-99");
         $('.cpf-sem-underline').mask("999.999.999-99", {placeholder: " "});
         $('.nascimento').mask("99/99/9999");
@@ -383,7 +219,7 @@
 
     function salvarResiduoBanco() {
 
-       // alert(campo);
+        // alert(campo);
 
 
         var table = document.getElementById("tabela_residuos");
@@ -404,15 +240,15 @@
 
         var numOfCols;
 
-        var residuosHasGerador = new Array(); 
+        var residuosHasGerador = new Array();
         // Faz um loop para criar as colunas
         for (var i = 0; i < numOfRows; i++) {
             numOfCols = table.rows[i - 1].cells.length;//captura a primeira linha
-         // Insere uma linha no fim da tabela.
-          var newRow = table.insertRow(numOfRows);
-            
+            // Insere uma linha no fim da tabela.
+            var newRow = table.insertRow(numOfRows);
+
             for (var j = 0; j < numOfCols; j++) {
-               console.log(numOfCols[j].toString()); 
+                console.log(numOfCols[j].toString());
                 // Insere uma coluna na nova linha 
 //                residuosHasGerador[0] = table.
 //                newCell.
@@ -446,6 +282,60 @@
             }
         });
     }
+    
+    function validarCNPJ(cnpj) {
+ 
+    cnpj = cnpj.replace(/[^\d]+/g,'');
+ 
+    if(cnpj == '') return false;
+     
+    if (cnpj.length != 14)
+        return false;
+ 
+    // Elimina CNPJs invalidos conhecidos
+    if (cnpj == "00000000000000" || 
+        cnpj == "11111111111111" || 
+        cnpj == "22222222222222" || 
+        cnpj == "33333333333333" || 
+        cnpj == "44444444444444" || 
+        cnpj == "55555555555555" || 
+        cnpj == "66666666666666" || 
+        cnpj == "77777777777777" || 
+        cnpj == "88888888888888" || 
+        cnpj == "99999999999999")
+        return false;
+         
+    // Valida DVs
+    tamanho = cnpj.length - 2
+    numeros = cnpj.substring(0,tamanho);
+    digitos = cnpj.substring(tamanho);
+    soma = 0;
+    pos = tamanho - 7;
+    for (i = tamanho; i >= 1; i--) {
+      soma += numeros.charAt(tamanho - i) * pos--;
+      if (pos < 2)
+            pos = 9;
+    }
+    resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
+    if (resultado != digitos.charAt(0))
+        return false;
+         
+    tamanho = tamanho + 1;
+    numeros = cnpj.substring(0,tamanho);
+    soma = 0;
+    pos = tamanho - 7;
+    for (i = tamanho; i >= 1; i--) {
+      soma += numeros.charAt(tamanho - i) * pos--;
+      if (pos < 2)
+            pos = 9;
+    }
+    resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
+    if (resultado != digitos.charAt(1))
+          return false;
+           
+    return true;
+    
+}
 
 
 

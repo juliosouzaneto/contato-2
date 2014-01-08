@@ -1,5 +1,5 @@
 <?php
-
+ //$campo = $_POST['campo'];
 // namespace de localizacao do nosso model
 
 namespace Residuo\Model;
@@ -11,6 +11,8 @@ use Zend\Db\Adapter\Adapter,
     Zend\Db\TableGateway\AbstractTableGateway;
 
 class ResiduoTable extends AbstractTableGateway {
+    
+   
 
     protected $tableGateway;
 
@@ -22,7 +24,7 @@ class ResiduoTable extends AbstractTableGateway {
     public function __construct(Adapter $adapter) {
         $resultSetPrototype = new ResultSet();
         $resultSetPrototype->setArrayObjectPrototype(new Residuo());
-        $this->tableGateway = new TableGateway('emp_prestadora', $adapter, null, $resultSetPrototype);
+        $this->tableGateway = new TableGateway('residuo', $adapter, null, $resultSetPrototype);
     }
 
     /**
@@ -49,6 +51,22 @@ class ResiduoTable extends AbstractTableGateway {
             throw new \Exception("Não foi encontrado contado de id = {$id}");
 
         return $row;
+    }
+    /**
+     * Localizar todos os residios com tipo selecionado
+     *
+     * @param type $$tipo_resido_fk
+     * @return \Model\Contato
+     * @throws \Exception
+     */
+    public function listaResidoPorTipo($tipo_resido_fk) {
+        $tipo_resido_fk = (int) $tipo_resido_fk;
+        $listSet = $this->tableGateway->select(array('tipo_residuo_fk' => $tipo_resido_fk));
+       // $row = $rowset->current();
+        if (!$listSet)
+            throw new \Exception("Não foi encontrado contado de id = {$tipo_resido_fk}");
+
+        return $listSet;
     }
 
     public function save($id) {

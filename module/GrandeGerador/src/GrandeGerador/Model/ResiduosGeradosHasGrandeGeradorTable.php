@@ -5,21 +5,22 @@
 namespace GrandeGerador\Model;
 
 // import Zend\Db
-use //Zend\Db\Adapter\Adapter,
-   // Zend\Db\ResultSet\ResultSet,
-    Zend\Db\TableGateway\TableGateway;
+use Zend\Db\Adapter\Adapter,
+    Zend\Db\ResultSet\ResultSet,
+    Zend\Db\TableGateway\TableGateway,
+    Zend\Db\TableGateway\AbstractTableGateway;
 
 
-class GrandeGeradorTable {
+class ResiduosGeradosHasGrandeGeradorTable extends AbstractTableGateway {
 
     protected $tableGateway;
     
-    private function getGrandeGeradorTable()
-{
-    return $this->getServiceLocator()->get('ModelGrandeGerador');
-}
+//    private function getGrandeGeradorTable()
+//{
+//    return $this->getServiceLocator()->get('ModelGrandeGerador');
+//}
 
- public function saveGrandeGerador(GrandeGerador $grandegerador) {
+ public function saveGrandeGerador(ResiduosGeradosHasGrandeGerador $residuosHasGrandeGerador) {
     // $grandegerador->grande_gerador_id= 13;
      //$grandegerador->emp_prestadora_fk = 6;
      echo '<br>código emp_prestadora_fk ';
@@ -27,16 +28,15 @@ class GrandeGeradorTable {
      
      
      
-     print_r( $grandegerador->emp_prestadora_fk);
-     print_r( $grandegerador->grande_gerador_razao_social);
+     print_r( $residuosHasGrandeGerador->residuos_gerados_grande_gerador_qtd_dia);
+     print_r( $residuosHasGrandeGerador->grande_gerador_fk);
     
         $data = array(
-            'grande_gerador_razao_social' => $grandegerador->grande_gerador_razao_social,
-            'grande_gerador_nome_fantasia' => $grandegerador->grande_gerador_nome_fantasia,
-            'grande_gerador_cnpj' => $grandegerador->grande_gerador_cnpj,
-            'emp_prestadora_fk' => $grandegerador->emp_prestadora_fk,
-            'grande_gerador_endereco' => $grandegerador->grande_gerador_endereco,
-            'grande_gerador_cep' => $grandegerador->grande_gerador_cep,
+            'residuos_gerados_grande_gerador_qtd_dia' => $residuosHasGrandeGerador->residuos_gerados_grande_gerador_qtd_dia,
+            'residuos_gerados_grande_gerador_peso_espc' => $residuosHasGrandeGerador->residuos_gerados_grande_gerador_peso_espc,
+            'grande_gerador_fk' => $residuosHasGrandeGerador->grande_gerador_fk,
+            'residuo_fk' => $residuosHasGrandeGerador->residuo_fk
+            
            // 'descricao' => strtoupper($grandegerador->descricao)
         );
         
@@ -78,16 +78,16 @@ class GrandeGeradorTable {
      *
      * @param \Zend\Db\Adapter\Adapter $adapter
      */
-//    public function __construct(Adapter $adapter) {
-//        $resultSetPrototype = new ResultSet();
-//        $resultSetPrototype->setArrayObjectPrototype(new GrandeGerador());
-//
-//        $this->tableGateway = new TableGateway('grandegerador', $adapter, null, $resultSetPrototype);
-//    }
+    public function __construct(Adapter $adapter) {
+        $resultSetPrototype = new ResultSet();
+        $resultSetPrototype->setArrayObjectPrototype(new ResiduosGeradosHasGrandeGerador());
 
-    public function __construct(TableGateway $tableGateway) {
-        $this->tableGateway = $tableGateway;
+       $this->tableGateway = new TableGateway('residuo_gerados_has_grande_gerador', $adapter, null, $resultSetPrototype);
     }
+
+//    public function __construct(TableGateway $tableGateway) {
+//        $this->tableGateway = $tableGateway;
+//    }
 
     /**
      * Recuperar todos os elementos da tabela GrandeGerador
@@ -123,22 +123,6 @@ class GrandeGeradorTable {
 
         return $row;
     }
-    public function findCnpj($cnpj) {
-        $cnpj = (string) $cnpj;
-        $rowset = $this->tableGateway->select(array('grande_gerador_cnpj' => $cnpj));
-        
-//         echo '<pre>';
-//            
-//            var_dump($rowset);
-//            echo '</pre>';
-        
-        $row = $rowset->current();
-        if (!$row){
-           // throw new \Exception("Não foi encontrado grande gerador com o cnpj = {$cnpj}");
-        }
-
-        return $row;
-    }
     public function deleteGrandeGerador($id) {
         $id = (int) $id;
          
@@ -146,7 +130,7 @@ class GrandeGeradorTable {
                       $this->tableGateway->delete(array('grande_gerador_id' => $id));
         } catch (Exception $e) {
                      $pdoException = $e->getPrevious();
-            //  var_dump($e);
+              var_dump($e);
             echo "<br>exceção ao salvar";
             exit;
         }

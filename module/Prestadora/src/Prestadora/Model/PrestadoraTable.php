@@ -50,6 +50,17 @@ class PrestadoraTable extends AbstractTableGateway {
 
         return $row;
     }
+    public function findSQL($sql) {
+//        $id = (int) $id;
+//       // $sql = (Select) $sql;
+//       
+//         $this->tableGateway->select
+//        //$row = $rowset->current();
+//        if (!$row)
+//            throw new \Exception("Não foi encontrado contado de id = {$id}");
+//
+//        return $row;
+    }
 
     public function save($id) {
         $id = (int) $id;
