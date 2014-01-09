@@ -159,15 +159,16 @@
                 </tr>
             </thead>
 
-            <tbody>
+                <tbody id="tabela_residuos">
                 <?php foreach ($this->redisudoHasGrandeGerador as $residuoHasGerador) : ?>
                     <tr>
                         
-                        <td id="residuo_fk_descricao"><?php echo $this->escapeHtml($residuoHasGerador->residuo_fk_descricao); ?></td>
+                        <td id="residuos_gerados_grande_gerador_id"><?php echo $this->escapeHtml($residuoHasGerador->residuo_fk_descricao); ?></td>
                         <td id="residuos_gerados_grande_gerador_qtd_dia"><?php echo $this->escapeHtml($residuoHasGerador->residuos_gerados_grande_gerador_qtd_dia); ?></td>
-                        <td id="residuos_gerados_grande_gerador_peso_espc"><?php echo $this->escapeHtml($residuoHasGerador->residuos_gerados_grande_gerador_peso_espc); ?></td>
-                        <td id="grande_gerador_fk"><?php echo $this->escapeHtml($residuoHasGerador->grande_gerador_fk); ?></td>
-                        <td id="residuo_fk"><?php echo $this->escapeHtml($residuoHasGerador->residuo_fk); ?></td>
+                        <td id="nao_tem_ainda_desc_residuo"><?php echo $this->escapeHtml($residuoHasGerador->residuos_gerados_grande_gerador_peso_espc); ?></td>
+                        <td id="residuo_fk"><?php echo $this->escapeHtml($residuoHasGerador->grande_gerador_fk); ?></td>
+                        <td id="residuos_gerados_grande_gerador_qtd_dia"><?php echo $this->escapeHtml($residuoHasGerador->residuo_fk); ?></td>
+                        <td id="residuos_gerados_grande_gerador_peso_espc"><?php echo $this->escapeHtml($residuoHasGerador->residuo_fk); ?></td>
 
 
                         <td> 
@@ -182,7 +183,7 @@
 
 
         <div class="panel-footer">
-            <button type="submit" class="btn btn-primary" onclick="salvarResiduoBanco(),  validaCadastro() " >Salvar Grande Gerador</button>
+            <button type="submit" class="btn btn-primary" onclick="salvarResiduoBanco(), validaCadastro()" >Salvar Grande Gerador</button>
             <a href="<?php echo $this->url('grande-gerador'); ?>" class="btn btn-default">Voltar</a>
         </div>
     </form>
@@ -280,19 +281,19 @@
 
 
 
-        $("table[name=residuo_id]").html('<tbody>\n\
-                    <tr>\n\
-                        <td>Nome</td>\n\
-                        <td>as</td>\n\
-                        <td>asdf</td>\n\
-                        <td>asdf</td>\n\
-                        <td>\n\
-                            <a class="btn btn-xs btn-info" title="Visualizar" href="<?php echo $this->url('grande-gerador', array("action" => "detalhes", "id" => $tipo_residuo->grande_gerador_id,)); ?>"><span class="glyphicon glyphicon-new-window"></span></a>\n\
-                            <a class="btn btn-xs btn-warning" title="Editar" href="<?php echo $this->url('grande-gerador', array("action" => "editar", "id" => $tipo_residuo->grande_gerador_id,)); ?>"><span class="glyphicon glyphicon-edit"></span></a>\n\
-                            <a class="btn btn-xs btn-danger" title="Deletar" href="<?php echo $this->url('grande-gerador', array("action" => "deletar", "id" => $tipo_residuo->grande_gerador_id,)); ?>"><span class="glyphicon glyphicon-floppy-remove"></span></a>\n\
-                        </td>\n\
-                    </tr>\n\
-            </tbody>')
+//        $("table[name=residuo_id]").html('<tbody>\n\
+//                    <tr>\n\
+//                        <td>Nome</td>\n\
+//                        <td>as</td>\n\
+//                        <td>asdf</td>\n\
+//                        <td>asdf</td>\n\
+//                        <td>\n\
+//                            <a class="btn btn-xs btn-info" title="Visualizar" href="<?php echo $this->url('grande-gerador', array("action" => "detalhes", "id" => $tipo_residuo->grande_gerador_id,)); ?>"><span class="glyphicon glyphicon-new-window"></span></a>\n\
+//                            <a class="btn btn-xs btn-warning" title="Editar" href="<?php echo $this->url('grande-gerador', array("action" => "editar", "id" => $tipo_residuo->grande_gerador_id,)); ?>"><span class="glyphicon glyphicon-edit"></span></a>\n\
+//                            <a class="btn btn-xs btn-danger" title="Deletar" href="<?php echo $this->url('grande-gerador', array("action" => "deletar", "id" => $tipo_residuo->grande_gerador_id,)); ?>"><span class="glyphicon glyphicon-floppy-remove"></span></a>\n\
+//                        </td>\n\
+//                    </tr>\n\
+//            </tbody>')
         event.preventDefault();
     }
 
@@ -383,7 +384,12 @@
 
     function salvarResiduoBanco() {
 
-       // alert(campo);
+        alert('Salvador no banco');
+        
+//         <?php echo '<pre>' ?>;
+//
+//                var_dump(<?php  $this->escapeHtml(redisudoHasGrandeGerador); ?>);
+//               <?php echo '</pre>' ?>;
 
 
         var table = document.getElementById("tabela_residuos");
@@ -399,52 +405,99 @@
         var numOfRows = table.rows.length;
         // Captura a quantidade de colunas da última linha da tabela
         var numOfCols = table.rows[numOfRows - 1].cells.length;
+
         // Insere uma linha no fim da tabela.
         var newRow = table.insertRow(numOfRows);
+        var valorCelTab;
 
         var numOfCols;
+        alert('Número de Linhas: ' + numOfRows);
+        alert('Número de Colunas: ' + numOfCols);
 
-        var residuosHasGerador = new Array(); 
+//        $("td").dblclick(function() {
+//             var conteudoOriginal = $(this).text();
+//            $(this).addClass("celulaEmEdicao");
+//            $(this).html("<input type='text' value='" + conteudoOriginal + "' />");
+//            $(this).children().first().focus();
+//            $(this).children().first().keypress(function(e) {
+//                if (e.which == 13) {
+//                    var novoConteudo = $(this).val();
+//                    $(this).parent().text(novoConteudo);
+//                    $(this).parent().removeClass("celulaEmEdicao");
+//                }
+//            });
+//            $(this).children().first().blur(function() {
+//                $(this).parent().text(conteudoOriginal);
+//                $(this).parent().removeClass("celulaEmEdicao");
+//            });
+//        });
+
+
+
+        var rows = document.getElementById("tabela_residuos").getElementsByTagName("tr");
+
+        for (row = 0; row < rows.length; row++) {
+            var cells = rows[row].getElementsByTagName("td");
+
+            var name = cells[0].Text;
+            var quantity = cells[1].Text;
+            var price = cells[2].Text;
+            var last = cells[3].Text;
+            
+            alert(name);
+
+            if (name == input) {
+                alert("Already selected");
+            }
+        }
+
+
+        //var residuosHasGerador = new Array(); 
         // Faz um loop para criar as colunas
         for (var i = 0; i < numOfRows; i++) {
-            numOfCols = table.rows[i - 1].cells.length;//captura a primeira linha
-         // Insere uma linha no fim da tabela.
-          var newRow = table.insertRow(numOfRows);
-            
+
+            // Insere uma linha no fim da tabela.
+
             for (var j = 0; j < numOfCols; j++) {
-               console.log(numOfCols[j].toString()); 
+                // var cells = table[j].getElementsByTagName("td");
+                // console.log(numOfCols[j].toString()); 
                 // Insere uma coluna na nova linha 
 //                residuosHasGerador[0] = table.
 //                newCell.
 //                // Insere um conteúdo na coluna
 //                newCell.innerHTML = "Linha " + numOfRows + " – Coluna " + j;
+                //  valorCelTab = table.getCell(i , j);
+                //   alert(cells[j]);
             }
-            event.preventDefault();
+
         }
+
+        alert(valorCelTab);
+        // event.preventDefault();
 
 
 
 
         // Função responsável por inserir linhas na tabela
-        $("select[name=residuo_fk]").html('<option value="0"> Escolha algo </option>')
-
-        $.ajax({
-            type: 'post',
-            cache: false,
-            data: {campo: campo, tipo: 1},
-            url: '/grande-gerador/lista',
-            beforeSend: function() {
-            },
-            success: function(data) {
-
-                $('#residuo_id').html(data);
-                console.log(data);
-
-            },
-            error: function() {
-                alert('Nao achou o PHP')
-            }
-        });
+//        $("select[name=residuo_fk]").html('<option value="0"> Escolha algo </option>')
+//
+//        $.ajax({
+//            type: 'post',
+//            cache: false,
+//            data: {campo: campo, tipo: 1},
+//            url: '/grande-gerador/lista',
+//            beforeSend: function() {
+//            },
+//            success: function(data) {
+//
+//                $('#residuo_id').html(data);
+//                console.log(data);
+//
+//            },
+//            error: function() {
+//                alert('Nao achou o PHP')
+//            }
+//        });
     }
 
 

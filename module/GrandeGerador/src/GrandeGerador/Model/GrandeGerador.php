@@ -23,6 +23,12 @@ class GrandeGerador {
     public $emp_prestadora_fk;
 
     public function exchangeArray($data) {
+        
+        
+//        echo '<pre>';
+//
+//                var_dump($data);
+//                echo '</pre>';
         // echo "<br> Entrou no construtor GrandeGerador";
         $this->grande_gerador_id = (!empty($data['grande_gerador_id'])) ? $data['grande_gerador_id'] : null;
         

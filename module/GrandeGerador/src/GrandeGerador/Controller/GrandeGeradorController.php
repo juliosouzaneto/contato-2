@@ -54,27 +54,40 @@ class GrandeGeradorController extends AbstractActionController {
         //  $id = $this->params()->fromRoute('id');
         // echo $id;
 
+
+        $adapter = $this->getServiceLocator()->get('AdapterDb');
+        $prestadoraTable = new PrestadoraTable($adapter);
+
+        $residuoTable = new ResiduoTable($adapter);
+        $tipoResiduoTable = new TipoResiduoTable($adapter);
+        $residuoHasGrandeGerador = new ResiduosGeradosHasGrandeGeradorTable($adapter);
+
+
+
         $request = $this->getRequest();
         $grandegerador = new GrandeGerador();
+        $grandegerador2 = new GrandeGerador();
         $cnpj;
         /**
          * verifica se a requisição é do tipo post
          */
         if ($request->isPost()) {
             $postData = $request->getPost();
-//            echo '<pre>';
-//
-//            var_dump($postData);
-//            echo '</pre>';
+
             //echo '<br><br>CNPJ: ';
             //echo $grandegerador->grande_gerador_cnpj;
             // echo $postData+'<br>';
             $grandegerador->exchangeArray2($postData);
+            $grandegerador2->exchangeArray2($postData);
             echo $grandegerador->grande_gerador_cnpj;
             $cnpj = $grandegerador->grande_gerador_cnpj;
         }
 
-        $adapter = $this->getServiceLocator()->get('AdapterDb');
+
+
+
+
+
         $grandegerador = $this->getGrandeGeradorTable()->findCnpj($grandegerador->grande_gerador_cnpj);
 
         echo 'id grande gerador: <br>';
@@ -83,17 +96,12 @@ class GrandeGeradorController extends AbstractActionController {
          * é feita a busca pelo CNPJ do grande gerador
          * a variável form será passada para a view para poder exibir os dados no formulário
          */
-        $form = (array) $this->getGrandeGeradorTable()->findCnpj($grandegerador->grande_gerador_cnpj);
         try {
             if ($grandegerador->grande_gerador_id) {
+                $form = (array) $this->getGrandeGeradorTable()->findCnpj($grandegerador->grande_gerador_cnpj);
 
                 $this->flashMessenger()->addSuccessMessage('Grande Geradora Encontrado: ' . $grandegerador->grande_gerador_cnpj);
                 echo 'Grande Gerador Encontrado';
-                $prestadoraTable = new PrestadoraTable($adapter);
-                $prestadoraTable = new PrestadoraTable($adapter);
-                $residuoTable = new ResiduoTable($adapter);
-                $tipoResiduoTable = new TipoResiduoTable($adapter);
-                $residuoHasGrandeGerador = new ResiduosGeradosHasGrandeGeradorTable($adapter);
 
                 return array(
                     'id' => $id,
@@ -104,14 +112,25 @@ class GrandeGeradorController extends AbstractActionController {
                     'tipoResiduo' => $tipoResiduoTable->fetchAll(),
                     'redisudoHasGrandeGerador' => $residuoHasGrandeGerador->fetchAll()
                 );
-            } else {
-                $this->flashMessenger()->addErrorMessage("Grande Geradora Não Cadastrado: " . $grandegerador->grande_gerador_cnpj);
+            } else if ($grandegerador2->grande_gerador_cnpj) {
+                $form = (array) $grandegerador2;
+                $this->flashMessenger()->addErrorMessage("Grande Geradora Não Cadastrado: " . $grandegerador2->grande_gerador_cnpj);
                 echo 'Grande Geradora Não Cadastrado';
-                return $this->redirect()->toRoute(
-                                'grande-gerador', array('action' => 'novo',
-                            'form' => $form,
-                            'cnpj' => $cnpj
-                ));
+//                echo '<pre>';
+//
+//                var_dump($grandegerador2);
+//                echo '</pre>';
+                return array(
+                    'empresaPrestadora' => $prestadoraTable->fetchAll(),
+                    'gradegerador' => $grandegerador2,
+                    'form' => $form
+                );
+//                return $this->redirect()->toRoute(
+//                                'grande-gerador', array('action' => 'novo',
+//                            'form' => $form,
+//                            'cnpj' => $cnpj,
+//                            'gradegerador' => $grandegerador2
+//                ));
 //                return array(
 //                    'id' => $id,
 //                   // 'form' => $form,
@@ -121,6 +140,13 @@ class GrandeGeradorController extends AbstractActionController {
 //                    'tipoResiduo' => $tipoResiduoTable->fetchAll(),
 //                    'redisudoHasGrandeGerador' => $residuoHasGrandeGerador->fetchAll()
 //                );
+            } else {
+                return $this->redirect()->toRoute(
+                                'grande-gerador', array('action' => 'login',
+                            'form' => $form,
+                            'cnpj' => $cnpj,
+                            'gradegerador' => $grandegerador2
+                ));
             }
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
@@ -237,7 +263,7 @@ class GrandeGeradorController extends AbstractActionController {
         $grandegerador = new \GrandeGerador\Model\GrandeGerador;
         $residuohasGrandeGerador = new ResiduosGeradosHasGrandeGerador();
         if ($request->isPost()) {// verifica se a requisição é do tipo post
-            $this->flashMessenger()->addSuccessMessage("Metódodo adicionar");
+            //  $this->flashMessenger()->addSuccessMessage("Metódodo adicionar");
             // obter e armazenar valores do post
             $postData = $request->getPost();
             echo 'if request';
@@ -247,9 +273,25 @@ class GrandeGeradorController extends AbstractActionController {
             //  $grandegerador->exchangeArray($postData);
             // validaCamposGrandeGerador( $grandegerador);
             // verifica se o formulário segue a validação proposta
+
+            echo '<pre>';
+
+            var_dump($postData);
+            echo '</pre>';
+
             if ($formularioValido) {
                 echo "<br>if formulario válido";
                 $grandegerador->exchangeArray($postData);
+                $residuohasGrandeGerador->exchangeArray($postData);
+
+
+
+//                echo '<pre>';
+//
+//                var_dump($postData);
+//                echo '</pre>';
+
+
                 echo "<br>if formulario válido2";
                 $this->getGrandeGeradorTable()->saveGrandeGerador($grandegerador);
                 echo "<br>if formulario válido3";
@@ -258,7 +300,7 @@ class GrandeGeradorController extends AbstractActionController {
                 // 1 - solicitar serviço para pegar o model responsável pela adição
                 // 2 - inserir dados no banco pelo model
                 // adicionar mensagem de sucesso
-                $this->flashMessenger()->addSuccessMessage("GrandeGerador criado com sucesso");
+                $this->flashMessenger()->addSuccessMessage("GrandeGerador criado com sucesso" + $residuohasGrandeGerador);
 
                 // redirecionar para action index no controller GrandeGerador
                 return $this->redirect()->toRoute('grande-gerador');

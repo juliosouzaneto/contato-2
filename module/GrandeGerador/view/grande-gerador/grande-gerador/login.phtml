@@ -12,11 +12,11 @@
                 <div class="form-group">
                     <label for="inputCnpj" class="col-lg-3 col-md-3 control-label">Informe seu CNPJ</label>
                     <div class="col-lg-9  col-md-9">
-                        <input type="text" name="grande_gerador_cnpj" class="form-control cnpj" id="inputTelefonePrincipal" placeholder="Digite seu telefone principal" value="<?php echo $this->escapeHtml($this->form['grande_gerador_cnpj']); ?>">                </div>
+                        <input type="text" name="grande_gerador_cnpj" class="form-control cnpj" id="inputCnpj" placeholder="Digite seu telefone principal" value="<?php echo $this->escapeHtml($this->form['grande_gerador_cnpj']); ?>">                </div>
                 </div>
 
                 <div class="panel-footer">
-                    <button type="submit" class="btn btn-primary"  >Confirmar</button>
+                    <button type="submit" class="btn btn-primary " onclick="validaCadastro()" > Confirmar</button>
                     <a href="<?php echo $this->url('grande-gerador'); ?>" class="btn btn-default">Cancelar</a>
                 </div>
             </div>
@@ -46,92 +46,7 @@
 
     });
 
-    function inserirResiduo() {
-        alert('inserirResiduo');
-
-        // Captura a referência da tabela com id “minhaTabela”
-        var table = document.getElementById("tabela_residuos");
-        // var selectTipoResiduo = document.getElementById("tipo_residuo_fk") ;
-        var selectTipoResiduo = document.getElementById("tipo_residuo_fk").options[document.getElementById("tipo_residuo_fk").selectedIndex].text;
-        var selectTipoResiduoCod = document.getElementById("tipo_residuo_fk").value;
-        var selectResiduo = document.getElementById("residuo_id").options[document.getElementById("residuo_id").selectedIndex].text; //pega a descrição do resíduo
-        var selectResiduoCod = document.getElementById("residuo_id").value; //pega o código do resíduo
-
-        var inputQtdResiduo = document.getElementById("tipo_residuo_fk");
-        var inputPesoResiduo = document.getElementById("tipo_residuo_fk");
-        // Captura a quantidade de linhas já existentes na tabela
-        var numOfRows = table.rows.length;
-        // Captura a quantidade de colunas da última linha da tabela
-        var numOfCols = table.rows[numOfRows - 1].cells.length;
-        // Insere uma linha no fim da tabela.
-        var newRow = table.insertRow(numOfRows);
-
-        // Insere uma coluna na nova linha 
-        newCell = newRow.insertCell(0);
-        // Insere um conteúdo na coluna
-        // newCell.innerHTML = "Linha " + numOfRows + " – Coluna " + 0 + " ->" + selectTipoResiduo;
-        newCell.innerHTML = selectTipoResiduo;
-
-        // Insere uma coluna na nova linha 
-        newCell = newRow.insertCell(1);
-        // Insere um conteúdo na coluna
-        newCell.innerHTML = selectTipoResiduoCod;
-
-        // Insere uma coluna na nova linha 
-        newCell = newRow.insertCell(2);
-        // Insere um conteúdo na coluna
-        newCell.innerHTML = selectTipoResiduo;
-
-        // Insere uma coluna na nova linha cod resíduo
-        newCell = newRow.insertCell(3);
-        // Insere um conteúdo na coluna
-        newCell.innerHTML = selectResiduoCod;
-
-
-        // Insere uma coluna na nova linha quantidade
-        newCell = newRow.insertCell(4);
-        // Insere um conteúdo na coluna
-        newCell.innerHTML = 'Quantidade';
-
-        // Insere uma coluna na nova linha  peso
-        newCell = newRow.insertCell(5);
-        // Insere um conteúdo na coluna
-        newCell.innerHTML = 'Peso';
-
-        // Insere uma coluna na nova linha  ação
-        newCell = newRow.insertCell(6);
-        // Insere um conteúdo na coluna
-        newCell.innerHTML = '<a class="btn btn-xs btn-danger" title="Deletar" onclick="excluirResiduo(this)" ><span class="glyphicon glyphicon-floppy-remove"></span></a>';
-
-        // newCell.Cells[2].Visible = true;
-
-
-        // Faz um loop para criar as colunas
-//            for (var j = 0; j < numOfCols; j++) {
-//                // Insere uma coluna na nova linha 
-//                newCell = newRow.insertCell(j);
-//                // Insere um conteúdo na coluna
-//                newCell.innerHTML = "Linha "+ numOfRows + " – Coluna "+ j;
-//            }
-
-
-
-        $("table[name=residuo_id]").html('<tbody>\n\
-                    <tr>\n\
-                        <td>Nome</td>\n\
-                        <td>as</td>\n\
-                        <td>asdf</td>\n\
-                        <td>asdf</td>\n\
-                        <td>\n\
-                            <a class="btn btn-xs btn-info" title="Visualizar" href="<?php echo $this->url('grande-gerador', array("action" => "detalhes", "id" => $tipo_residuo->grande_gerador_id,)); ?>"><span class="glyphicon glyphicon-new-window"></span></a>\n\
-                            <a class="btn btn-xs btn-warning" title="Editar" href="<?php echo $this->url('grande-gerador', array("action" => "editar", "id" => $tipo_residuo->grande_gerador_id,)); ?>"><span class="glyphicon glyphicon-edit"></span></a>\n\
-                            <a class="btn btn-xs btn-danger" title="Deletar" href="<?php echo $this->url('grande-gerador', array("action" => "deletar", "id" => $tipo_residuo->grande_gerador_id,)); ?>"><span class="glyphicon glyphicon-floppy-remove"></span></a>\n\
-                        </td>\n\
-                    </tr>\n\
-            </tbody>')
-        event.preventDefault();
-    }
-
+ 
     function excluirResiduo(obj) {
 
         // Capturamos a referência da TR (linha) pai do objeto
@@ -284,6 +199,9 @@
     }
     
     function validarCNPJ(cnpj) {
+        
+      
+        //alert('entrou em valida cnpj')
  
     cnpj = cnpj.replace(/[^\d]+/g,'');
  
@@ -341,6 +259,18 @@
 
     function validaCadastro()
     {
+       // alert('valida cadastro')
+          var cnpj =   document.getElementById('inputCnpj').value;
+       
+//        if(!validarCNPJ(cnpj))
+//        {
+//              alert('CNPJ Inválido');
+//              event.preventDefault();
+//        }
+//        else
+//        {
+//            alert('CNPJ Válido');
+//        }
         emp_prestadora = document.getElementById('emp_prestadora_fk').value;
         if (emp_prestadora == 0) {
             alert("Selecione um empresa prestadora: " + emp_prestadora);

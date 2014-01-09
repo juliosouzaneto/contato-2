@@ -20,14 +20,19 @@ class ResiduosGeradosHasGrandeGerador {
    
 
     public function exchangeArray($data) {
+        
+          echo '<pre>';
+
+                var_dump($data);
+                echo '</pre>';
         // echo "<br> Entrou no construtor GrandeGerador";
-//        $this->residuos_gerados_grande_gerador_id = (!empty($data['residuos_gerados_grande_gerador_id'])) ? $data['residuos_gerados_grande_gerador_id'] : null;
-//        
-//        $this->residuos_gerados_grande_gerador_qtd_dia = (!empty($data['residuos_gerados_grande_gerador_qtd_dia'])) ? $data['residuos_gerados_grande_gerador_qtd_dia'] : null;
-//        $this->residuos_gerados_grande_gerador_peso_espc = (!empty($data['residuos_gerados_grande_gerador_peso_espc'])) ? $data['residuos_gerados_grande_gerador_peso_espc'] : null;
-//        $this->grande_gerador_fk = (!empty($data['grande_gerador_fk'])) ? $data['grande_gerador_fk'] : null;
-//        $this->residuo_fk = (!empty($data['residuo_fk'])) ? $data['residuo_fk'] : null;
-//        
+        $this->residuos_gerados_grande_gerador_id = (!empty($data['residuos_gerados_grande_gerador_id'])) ? $data['residuos_gerados_grande_gerador_id'] : null;
+        
+        $this->residuos_gerados_grande_gerador_qtd_dia = (!empty($data['residuos_gerados_grande_gerador_qtd_dia'])) ? $data['residuos_gerados_grande_gerador_qtd_dia'] : null;
+        $this->residuos_gerados_grande_gerador_peso_espc = (!empty($data['residuos_gerados_grande_gerador_peso_espc'])) ? $data['residuos_gerados_grande_gerador_peso_espc'] : null;
+        $this->grande_gerador_fk = (!empty($data['grande_gerador_fk'])) ? $data['grande_gerador_fk'] : null;
+        $this->residuo_fk = (!empty($data['residuo_fk'])) ? $data['residuo_fk'] : null;
+        
     }
 
 //    public $emp_prest_id;
