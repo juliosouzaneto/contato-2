@@ -9,6 +9,7 @@
         <div class="panel-body">
             <div class="form-group">
 
+                <input  type="hidden" name="grande_gerador_id" class="form-control" id="inputNomeFantasia" placeholder="Nome Completo" value="<?php echo $this->escapeHtml($this->form['grande_gerador_id']); ?>">
                 <div class="form-group">
                     <label for="inputTelefonePrincipal" class="col-lg-3 col-md-3 control-label">Empresa Prestadora</label>
                     <div class="col-lg-9  col-md-9">
@@ -91,45 +92,54 @@
         </div>
 
 
-
         <div class="panel-heading">
             <div class="panel-title">
                 Lixo Gerado         
             </div>
         </div>
-        <div class="panel-footer" title="Lixo Gerado">
-            <div class="panel-body">
-                <div class="form-group">
-                    <label for="inputTelefonePrincipal" class="col-lg-3 col-md-1 control-label">Resíduo Solídos</label>
-                    <div class="col-lg-9  col-md-9">
-                        <input type="text" name="grande_gerador_resp_legal" class="form-control" id="inputRespLegal" placeholder="Digite a os Resíduos Solídos" value="<?php echo $this->escapeHtml($this->form['grande_gerador_resp_legal']); ?>">
-                    </div>
+        <div class="corpo-table">
+            <table class="table table-striped table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>Tipo Resíduo</th>
+                        <th>Descrição</th>
+                        <th>Quantidade Gerada</th>
+                        <th>Peso Específico (kg/m3)</th>
+                        <th>Tipo de acodicionar</th>  
+                        <th>Nome da Cooperativa</th>  
+                        <th>Local de destinação dos resíduos</th>  
+                    </tr>
+                </thead>
 
-                </div>
-                <div class="form-group">
-                    <label for="inputTelefonePrincipal" class="col-lg-3 col-md-1 control-label">Resíduo Líquidos </label>
-                    <div class="col-lg-9  col-md-9">
-                        <input type="textarea" name="grande_gerador_resp_legal" class="form-control" id="inputRespLegal" placeholder="Digite a os Resíduo Líquidos" value="<?php echo $this->escapeHtml($this->form['grande_gerador_resp_legal']); ?>">
-                    </div>
-                    
-                    
-                    
+                <tbody>
+                    <tr>
+                        <td>Úmido</td>
+                        <td><textarea rows="3" cols="30" name="residuo_para_coleta_umido_desc" class="form-control" id="inputRespLegal" placeholder="Digite"></textarea></td>
+                        <td><input type="text" name="residuo_para_coleta_umido_qtd_gerada" class="form-control" id="inputRespLegal" placeholder="Digite"></td>
+                        <td><input type="text" name="residuo_para_coleta_umido_peso" class="form-control" id="inputRespLegal" placeholder="Digite"></td>
+                        <td><input type="text" name="residuo_para_coleta_umido_tipo_acodic" class="form-control" id="inputRespLegal" placeholder="Digite"></td>
+                        <td><input type="text" name="residuo_para_coleta_umido_nome_cooperativa" class="form-control" id="inputRespLegal" placeholder="Digite"></td>
+                        <td><input type="text" name="residuo_para_coleta_umido_local_destinacao" class="form-control" id="inputRespLegal" placeholder="Digite"></td>
 
-                </div>
-            </div>  
+                    </tr>
+                    <tr>
+                        <td>Secos</td>
+                        <td><textarea rows="3" cols="30" name="residuo_para_coleta_seco_desc" class="form-control" id="inputRespLegal" placeholder="Digite"></textarea></td>
+                        <td><input type="text" name="residuo_para_coleta_seco_qtd_gerada" class="form-control col-lg-2" id="inputRespLegal" placeholder="Digite"></td>
+                        <td><input type="text" name="residuo_para_coleta_seco_peso" class="form-control" id="inputRespLegal" placeholder="Digite"></td>
+                        <td><input type="text" name="residuo_para_coleta_seco_tipo_acodic" class="form-control" id="inputRespLegal" placeholder="Digite"></td>
+                        <td><input type="text" name="residuo_para_coleta_seco_nome_cooperativa" class="form-control" id="inputRespLegal" placeholder="Digite"></td>
+                        <td><input type="text" name="residuo_para_coleta_seco_local_destinacao" class="form-control" id="inputRespLegal" placeholder="Digite"></td>
+
+                    </tr>
+
+                </tbody>
+            </table>
+
 
         </div>
+   
 
-        <div class="form-group">
-            <label for="inputRespLegal" class="col-lg-3 col-md-1 control-label">Quantidade</label>
-            <div class="col-lg-2  col-md-2">
-                <input type="text" name="grande_gerador_resp_legal" class="form-control" id="inputRespLegal" placeholder="Digite seu telefone secundário(opcional)" value="<?php echo $this->escapeHtml($this->form['grande_gerador_resp_legal']); ?>">
-            </div>
-            <label for="inputRespLegal" class="col-lg-0 col-md-1 control-label">Peso</label>
-            <div class="col-lg-3  col-md-3">
-                <input type="text" name="grande_gerador_resp_legal" class="form-control" id="inputRespLegal" placeholder="Digite seu telefone secundário(opcional)" value="<?php echo $this->escapeHtml($this->form['grande_gerador_resp_legal']); ?>">
-            </div>
-        </div>
 
 </div>
 
