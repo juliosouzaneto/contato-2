@@ -1,0 +1,69 @@
+
+
+</script>
+
+
+<div class="panel panel-primary col-lg-6 col-md-6 " style="   left: 270px; top: 20px; /* posiciona a 70px para baixo */">
+
+    <div class="panel-heading ">
+        <div class="panel-title">
+            Pendências                 
+        </div>
+    </div  >
+    <form class="form-horizontal " role="form" method="POST" action="<?php echo $this->url('grande-gerador', array('action' => 'autenticar')); ?>">
+        <div class="panel-body">
+            <div class="form-group">
+
+                <div class="form-group">
+                    <label for="inputCnpj" class="col-lg-3 col-md-3 control-label">Email</label>
+                    <div class="col-lg-9  col-md-9">
+                        <input type="text" name="grande_gerador_email" class="form-control cnpj" id="inputCnpj"  value="<?php echo $this->escapeHtml($this->form['grande_gerador_email']); ?>">                </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputCnpj" class="col-lg-3 col-md-3 control-label">Descrição Pendência</label>
+                    <div class="col-lg-9  col-md-9">
+                        <textarea rows="10" cols="150" name="residuo_para_coleta_solido_desc" class="form-control " id="inputRespLegal" placeholder="Digite">
+                            
+                        </textarea>
+                    </div>
+                </div>
+
+                <div class="panel-footer">
+                    <button type="submit" class="btn btn-primary " onclick="validaCadastro()" > Confirmar</button>
+                    <a href="<?php echo $this->url('grande-gerador'); ?>" class="btn btn-primary">Cancelar</a> 
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+
+<script type="text/javascript">
+
+    <?php $this->headScript()->captureStart(); ?>
+
+    $(document).ready(function() {
+        // jQuery.noConflict();
+        // alert('Teste');
+
+        $('.inscricao-estadual').mask("999.999.999.999");
+
+    });
+
+
+    function validaCadastro()
+    {
+        // alert('valida cadastro')
+        var cnpj = document.getElementById('inputCnpj').value;
+
+        if (!validarCNPJ(cnpj))
+        {
+            alert('CNPJ Inválido');
+            event.preventDefault();
+        }
+
+    }
+
+
+    <?php $this->headScript()->captureEnd(); ?>

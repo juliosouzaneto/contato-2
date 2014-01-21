@@ -7,14 +7,13 @@
  */
 return array(
     'modules' => array(
-       
-      //  'ZendDeveloperTools',
-      //  'BjyProfiler',
+        'Application',
+     //   'ZendDeveloperTools',
+     //   'BjyProfiler',
         'Prestadora',
-        'Contato',
-         'Application',
-         'Residuo',
-         'GrandeGerador',
+     //   'Contato',
+        'Residuo',
+        'GrandeGerador',
         
          
         ),

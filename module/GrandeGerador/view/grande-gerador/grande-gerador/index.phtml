@@ -1,5 +1,5 @@
 <div class="topo-table">
-    <a href="<?php echo $this->url('grande-gerador', array('action' => 'novo')) ?>" class="btn btn-success" title="Novo"><span class="glyphicon glyphicon-plus"></span></a>
+    <a href="<?php echo $this->url('grande-gerador', array('action' => 'login')) ?>" class="btn btn-success" title="Novo"><span class="glyphicon glyphicon-plus"></span></a>
 
     <div class="btn-group" title="Quantidades por Página">
         <button type="button" class="btn btn-default">005</button>
@@ -13,15 +13,16 @@
             <li><a href="#">050</a></li>
             <li><a href="#">100</a></li>
         </ul>
-    </div>
 
-    <form class="form-inline pull-right" role="form">
-        <div class="form-group">
-            <label class="sr-only" for="localizar">Buscar...</label>
-            <input type="search" class="form-control" id="localizar" placeholder="Bucar...">
-        </div>
-        <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
-    </form>
+
+        <form class="form-inline pull-right" role="form">
+            <div class="form-group">
+                <label class="sr-only" for="localizar">Buscar...</label>
+                <input type="search" class="form-control" id="localizar" placeholder="Bucar...">
+            </div>
+            <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
+        </form>
+    </div>
 </div>
 
 <br />
@@ -33,7 +34,8 @@
                 <th>Codigo</th>
                 <th>Nome Fantasia</th>
                 <th>CNPJ</th>
-                <th>Inscrição Estadual</th>
+                <th>Razão Social</th>
+                <th>Situação</th>
                 <th>Ação</th>  
             </tr>
         </thead>
@@ -45,26 +47,44 @@
                     <td><?php echo $this->escapeHtml($tipo_residuo->grande_gerador_nome_fantasia); ?></td>
                     <td><?php echo $this->escapeHtml($tipo_residuo->grande_gerador_cnpj); ?></td>
                     <td><?php echo $this->escapeHtml($tipo_residuo->grande_gerador_razao_social); ?></td>
-
-
                     <td>
-                        <a class="btn btn-xs btn-info" title="Visualizar" href="<?php echo $this->url('grande-gerador', array("action" => "detalhes", "id" => $tipo_residuo->grande_gerador_id,)); ?>"><span class="glyphicon glyphicon-new-window"></span></a>
-                        <a class="btn btn-xs btn-warning" title="Editar" href="<?php echo $this->url('grande-gerador', array("action" => "autenticar", "id" => $tipo_residuo->grande_gerador_id,)); ?>"><span class="glyphicon glyphicon-edit"></span></a>
-                        <a class="btn btn-xs btn-danger" title="Deletar" href="<?php echo $this->url('grande-gerador', array("action" => "deletar", "id" => $tipo_residuo->grande_gerador_id,)); ?>"><span class="glyphicon glyphicon-floppy-remove"></span></a>
+                        <select class=" col-lg-2 form-control" name="grande_gerador_situacao" id="grande_gerador_situacao<?php echo $this->escapeHtml($tipo_residuo->grande_gerador_id); ?>" itemscope="4564"  
+                                onclick="atualizaSituacao(document.getElementById('grande_gerador_situacao<?php echo $this->escapeHtml($tipo_residuo->grande_gerador_id); ?>'), <?php echo $this->escapeHtml($tipo_residuo->grande_gerador_id); ?>)">
+                            <option value="<?php echo $this->escapeHtml($tipo_residuo->grande_gerador_situacao); ?>"><?php echo $this->escapeHtml($tipo_residuo->grande_gerador_situacao); ?></option>
+                            <option value="Analisar">Analisar</option>
+                            <option value="Analisando">Analisando</option>
+                            <option value="Pendente">Pendente</option>
+                            <option value="Deferido">Deferido</option>
+                            <option value="Concluido">Concluido</option>
+                        </select>
+
+                        <div class="col-lg-9  col-md-9"  id="pendencia<?php echo $this->escapeHtml($tipo_residuo->grande_gerador_id); ?>" 
+                             style="display:<?php if($tipo_residuo->grande_gerador_situacao == 'Pendente'){ echo 'block'; }
+                                                  else {echo 'none';}; ?>; color: red;">
+                            <a href="<?php echo $this->url('grande-gerador', array("action" => "pendencia", "id" => $tipo_residuo->grande_gerador_id,)); ?>" class="btn btn-primary">Pendência</a>
+                            
+                        </div>
+                        <!-- Input para guardar o valor anterior do combobox situação   -->
+                        <input  type="hidden" id="flag_situacao<?php echo $this->escapeHtml($tipo_residuo->grande_gerador_id); ?>" name="flag_situacao<?php echo $this->escapeHtml($tipo_residuo->grande_gerador_id); ?>" value="<?php echo $this->escapeHtml($tipo_residuo->grande_gerador_situacao); ?>">
+
+                    </td>
+                    <td>
+                        <a class="btn btn-primary btn-warning   " title="Editar" href="<?php echo $this->url('grande-gerador', array("action" => "autenticar", "id" => $tipo_residuo->grande_gerador_id,)); ?>"><span class="glyphicon glyphicon-edit"></span></a>
+                        <a class="btn btn-primary btn-danger " title="Deletar" href="<?php echo $this->url('grande-gerador', array("action" => "deletar", "id" => $tipo_residuo->grande_gerador_id,)); ?>"><span class="glyphicon glyphicon-floppy-remove"></span></a>
                     </td>
                 </tr>
             <?php endforeach; ?>
         </tbody>
     </table>
 
-    <ul class="pagination pull-right">
-        <li><a href="#">Anterior</a></li>
-        <li class="active"><a href="#">1</a></li>
-        <li><a href="#">2</a></li>
-        <li><a href="#">3</a></li>
-        <li><a href="#">4</a></li>
-        <li><a href="#">Próximo</a></li>
-    </ul>
+    <!--   <ul class="pagination pull-right">
+           <li><a href="#">Anterior</a></li>
+           <li class="active"><a href="#">1</a></li>
+           <li><a href="#">2</a></li>
+           <li><a href="#">3</a></li>
+           <li><a href="#">4</a></li>
+           <li><a href="#">Próximo</a></li>
+       </ul>-->
 </div>
 
 
@@ -72,16 +92,136 @@
 <script>
 <?php $this->headScript()->captureStart(); ?>
 
+
+    function atualizaSituacao(valor, id) {
+
+        var s = valor.value;
+       //  alert(s);
+       
+         var flag_situacao1 = "flag_situacao";
+         var flag_situacao2 = flag_situacao1.concat(id);
+         
+         
+         var pend = "#pendencia";
+         var pendencia = pend.concat(id);
+         
+         /** var flag_situacao1 = "flag_situacao";
+         var flag_situacao2 = flag_situacao1.concat(id);
+          * a variavel value_flag_situacao recebe  o valor do input text flag situação
+          * será usado usado este valor para colocar no value do combobox situação 
+          * caso o usuário clique em cancelar quando estiver alterando a situação
+          */
+         var value_flag_situacao = document.getElementById(flag_situacao2).value;
+         var id_value_flag_situacao = document.getElementById(flag_situacao2);
+       //  flag_situacao.concat(id);
+         
+        // alert(flag_situacao1.concat(id));
+         
+         //alert(value_flag_situacao);
+
+         //valor.style.backgroundColor = "#00ff99"
+
+        var mensagem = "Deseja realmente alterar a situação deste grande gerador?";
+        // variável com resposta da mensagem colocada na janela
+        var confirmacao = confirm(mensagem);
+
+        // se a confirmação for false o fluxo é interrompido
+        if (!confirmacao) {
+            valor.value = value_flag_situacao;
+            
+           // $(valor).value(value_flag_situacao);
+            // elimar o evendo do botão clicado
+            event.preventDefault();
+            
+        }
+        else
+        {
+            /**
+             * o valor da variável flag situação é alterado para o novo valor selecionado na 
+             * combobox situação
+             */
+            id_value_flag_situacao.value = s;
+            if (s == 'Pendente') {
+                $(pendencia).show();
+                
+                //alert('Display pendente');
+              //  alert(pendencia);
+                //pendencia.style.backgroundColor = "#00ff99";
+                //pendencia.style.border = "1px";
+               // alert('Display pendente');
+               //  $(pendencia).show();
+                //pendencia.style.display = "none";
+               // $(pendencia).hide();
+            }
+            else
+            {
+                 $(pendencia).hide();
+            }
+            //  $(valor).css('border', 'solid 1px red');
+            // $('#'.concat(valor)).css('border', 'solid 1px red');
+            $.ajax({
+                type: 'post',
+                cache: false,
+                data: {id: id, situacao: s},
+                url: 'ajax/situacao.php',
+                beforeSend: function() {
+                },
+                success: function(data) {
+                    //   alert(' achou o PHP');
+                    //   alert(data)
+                    //  $('#residuo_id').html(data);
+                    console.log(data);
+
+                },
+                error: function() {
+                    // alert(data);
+
+                    alert('Nao achou o PHP')
+                }
+            });
+
+
+
+            alert(data);
+        }
+
+
+
+
+        //$('#grande_gerador_').css('border', 'solid 1px red');
+
+        // Função responsável por inserir linhas na tabela
+        //$("select[name=grande_gerador_situacao]").html('<option value="0"> Escolha algo </option>')
+
+
+
+//
+//
+//        var url = "GrandeGeradorController.php?campo=" + campo;
+//
+//        // Chamada do método open para processar a requisição
+//        req.open("Get", url, true);
+
+
+        // document.location.href = "http://www.teste.com.br" + campo.options[campo.selectedIndex].value;
+    }
+
+
     $(function() {
+
+        //$('#grande_gerador_situacao').css('border', 'solid 1px red');
+
+
+        //$('#grande_gerador_situacao').val(<?php echo $this->escapeHtml($this->form['grande_gerador_situacao']); ?>);
         // variável para conter a url deletar
         var url_deletar = '<?php echo $this->url('grande-gerador', array("action" => "deletar")); ?>' + '/';
-        
+
         // qualquer link que tiver a url deletar vai sofrer um evento quando for clicada
         $("a[href*='" + url_deletar + "']").click(function(event) {
             // variável contendo o id referente ao botão clicado
             var contato_id = $(this).attr('href').split(url_deletar).pop();
             // variável contendo mensagem da janela
-            var mensagem = "Deseja realmente apagar o contato de ID " + contato_id + "?";
+            var mensagem = "Deseja realmente apagar o este grande gerador?";
             // variável com resposta da mensagem colocada na janela
             var confirmacao = confirm(mensagem);
 

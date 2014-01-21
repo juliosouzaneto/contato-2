@@ -1,28 +1,4 @@
-<div class="panel panel-primary col-lg-6 col-md-6 " style="position:  absolute; left: 270px; top: 200px; /* posiciona a 70px para baixo */">
 
-    <div class="panel-heading ">
-        <div class="panel-title">
-            Tela   Autencicacao   Grande   Gerador           
-        </div>
-    </div  >
-    <form class="form-horizontal " role="form" method="POST" action="<?php echo $this->url('grande-gerador', array('action' => 'autenticar')); ?>">
-        <div class="panel-body">
-            <div class="form-group">
-
-                <div class="form-group">
-                    <label for="inputCnpj" class="col-lg-3 col-md-3 control-label">Informe seu CNPJ</label>
-                    <div class="col-lg-9  col-md-9">
-                        <input type="text" name="grande_gerador_cnpj" class="form-control cnpj" id="inputCnpj" placeholder="Digite seu telefone principal" value="<?php echo $this->escapeHtml($this->form['grande_gerador_cnpj']); ?>">                </div>
-                </div>
-
-                <div class="panel-footer">
-                    <button type="submit" class="btn btn-primary " onclick="validaCadastro()" > Confirmar</button>
-                    <a href="<?php echo $this->url('grande-gerador'); ?>" class="btn btn-default">Cancelar</a>
-                </div>
-            </div>
-        </div>
-    </form>
-</div>
 
 <script type="text/javascript">
 
@@ -47,161 +23,12 @@
     });
 
  
-    function excluirResiduo(obj) {
 
-        // Capturamos a referência da TR (linha) pai do objeto
-        var objTR = obj.parentNode.parentNode;
-        // Capturamos a referência da TABLE (tabela) pai da linha
-        var objTable = objTR.parentNode;
-        // Capturamos o índice da linha
-        var indexTR = objTR.rowIndex;
-        // Chamamos o método de remoção de linha nativo do JavaScript, passando como parâmetro o índice da linha  
-        objTable.deleteRow(indexTR);
-        // Exibe uma mensagem de confirmação da remoção
-        alert("Remoção Efetuada com Sucesso!!");
-
-        // Insere uma coluna na nova linha 
-    }
-
-    function atualizaComboResidio(campo) {
-
-        alert(campo);
-
-        // Função responsável por inserir linhas na tabela
-        $("select[name=residuo_fk]").html('<option value="0"> Escolha algo </option>')
-
-        //$("select[name=residuo_id]").html('<option  value="<?= $residuo->residuo_id ?>">  <?php echo $this->escapeHtml($residuo->residuo_descricao); ?></option>')
-//        $.ajax({
-//            type: 'post',
-//            cache: false,
-//            data: {campo: campo, tipo: 1},
-//            url: '/ajax/residuos.php',
-//            beforeSend: function() {
-//            },
-//            success: function(data) {
-//
-//                $('#residuo_id').html(data);
-//                console.log(data);
-//
-//            },
-//            error: function() {
-//                alert('Nao achou o PHP')
-//            }
-//        });
-        $.ajax({
-            type: 'post',
-            cache: false,
-            data: {campo: campo, tipo: 1},
-            url: '/grande-gerador/lista',
-            beforeSend: function() {
-            },
-            success: function(data) {
-
-                $('#residuo_id').html(data);
-                console.log(data);
-
-            },
-            error: function() {
-                alert('Nao achou o PHP')
-            }
-        });
-
-//    $e=1;
-//    $.ajax({
-//        type: 'post',
-//        cache: false,
-//        data: {campo: campo},
-//        url: '<?php echo $this->url('grande-gerador', array("action" => "detalhes", "id" => $residuo->residuo_id)); ?>"',
-//        beforeSend: function() {},
-//        success: function(data) {
-//            
-//            $('#residuo_id').html(data);
-//            console.log(data);
-//            
-//        },
-//        error: function() {alert('Nao achou o PHP')}
-//    });
-
-        // Aqui vai o valor e o nome do campo que pediu a requisição.
-        var url = "GrandeGeradorController.php?campo=" + campo;
-
-        // Chamada do método open para processar a requisição
-        req.open("Get", url, true);
-
-
-        // document.location.href = "http://www.teste.com.br" + campo.options[campo.selectedIndex].value;
-    }
-
-    function salvarResiduoBanco() {
-
-        // alert(campo);
-
-
-        var table = document.getElementById("tabela_residuos");
-        // var selectTipoResiduo = document.getElementById("tipo_residuo_fk") ;
-        var selectTipoResiduo = document.getElementById("tipo_residuo_fk").options[document.getElementById("tipo_residuo_fk").selectedIndex].text;
-        var selectTipoResiduoCod = document.getElementById("tipo_residuo_fk").value;
-        var selectResiduo = document.getElementById("residuo_id").options[document.getElementById("residuo_id").selectedIndex].text; //pega a descrição do resíduo
-        var selectResiduoCod = document.getElementById("residuo_id").value; //pega o código do resíduo
-
-        var inputQtdResiduo = document.getElementById("tipo_residuo_fk");
-        var inputPesoResiduo = document.getElementById("tipo_residuo_fk");
-        // Captura a quantidade de linhas já existentes na tabela
-        var numOfRows = table.rows.length;
-        // Captura a quantidade de colunas da última linha da tabela
-        var numOfCols = table.rows[numOfRows - 1].cells.length;
-        // Insere uma linha no fim da tabela.
-        var newRow = table.insertRow(numOfRows);
-
-        var numOfCols;
-
-        var residuosHasGerador = new Array();
-        // Faz um loop para criar as colunas
-        for (var i = 0; i < numOfRows; i++) {
-            numOfCols = table.rows[i - 1].cells.length;//captura a primeira linha
-            // Insere uma linha no fim da tabela.
-            var newRow = table.insertRow(numOfRows);
-
-            for (var j = 0; j < numOfCols; j++) {
-                console.log(numOfCols[j].toString());
-                // Insere uma coluna na nova linha 
-//                residuosHasGerador[0] = table.
-//                newCell.
-//                // Insere um conteúdo na coluna
-//                newCell.innerHTML = "Linha " + numOfRows + " – Coluna " + j;
-            }
-            event.preventDefault();
-        }
-
-
-
-
-        // Função responsável por inserir linhas na tabela
-        $("select[name=residuo_fk]").html('<option value="0"> Escolha algo </option>')
-
-        $.ajax({
-            type: 'post',
-            cache: false,
-            data: {campo: campo, tipo: 1},
-            url: '/grande-gerador/lista',
-            beforeSend: function() {
-            },
-            success: function(data) {
-
-                $('#residuo_id').html(data);
-                console.log(data);
-
-            },
-            error: function() {
-                alert('Nao achou o PHP')
-            }
-        });
-    }
     
     function validarCNPJ(cnpj) {
         
       
-        //alert('entrou em valida cnpj')
+       // alert('entrou em valida cnpj')
  
     cnpj = cnpj.replace(/[^\d]+/g,'');
  
@@ -262,20 +89,12 @@
        // alert('valida cadastro')
           var cnpj =   document.getElementById('inputCnpj').value;
        
-//        if(!validarCNPJ(cnpj))
-//        {
-//              alert('CNPJ Inválido');
-//              event.preventDefault();
-//        }
-//        else
-//        {
-//            alert('CNPJ Válido');
-//        }
-        emp_prestadora = document.getElementById('emp_prestadora_fk').value;
-        if (emp_prestadora == 0) {
-            alert("Selecione um empresa prestadora: " + emp_prestadora);
-            event.preventDefault();
+        if(!validarCNPJ(cnpj))
+        {
+              alert('CNPJ Inválido');
+              event.preventDefault();
         }
+  
     }
     $(function() {
         // variável para conter a url deletar
@@ -300,3 +119,31 @@
 <?php $this->headScript()->captureEnd(); ?>
 
 </script>
+
+
+<div class="panel panel-primary col-lg-6 col-md-6 " style="   left: 270px; top: 20px; /* posiciona a 70px para baixo */">
+
+    <div class="panel-heading ">
+        <div class="panel-title">
+            Autenticação   Gerador de Resíduos              
+        </div>
+    </div  >
+    <form class="form-horizontal " role="form" method="POST" action="<?php echo $this->url('grande-gerador', array('action' => 'autenticar')); ?>">
+        <div class="panel-body">
+            <div class="form-group">
+
+                <div class="form-group">
+                    <label for="inputCnpj" class="col-lg-3 col-md-3 control-label">Informe seu CNPJ</label>
+                    <div class="col-lg-9  col-md-9">
+                        <input type="text" name="grande_gerador_cnpj" class="form-control cnpj" id="inputCnpj" placeholder="Digite seu CNPJ (Campo Obrigatório)" value="<?php echo $this->escapeHtml($this->form['grande_gerador_cnpj']); ?>">                </div>
+                </div>
+
+                <div class="panel-footer">
+                    <button type="submit" class="btn btn-primary " onclick="validaCadastro()" > Confirmar</button>
+                   <!-- <a href="<?php echo $this->url('grande-gerador'); ?>" class="btn btn-default">Cancelar</a> -->
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+

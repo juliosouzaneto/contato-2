@@ -11,14 +11,14 @@ return array(
 # definir e gerenciar rotas
     'router' => array(
         'routes' => array(
-            # literal para action index home;
+            # literal para action index home
             'home' => array(
                 'type' => 'Literal',
                 'options' => array(
                     'route' => '/',
                     'defaults' => array(
-                        'controller' => 'GrandeGeradorController',
-                        'action' => 'login',
+                        'controller' => 'HomeController',
+                        'action' => 'index',
                     ),
                 ),
             ),
@@ -28,7 +28,7 @@ return array(
                 'options' => array(
                     'route' => '/sobre',
                     'defaults' => array(
-                        'controller' => 'GrandeGeradorController',
+                        'controller' => 'HomeController',
                         'action' => 'sobre',
                     ),
                 ),

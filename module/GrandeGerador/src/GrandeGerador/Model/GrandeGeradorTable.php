@@ -21,73 +21,77 @@ class GrandeGeradorTable {
         // $grandegerador->grande_gerador_id= 13;
         //$grandegerador->emp_prestadora_fk = 6;
         echo '<br>código emp_prestadora_fk ';
-        //echo $grandegerador->emp_prestadora_fk;
-       //$grandegerador2 = new GrandeGerador();
-
-     //   $grandegerador2 = (\GrandeGerador) $this->findCnpj($grandegerador->grande_gerador_cnpj);
-      //  $grandegerador->grande_gerador_id =  $grandegerador2->g;
-
         print_r($grandegerador->emp_prestadora_fk);
         echo '<br>código grande gerador ';
         print_r($grandegerador);
         // print_r($grandegerador->grande_gerador_razao_social);
-
         $data = array(
             'grande_gerador_razao_social' => $grandegerador->grande_gerador_razao_social,
-            //'grande_gerador_nome_fantasia' => "editou",
-            'grande_gerador_nome_fantasia' => $grandegerador->grande_gerador_nome_fantasia,
             'grande_gerador_cnpj' => $grandegerador->grande_gerador_cnpj,
-            'emp_prestadora_fk' => $grandegerador->emp_prestadora_fk,
             'grande_gerador_endereco' => $grandegerador->grande_gerador_endereco,
+            'grande_gerador_rua' => $grandegerador->grande_gerador_rua,
             'grande_gerador_cep' => $grandegerador->grande_gerador_cep,
+            'grande_gerador_telefone' => $grandegerador->grande_gerador_telefone,
+            'grande_gerador_email' => $grandegerador->grande_gerador_email,
+            'grande_gerador_resp_legal' => $grandegerador->grande_gerador_resp_legal,
+            'grande_gerador_nome_fantasia' => $grandegerador->grande_gerador_nome_fantasia,
+            'grande_gerador_situacao' => $grandegerador->grande_gerador_situacao,
+            'emp_prestadora_fk' => $grandegerador->emp_prestadora_fk,
                 // 'descricao' => strtoupper($grandegerador->descricao)
         );
 
+
+//        echo '<pre>';
+//        var_dump($data);
+//        echo '<pre>';
+//        exit();
+
         echo "<br>Metodo saveGrandeGerador";
+        try {
+            // $this->tableGateway->update(array('grande_gerador_id' => $grandegerador->grande_gerador_id));
+            $this->tableGateway->insert($data);
+        } catch (Exception $e) {
+            $pdoException = $e->getPrevious();
+            var_dump($e);
+            echo "<br>exceção ao salvar";
+            //  exit;
+        }
+    }
 
-        $codGerador =  $grandegerador->grande_gerador_id;
+    public function atualizarGrandeGerador(GrandeGerador $grandegerador) {
 
-        if (!$grandegerador->grande_gerador_id) {
+        echo '<br>código emp_prestadora_fk ';
+        print_r($grandegerador->emp_prestadora_fk);
+        echo '<br>código grande gerador ';
+        print_r($grandegerador);
+        // print_r($grandegerador->grande_gerador_razao_social);
+        $data = array(
+            'grande_gerador_razao_social' => $grandegerador->grande_gerador_razao_social,
+            'grande_gerador_cnpj' => $grandegerador->grande_gerador_cnpj,
+            'grande_gerador_endereco' => $grandegerador->grande_gerador_endereco,
+            'grande_gerador_rua' => $grandegerador->grande_gerador_rua,
+            'grande_gerador_cep' => $grandegerador->grande_gerador_cep,
+            'grande_gerador_telefone' => $grandegerador->grande_gerador_telefone,
+            'grande_gerador_email' => $grandegerador->grande_gerador_email,
+            'grande_gerador_resp_legal' => $grandegerador->grande_gerador_resp_legal,
+            'grande_gerador_nome_fantasia' => $grandegerador->grande_gerador_nome_fantasia,
+            'grande_gerador_situacao' => $grandegerador->grande_gerador_situacao,
+            'emp_prestadora_fk' => $grandegerador->emp_prestadora_fk,
+                // 'descricao' => strtoupper($grandegerador->descricao)
+        );
+        echo "<br>Metodo atualizar grande gerador";
 
-
-            try {
-                // $this->tableGateway->update(array('grande_gerador_id' => $grandegerador->grande_gerador_id));
-                $this->tableGateway->insert($data);
-
-                return 'inseriu';
-//                echo '<pre>';
-//                var_dump($grandegerador->grande_gerador_id);
-//                echo '<pre>';
-            } catch (Exception $e) {
-                $pdoException = $e->getPrevious();
-                var_dump($e);
-                echo "<br>exceção ao salvar";
-                //  exit;
-            }
-        } else {
-
-            print_r($codGerador);
-           //  exit;
-            try {
-                  $this->tableGateway->update($data, array('grande_gerador_id' => $codGerador));
-//                echo '<pre>';
-//                var_dump($data);
-//                echo '<pre>';
-
-                // $this->tableGateway->update(array('grande_gerador_id' => $grandegerador->grande_gerador_id));
-               
-
-                 
-                return 'atualizou';
-            } catch (Exception $e) {
-
-                echo '<pre>';
-                var_dump($e);
-                echo '<pre>';
-                exit;
-                throw new \Exception("Grande Gerador ID# $codGerador não lozalizado no banco de dados!");
-                exit;
-            }
+        $codGerador = $grandegerador->grande_gerador_id;
+        //  exit;
+        try {
+            $this->tableGateway->update($data, array('grande_gerador_id' => $codGerador));
+        } catch (Exception $e) {
+            echo '<pre>';
+            var_dump($e);
+            echo '<pre>';
+            exit;
+            throw new \Exception("Grande Gerador ID# $codGerador não lozalizado no banco de dados!");
+            exit;
         }
     }
 
@@ -122,7 +126,7 @@ class GrandeGeradorTable {
      * @return ResultSet
      */
     public function fetchAll() {
-        echo "<br> Entrou no metódo fetchall GrandeGeradorTable";
+      //  echo "<br> Entrou no metódo fetchall GrandeGeradorTable";
         return $this->tableGateway->select();
     }
 

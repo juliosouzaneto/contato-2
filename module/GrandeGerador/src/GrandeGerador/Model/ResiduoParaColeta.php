@@ -18,12 +18,12 @@ class ResiduoParaColeta {
     public $residuo_para_coleta_umido_tipo_acodic;
     public $residuo_para_coleta_umido_nome_cooperativa;
     public $residuo_para_coleta_umido_local_destinacao;
-    public $residuo_para_coleta_seco_desc;
-    public $residuo_para_coleta_seco_qtd_gerada;
-    public $residuo_para_coleta_seco_peso;
-    public $residuo_para_coleta_seco_tipo_acodic;
-    public $residuo_para_coleta_seco_nome_cooperativa;
-    public $residuo_para_coleta_seco_local_destinacao;
+    public $residuo_para_coleta_solido_desc;
+    public $residuo_para_coleta_solido_qtd_gerada;
+    public $residuo_para_coleta_solido_peso;
+    public $residuo_para_coleta_solido_tipo_acodic;
+    public $residuo_para_coleta_solido_nome_cooperativa;
+    public $residuo_para_coleta_solido_local_destinacao;
     public $grande_gerador_fk;
 
     public function exchangeArray($data) {
@@ -34,13 +34,13 @@ class ResiduoParaColeta {
         $this->residuo_para_coleta_umido_peso = (!empty($data['residuo_para_coleta_umido_peso'])) ? $data['residuo_para_coleta_umido_peso'] : null;
         $this->residuo_para_coleta_umido_tipo_acodic = (!empty($data['residuo_para_coleta_umido_tipo_acodic'])) ? $data['residuo_para_coleta_umido_tipo_acodic'] : null;
         $this->residuo_para_coleta_umido_nome_cooperativa = (!empty($data['residuo_para_coleta_umido_nome_cooperativa'])) ? $data['residuo_para_coleta_umido_nome_cooperativa'] : null;
-        $this->residuo_para_coleta_umido_local_destinacao = (!empty($data['residuo_para_coleta_umido_nome_cooperativa'])) ? $data['residuo_para_coleta_umido_nome_cooperativa'] : null;
-        $this->residuo_para_coleta_seco_desc = (!empty($data['residuo_para_coleta_seco_desc'])) ? $data['residuo_para_coleta_seco_desc'] : null;
-        $this->residuo_para_coleta_seco_qtd_gerada = (!empty($data['residuo_para_coleta_seco_qtd_gerada'])) ? $data['residuo_para_coleta_seco_qtd_gerada'] : null;
-        $this->residuo_para_coleta_seco_peso = (!empty($data['residuo_para_coleta_seco_peso'])) ? $data['residuo_para_coleta_seco_peso'] : null;
-        $this->residuo_para_coleta_seco_tipo_acodic = (!empty($data['residuo_para_coleta_seco_tipo_acodic'])) ? $data['residuo_para_coleta_seco_tipo_acodic'] : null;
-        $this->residuo_para_coleta_seco_nome_cooperativa = (!empty($data['residuo_para_coleta_seco_nome_cooperativa'])) ? $data['residuo_para_coleta_seco_nome_cooperativa'] : null;
-        $this->residuo_para_coleta_seco_local_destinacao = (!empty($data['residuo_para_coleta_seco_local_destinacao'])) ? $data['residuo_para_coleta_seco_local_destinacao'] : null;
+        $this->residuo_para_coleta_umido_local_destinacao = (!empty($data['residuo_para_coleta_umido_local_destinacao'])) ? $data['residuo_para_coleta_umido_local_destinacao'] : null;
+        $this->residuo_para_coleta_solido_desc = (!empty($data['residuo_para_coleta_solido_desc'])) ? $data['residuo_para_coleta_solido_desc'] : null;
+        $this->residuo_para_coleta_solido_qtd_gerada = (!empty($data['residuo_para_coleta_solido_qtd_gerada'])) ? $data['residuo_para_coleta_solido_qtd_gerada'] : null;
+        $this->residuo_para_coleta_solido_peso = (!empty($data['residuo_para_coleta_solido_peso'])) ? $data['residuo_para_coleta_solido_peso'] : null;
+        $this->residuo_para_coleta_solido_tipo_acodic = (!empty($data['residuo_para_coleta_solido_tipo_acodic'])) ? $data['residuo_para_coleta_solido_tipo_acodic'] : null;
+        $this->residuo_para_coleta_solido_nome_cooperativa = (!empty($data['residuo_para_coleta_solido_nome_cooperativa'])) ? $data['residuo_para_coleta_solido_nome_cooperativa'] : null;
+        $this->residuo_para_coleta_solido_local_destinacao = (!empty($data['residuo_para_coleta_solido_local_destinacao'])) ? $data['residuo_para_coleta_solido_local_destinacao'] : null;
         $this->grande_gerador_fk = (!empty($data['grande_gerador_fk'])) ? $data['grande_gerador_fk'] : null;
         //        echo '<pre>';
 //

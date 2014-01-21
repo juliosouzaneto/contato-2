@@ -1,8 +1,10 @@
+
+
 <div class="panel panel-primary">
 
     <div class="panel-heading">
         <div class="panel-title">
-            Tela Cadastro Grande Gerador           
+            Cadastro Grande Gerador de Resíduos           
         </div>
     </div>
     <form class="form-horizontal" role="form" method="POST" action="<?php echo $this->url('grande-gerador', array('action' => 'adicionar')); ?>">
@@ -10,6 +12,9 @@
             <div class="form-group">
 
                 <input  type="hidden" name="grande_gerador_id" class="form-control" id="inputNomeFantasia" placeholder="Nome Completo" value="<?php echo $this->escapeHtml($this->form['grande_gerador_id']); ?>">
+                <input  type="hidden" name="residuo_para_coleta_id" class="form-control" id="inputNomeFantasia" placeholder="Nome Completo" value="<?php echo $this->residuoParaColeta->residuo_para_coleta_id ?>">
+                <input  type="hidden" name="grande_gerador_fk" class="form-control" id="inputNomeFantasia" placeholder="Nome Completo" value="<?php echo $this->residuoParaColeta->grande_gerador_fk ?>">
+
                 <div class="form-group">
                     <label for="inputTelefonePrincipal" class="col-lg-3 col-md-3 control-label">Empresa Prestadora</label>
                     <div class="col-lg-9  col-md-9">
@@ -28,14 +33,14 @@
                 <div class="form-group">
                     <label for="inputNomeFantasia" class="col-lg-3 col-md-3 control-label">Nome Fantasia</label>
                     <div class="col-lg-9 col-md-9">
-                        <input type="text" name="grande_gerador_nome_fantasia" class="form-control" id="inputNomeFantasia" placeholder="Nome Completo" value="<?php echo $this->escapeHtml($this->form['grande_gerador_nome_fantasia']); ?>">
+                        <input type="text" name="grande_gerador_nome_fantasia" class="form-control" id="grande_gerador_nome_fantasia" placeholder="Digite o Nome Fantasia" value="<?php echo $this->escapeHtml($this->form['grande_gerador_nome_fantasia']); ?>">
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="inputRazaoSocial" class="col-lg-3 col-md-3 control-label">Razão Social</label>
+                    <label for="inputRazaoSocial" class="col-lg-3 col-md-3 control-label">Razao Social</label>
                     <div class="col-lg-9  col-md-9">
-                        <input type="text" name="grande_gerador_razao_social" class="form-control" id="inputRazaoSocial" placeholder="Digite seu telefone principal"  />      
+                        <input type="text" name="grande_gerador_razao_social" class="form-control" id="grande_gerador_razao_social" placeholder="Digite a Razao Social"  value="<?php echo $this->escapeHtml($this->form['grande_gerador_razao_social']); ?>"> 
                     </div>
                 </div>
 
@@ -50,41 +55,46 @@
                 <div class="form-group">
                     <label for="inputRua" class="col-lg-3 col-md-3 control-label">Rua</label>
                     <div class="col-lg-9  col-md-9">
-                        <input type="text" name="grande_gerador_rua" class="form-control" id="inputTelefoneSecundario" placeholder="Digite seu telefone secundário(opcional)" value="<?php echo $this->escapeHtml($this->form['grande_gerador_rua']); ?>">
+                        <input type="text" name="grande_gerador_rua" class="form-control" id="inputTelefoneSecundario" placeholder="Digite a Rua" value="<?php echo $this->escapeHtml($this->form['grande_gerador_rua']); ?>">
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="inputBairro" class="col-lg-3 col-md-3 control-label">Bairro</label>
                     <div class="col-lg-9  col-md-9">
-                        <input type="text" name="grande_gerador_barro" class="form-control" id="inputTelefoneSecundario" placeholder="Digite o seu bairro(opcional)" value="<?php echo $this->escapeHtml($this->form['grande_gerador_barro']); ?>">
+                        <input type="text" name="grande_gerador_endereco" class="form-control" id="inputTelefoneSecundario" placeholder="Digite o seu bairro" value="<?php echo $this->escapeHtml($this->form['grande_gerador_endereco']); ?>">
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="inputCep" class="col-lg-3 col-md-3 control-label">CEP</label>
                     <div class="col-lg-9  col-md-9">
-                        <input  type="text" name="grande_gerador_cep" class="form-control cep" id="inputTelefoneSecundario" placeholder="Digite seu telefone secundário(opcional)" value="<?php echo $this->escapeHtml($this->form['grande_gerador_cep']); ?>">
+                        <input  type="text" name="grande_gerador_cep" class="form-control cep" id="inputTelefoneSecundario" placeholder="Digite o cep" value="<?php echo $this->escapeHtml($this->form['grande_gerador_cep']); ?>">
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="inputTelefone" class="col-lg-3 col-md-3 control-label">Telefone</label>
                     <div class="col-lg-9  col-md-9">
-                        <input type="text" name="grande_gerador_telefone" class="form-control telefone" id="inputTelefoneSecundario" placeholder="Digite seu telefone secundário(opcional)" value="<?php echo $this->escapeHtml($this->form['grande_gerador_telefone']); ?>">
+                        <input type="text" name="grande_gerador_telefone" class="form-control telefone" id="inputTelefoneSecundario" placeholder="Digite seu telefone" value="<?php echo $this->escapeHtml($this->form['grande_gerador_telefone']); ?>">
                     </div>
                 </div>
 
                 <div class="form-group">
+
                     <label for="inputEmail" class="col-lg-3 col-md-3 control-label" pattern="^@\w{2,}" >Email</label>
                     <div class="col-lg-9  col-md-9">
-                        <input type="text" name="grande_gerador_email" class="form-control" id="inputEmail" placeholder="Digite seu telefone secundário(opcional)" value="<?php echo $this->escapeHtml($this->form['grande_gerador_email']); ?>">
+                        <input type="text" name="grande_gerador_email" class="form-control" id="grande_gerador_email" placeholder="Digite seu Email" onblur="validaEmail()" value="<?php echo $this->escapeHtml($this->form['grande_gerador_email']); ?>">
                     </div>
+                    <label for="inputEmail" class="col-lg-3 col-md-3 control-label"></label>
+                    <div class="col-lg-9  col-md-9"  id="email" style="display:none; color: red;"><label > Email inválido</label></div>
+
                 </div>
+
                 <div class="form-group">
-                    <label for="inputRespLegal" class="col-lg-3 col-md-3 control-label">Responsável Legal</label>
+                    <label for="inputRespLegal" class="col-lg-3 col-md-3 control-label">Responsavel Legal</label>
                     <div class="col-lg-9  col-md-9">
-                        <input type="text" name="grande_gerador_resp_legal" class="form-control" id="inputRespLegal" placeholder="Digite seu telefone secundário(opcional)" value="<?php echo $this->escapeHtml($this->form['grande_gerador_resp_legal']); ?>">
+                        <input type="text" name="grande_gerador_resp_legal" class="form-control" id="inputRespLegal" placeholder="Digite o Responsavel Legal" value="<?php echo $this->escapeHtml($this->form['grande_gerador_resp_legal']); ?>">
                     </div>
                 </div>  
 
@@ -98,66 +108,65 @@
             </div>
         </div>
         <div class="corpo-table">
+
+
             <table class="table table-striped table-bordered table-hover">
                 <thead>
                     <tr>
-                        <th>Tipo Resíduo</th>
-                        <th>Descrição</th>
+                        <th>Tipo Residuo</th>
+                        <th>Descricao</th>
                         <th>Quantidade Gerada</th>
                         <th>Peso Específico (kg/m3)</th>
-                        <th>Tipo de acodicionar</th>  
+                        <th>Tipo de acondicionador</th>  
                         <th>Nome da Cooperativa</th>  
                         <th>Local de destinação dos resíduos</th>  
                     </tr>
                 </thead>
 
                 <tbody>
+
                     <tr>
-                        <td>Úmido</td>
-                        <td><textarea rows="3" cols="30" name="residuo_para_coleta_umido_desc" class="form-control" id="inputRespLegal" placeholder="Digite"></textarea></td>
-                        <td><input type="text" name="residuo_para_coleta_umido_qtd_gerada" class="form-control" id="inputRespLegal" placeholder="Digite"></td>
-                        <td><input type="text" name="residuo_para_coleta_umido_peso" class="form-control" id="inputRespLegal" placeholder="Digite"></td>
-                        <td><input type="text" name="residuo_para_coleta_umido_tipo_acodic" class="form-control" id="inputRespLegal" placeholder="Digite"></td>
-                        <td><input type="text" name="residuo_para_coleta_umido_nome_cooperativa" class="form-control" id="inputRespLegal" placeholder="Digite"></td>
-                        <td><input type="text" name="residuo_para_coleta_umido_local_destinacao" class="form-control" id="inputRespLegal" placeholder="Digite"></td>
+                        <td>Umido</td>
+                        <td><textarea rows="3" cols="40" name="residuo_para_coleta_umido_desc" class="form-control " id="inputRespLegal" placeholder="Digite"   ><?php echo $this->residuoParaColeta->residuo_para_coleta_umido_desc ?></textarea></td>
+                        <td><textarea rows="3" cols="2"  name="residuo_para_coleta_umido_qtd_gerada" class="form-control numer" id="inputRespLegal" placeholder="Digite"> <?php echo $this->residuoParaColeta->residuo_para_coleta_umido_qtd_gerada ?></textarea></td>
+                        <td><textarea rows="3" cols="2"  name="residuo_para_coleta_umido_peso" class="form-control numer" id="inputRespLegal" placeholder="Digite"><?php echo $this->residuoParaColeta->residuo_para_coleta_umido_peso ?></textarea></td>
+                        <td><textarea rows="3" cols="30" name="residuo_para_coleta_umido_tipo_acodic" class="form-control" id="inputRespLegal" placeholder="Digite"><?php echo $this->residuoParaColeta->residuo_para_coleta_umido_tipo_acodic ?></textarea></td>
+                        <td><textarea rows="3" cols="40" name="residuo_para_coleta_umido_nome_cooperativa" class="form-control" id="inputRespLegal" placeholder="Digite"><?php echo $this->residuoParaColeta->residuo_para_coleta_umido_nome_cooperativa ?></textarea></td>
+                        <td><textarea rows="3" cols="30" name="residuo_para_coleta_umido_local_destinacao" class="form-control" id="inputRespLegal" placeholder="Digite"><?php echo $this->residuoParaColeta->residuo_para_coleta_umido_local_destinacao ?></textarea></td>
 
                     </tr>
                     <tr>
                         <td>Secos</td>
-                        <td><textarea rows="3" cols="30" name="residuo_para_coleta_seco_desc" class="form-control" id="inputRespLegal" placeholder="Digite"></textarea></td>
-                        <td><input type="text" name="residuo_para_coleta_seco_qtd_gerada" class="form-control col-lg-2" id="inputRespLegal" placeholder="Digite"></td>
-                        <td><input type="text" name="residuo_para_coleta_seco_peso" class="form-control" id="inputRespLegal" placeholder="Digite"></td>
-                        <td><input type="text" name="residuo_para_coleta_seco_tipo_acodic" class="form-control" id="inputRespLegal" placeholder="Digite"></td>
-                        <td><input type="text" name="residuo_para_coleta_seco_nome_cooperativa" class="form-control" id="inputRespLegal" placeholder="Digite"></td>
-                        <td><input type="text" name="residuo_para_coleta_seco_local_destinacao" class="form-control" id="inputRespLegal" placeholder="Digite"></td>
+                        <td><textarea rows="3" cols="40" name="residuo_para_coleta_solido_desc" class="form-control " id="inputRespLegal" placeholder="Digite"   ><?php echo $this->residuoParaColeta->residuo_para_coleta_solido_desc ?></textarea></td>
+                        <td><textarea rows="3" cols="2" name="residuo_para_coleta_solido_qtd_gerada" class="form-control numer" id="inputRespLegal" placeholder="Digite"> <?php echo $this->residuoParaColeta->residuo_para_coleta_solido_qtd_gerada ?></textarea></td>
+                        <td><textarea rows="3" cols="2" name="residuo_para_coleta_solido_peso" class="form-control numer" id="inputRespLegal" placeholder="Digite"><?php echo $this->residuoParaColeta->residuo_para_coleta_solido_peso ?></textarea></td>
+                        <td><textarea rows="3" cols="30" name="residuo_para_coleta_solido_tipo_acodic" class="form-control" id="inputRespLegal" placeholder="Digite"><?php echo $this->residuoParaColeta->residuo_para_coleta_solido_tipo_acodic ?></textarea></td>
+                        <td><textarea rows="3" cols="40" name="residuo_para_coleta_solido_nome_cooperativa" class="form-control" id="inputRespLegal" placeholder="Digite"><?php echo $this->residuoParaColeta->residuo_para_coleta_solido_nome_cooperativa ?></textarea></td>
+                        <td><textarea rows="3" cols="30" name="residuo_para_coleta_solido_local_destinacao" class="form-control" id="inputRespLegal" placeholder="Digite"><?php echo $this->residuoParaColeta->residuo_para_coleta_solido_local_destinacao ?></textarea></td>
 
                     </tr>
+
 
                 </tbody>
             </table>
 
 
         </div>
-   
+
+        <div class="form-group">
+
+        </div>  
 
 
-</div>
-
-
-<div class="form-group">
-
-</div>  
-
-
-</table>
+        </table>
 
 
 
-<div class="panel-footer">
-    <button type="submit" class="btn btn-primary" onclick=" validaCadastro(), salvarResiduoBanco()" >Salvar Grande Gerador</button>
-    <a href="<?php echo $this->url('grande-gerador'); ?>" class="btn btn-default">Voltar</a>
-</div>
-</form>
+        <div class="panel-footer">
+            <button type="submit" class="btn btn-primary" onclick=" validaCadastro(), salvarResiduoBanco()" >Salvar Grande Gerador</button>
+            <a href="<?php echo $this->url('grande-gerador'); ?>" class="btn btn-default">Voltar</a>
+        </div>
+    </form>
 </div>
 
 <script type="text/javascript">
@@ -165,10 +174,18 @@
 <?php $this->headScript()->captureStart(); ?>
 
     $(document).ready(function() {
+
+
         // jQuery.noConflict();
         // alert('Teste');
-
         $('.fone').mask('(99) 999-9999'); //telefone
+        $('.numer').bind("keyup blur focus", function(e) {
+            e.preventDefault();
+            var expre = /[^\d]/g;
+            $(this).val($(this).val().replace(expre, ''));
+        });
+
+        //telefone
         $('cnpj').mask("99.999.999/9999-99");
         $('.cpf').mask("999.999.999-99");
         $('.cpf-sem-underline').mask("999.999.999-99", {placeholder: " "});
@@ -180,119 +197,51 @@
         $('.fax').mask("(99) 9999-9999");
         $('.inscricao-estadual').mask("999.999.999.999");
 
-
-        //  $('#emp_prestadora_fk').css('border', 'solid 1px red').val(<?php echo $var; ?>);
+        //     $('#emp_prestadora_fk').css('border', 'solid 1px red');
+        /**
+         * Seleciona a empresa prestadora vinculada ao grande gerador
+         */
         $('#emp_prestadora_fk').val(<?php echo $this->escapeHtml($this->form['emp_prestadora_fk']); ?>);
 
     });
 
+    var mensagem = '';
+
+    function validaEmail()
+    {
+
+        var obj = document.getElementById("grande_gerador_email");
+        var txt = obj.value;
+
+        if ((txt.length != 0) && ((txt.indexOf("@") < 1) || (txt.indexOf('.') < 7)))
+        {
+            $('#grande_gerador_email').css('border', 'solid 1px red');
+            $("#email").show();
+            // alert('Email incorreto');
+            //obj.focus();
+
+            return false;
+        }
+        else
+        {
+            $('#grande_gerador_email').css('border', '1px solid #ccc');
+            $("#email").hide();
+            return true;
+        }
+
+        // alert('Email Inválido!!!');
+        // $("#grande_gerador_cnpj").removeAttr("disabled");
+
+    }
+
+
+
+
     /**
-     * Insere um serísuo na tabela resíduo
+     * Insere um residuo  na tabela resíduo
      * o valor não é salvo banco de dados
      */
-    function inserirResiduo() {
-        alert('inserirResiduo');
 
-        // Captura a referência da tabela com id “minhaTabela”
-        var table = document.getElementById("tabela_residuos");
-        // var selectTipoResiduo = document.getElementById("tipo_residuo_fk") ;
-        var selectTipoResiduo = document.getElementById("tipo_residuo_fk").options[document.getElementById("tipo_residuo_fk").selectedIndex].text;
-        var selectTipoResiduoCod = document.getElementById("tipo_residuo_fk").value;
-        var selectResiduo = document.getElementById("residuo_id").options[document.getElementById("residuo_id").selectedIndex].text; //pega a descrição do resíduo
-        var selectResiduoCod = document.getElementById("residuo_id").value; //pega o código do resíduo
-
-        var inputQtdResiduo = document.getElementById("tipo_residuo_fk");
-        var inputPesoResiduo = document.getElementById("tipo_residuo_fk");
-        // Captura a quantidade de linhas já existentes na tabela
-        var numOfRows = table.rows.length;
-        // Captura a quantidade de colunas da última linha da tabela
-        var numOfCols = table.rows[numOfRows - 1].cells.length;
-        // Insere uma linha no fim da tabela.
-        var newRow = table.insertRow(numOfRows);
-
-        // Insere uma coluna na nova linha 
-        newCell = newRow.insertCell(0);
-        // Insere um conteúdo na coluna
-        // newCell.innerHTML = "Linha " + numOfRows + " – Coluna " + 0 + " ->" + selectTipoResiduo;
-        newCell.innerHTML = selectTipoResiduo;
-
-        // Insere uma coluna na nova linha 
-        newCell = newRow.insertCell(1);
-        // Insere um conteúdo na coluna
-        newCell.innerHTML = selectTipoResiduoCod;
-
-        // Insere uma coluna na nova linha 
-        newCell = newRow.insertCell(2);
-        // Insere um conteúdo na coluna
-        newCell.innerHTML = selectTipoResiduo;
-
-        // Insere uma coluna na nova linha cod resíduo
-        newCell = newRow.insertCell(3);
-        // Insere um conteúdo na coluna
-        newCell.innerHTML = selectResiduoCod;
-
-
-        // Insere uma coluna na nova linha quantidade
-        newCell = newRow.insertCell(4);
-        // Insere um conteúdo na coluna
-        newCell.innerHTML = 'Quantidade';
-
-        // Insere uma coluna na nova linha  peso
-        newCell = newRow.insertCell(5);
-        // Insere um conteúdo na coluna
-        newCell.innerHTML = 'Peso';
-
-        // Insere uma coluna na nova linha  ação
-        newCell = newRow.insertCell(6);
-        // Insere um conteúdo na coluna
-        newCell.innerHTML = '<a class="btn btn-xs btn-danger" title="Deletar" onclick="excluirResiduo(this)" ><span class="glyphicon glyphicon-floppy-remove"></span></a>';
-
-        // newCell.Cells[2].Visible = true;
-
-
-        // Faz um loop para criar as colunas
-//            for (var j = 0; j < numOfCols; j++) {
-//                // Insere uma coluna na nova linha 
-//                newCell = newRow.insertCell(j);
-//                // Insere um conteúdo na coluna
-//                newCell.innerHTML = "Linha "+ numOfRows + " – Coluna "+ j;
-//            }
-
-
-
-
-//    for(i = 0; < 3; i++){
-//        $("table[id=tabela_residuos]").html('<tbody>\n\
-//                    <tr>\n\
-//                        <td>Nome</td>\n\
-//                        <td>as</td>\n\
-//                        <td>asdf</td>\n\
-//                        <td>asdf</td>\n\
-//                        <td>\n\
-//                            <a class="btn btn-xs btn-danger" title="Deletar" href="<?php echo $this->url('grande-gerador', array("action" => "deletar", "id" => $tipo_residuo->grande_gerador_id,)); ?>"><span class="glyphicon glyphicon-floppy-remove"></span></a>\n\
-//                        </td>\n\
-//                    </tr>\n\
-//            </tbody>')
-//    
-//    }
-        event.preventDefault();
-    }
-
-    function excluirResiduo(obj) {
-
-        // Capturamos a referência da TR (linha) pai do objeto
-        var objTR = obj.parentNode.parentNode;
-        // Capturamos a referência da TABLE (tabela) pai da linha
-        var objTable = objTR.parentNode;
-        // Capturamos o índice da linha
-        var indexTR = objTR.rowIndex;
-        // Chamamos o método de remoção de linha nativo do JavaScript, passando como parâmetro o índice da linha  
-        objTable.deleteRow(indexTR);
-        // Exibe uma mensagem de confirmação da remoção
-        alert("Remoção Efetuada com Sucesso!!");
-
-        // Insere uma coluna na nova linha 
-    }
 
     function atualizaComboResidio(campo) {
 
@@ -301,24 +250,7 @@
         // Função responsável por inserir linhas na tabela
         $("select[name=residuo_fk]").html('<option value="0"> Escolha algo </option>')
 
-        //$("select[name=residuo_id]").html('<option  value="<?= $residuo->residuo_id ?>">  <?php echo $this->escapeHtml($residuo->residuo_descricao); ?></option>')
-//        $.ajax({
-//            type: 'post',
-//            cache: false,
-//            data: {campo: campo, tipo: 1},
-//            url: '/ajax/residuos.php',
-//            beforeSend: function() {
-//            },
-//            success: function(data) {
-//
-//                $('#residuo_id').html(data);
-//                console.log(data);
-//
-//            },
-//            error: function() {
-//                alert('Nao achou o PHP')
-//            }
-//        });
+
         $.ajax({
             type: 'post',
             cache: false,
@@ -337,23 +269,7 @@
             }
         });
 
-//    $e=1;
-//    $.ajax({
-//        type: 'post',
-//        cache: false,
-//        data: {campo: campo},
-//        url: '<?php echo $this->url('grande-gerador', array("action" => "detalhes", "id" => $residuo->residuo_id)); ?>"',
-//        beforeSend: function() {},
-//        success: function(data) {
-//            
-//            $('#residuo_id').html(data);
-//            console.log(data);
-//            
-//        },
-//        error: function() {alert('Nao achou o PHP')}
-//    });
 
-        // Aqui vai o valor e o nome do campo que pediu a requisição.
         var url = "GrandeGeradorController.php?campo=" + campo;
 
         // Chamada do método open para processar a requisição
@@ -433,43 +349,77 @@
 
     function validaCadastro()
     {
-        alert('valida Cadastro');
+        // alert('valida Cadastro');
         emp_prestadora = document.getElementById('emp_prestadora_fk').value;
-        if (emp_prestadora == 0) {
-            alert("Selecione um empresa prestadora: " + emp_prestadora);
-            event.preventDefault();
+        email = document.getElementById('emp_prestadora_fk').value;
+        $("#grande_gerador_cnpj").removeAttr("disabled");
+        // nome_fantasia = document.getElementById('grande_gerador_nome_fantasia').value;
+
+        if (!verificaValidacao()) {
+            alert(mensagem);
         }
 
-        /**
-         * remove o atributo disable do input text grande_gerador_cnpj
-         * quando o atributo disable esta habilidado não é possível salvar o valor da 
-         * variável no banco de dados
-         */
-        $("#grande_gerador_cnpj").removeAttr("disabled");
+        else
+        {
+            $("#grande_gerador_cnpj").removeAttr("disabled");
+            mensagem = "Deseja salvar os dados ?";
+            // variável com resposta da mensagem colocada na janela
+            var confirmacao = confirm(mensagem);
+
+            // se a confirmação for false o fluxo é interrompido
+            if (!confirmacao)
+                // elimar o evendo do botão clicado
+                event.preventDefault();
+        }
+
+
     }
-    $(function() {
-        // variável para conter a url deletar
-        //var url_deletar = '<?php echo $this->url('grande-gerador', array("action" => "deletar")); ?>' + '/';
 
-        // qualquer link que tiver a url deletar vai sofrer um evento quando for clicada
-//        $('.cpf').focusout((function(event) {
-//            // variável contendo o id referente ao botão clicado
-//         //   var contato_id = $(this).attr('href').split(url_deletar).pop();
-//            // variável contendo mensagem da janela
-//            var mensagem = "Deseja realmente apagar o contato de ID " + contato_id + "?";
-//            // variável com resposta da mensagem colocada na janela
-//            var confirmacao = confirm(mensagem);
-//
-//            // se a confirmação for false o fluxo é interrompido
-//            if (!confirmacao)
-//                // elimar o evendo do botão clicado
-//                event.preventDefault();
-//        });
-    });
 
+
+    function verificaValidacao()
+    {
+        var email = document.getElementById("grande_gerador_email").value;
+        var razao_social = document.getElementById("grande_gerador_razao_social").value;
+        var nome_fantasia = document.getElementById("grande_gerador_nome_fantasia").value;
+
+        if (emp_prestadora == 0) {
+
+            event.preventDefault();
+            mensagem = 'Selecione um empresa prestadora';
+            return false;
+        }
+
+
+
+        if ((!validaEmail()) || (email == ''))
+        {
+            mensagem = 'Email Inválido';
+           // obj.focus;
+            event.preventDefault();
+            return false;
+        }
+
+        if (nome_fantasia == '')
+        {
+            mensagem = 'Informa o nome de fantasia';
+            event.preventDefault();
+            return false;
+        }
+        if (razao_social == '')
+        {
+            mensagem = 'Informe a razão social';
+            event.preventDefault();
+            return false;
+        }
+
+
+        return true;
+    }
 
 
 
 <?php $this->headScript()->captureEnd(); ?>
-
 </script>
+
+

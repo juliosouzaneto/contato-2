@@ -3,48 +3,29 @@
 namespace GrandeGerador\Model;
 
 // import Model\GrandeGerador
-use GrandeGerador\Model\GrandeGerador,
-    GrandeGerador\Model\GrandeGeradorTable;
+use GrandeGerador\Model\Pendencia,
+    GrandeGerador\Model\PendenciaTable;
 // import Zend\Db
 use Zend\Db\ResultSet\ResultSet,
     Zend\Db\TableGateway\TableGateway;
 
-class GrandeGerador {
+class Pendencia {
 
-    public $grande_gerador_id;
-    public $grande_gerador_razao_social;
-    public $grande_gerador_cnpj;
-    public $grande_gerador_endereco;
-    public $grande_gerador_rua;
-    public $grande_gerador_cep;
-    public $grande_gerador_telefone;
-    public $grande_gerador_email;
-    public $grande_gerador_resp_legal;
-    public $grande_gerador_nome_fantasia;
-    public $grande_gerador_situacao;
-    public $emp_prestadora_fk;
+    public $pendencia_id;
+    public $pendencia_descricao;
+    public $pendencia_email;
+    public $pendencia_data;
+    public $grand_gerador_fk;
 
     public function exchangeArray($data) {
 
-
-//        echo '<pre>';
+        $this->residuo_para_coleta_id = (!empty($data['residuo_para_coleta_id'])) ? $data['residuo_para_coleta_id'] : null;
+        $this->grande_gerador_fk = (!empty($data['grande_gerador_fk'])) ? $data['grande_gerador_fk'] : null;
+        //        echo '<pre>';
 //
 //                var_dump($data);
 //                echo '</pre>';
         // echo "<br> Entrou no construtor GrandeGerador";
-        $this->grande_gerador_id = (!empty($data['grande_gerador_id'])) ? $data['grande_gerador_id'] : null;
-       
-        $this->grande_gerador_razao_social = (!empty($data['grande_gerador_razao_social'])) ? $data['grande_gerador_razao_social'] : null;
-        $this->grande_gerador_cep = (!empty($data['grande_gerador_cep'])) ? $data['grande_gerador_cep'] : null;
-        $this->grande_gerador_email = (!empty($data['grande_gerador_email'])) ? $data['grande_gerador_email'] : null;
-        $this->grande_gerador_endereco = (!empty($data['grande_gerador_endereco'])) ? $data['grande_gerador_endereco'] : null;
-        $this->grande_gerador_resp_legal = (!empty($data['grande_gerador_resp_legal'])) ? $data['grande_gerador_resp_legal'] : null;
-        $this->grande_gerador_rua = (!empty($data['grande_gerador_rua'])) ? $data['grande_gerador_rua'] : null;
-        $this->grande_gerador_telefone = (!empty($data['grande_gerador_telefone'])) ? $data['grande_gerador_telefone'] : null;
-        $this->grande_gerador_cnpj = (!empty($data['grande_gerador_cnpj'])) ? $data['grande_gerador_cnpj'] : null;
-        $this->grande_gerador_nome_fantasia = (!empty($data['grande_gerador_nome_fantasia'])) ? $data['grande_gerador_nome_fantasia'] : null;
-        $this->grande_gerador_situacao = (!empty($data['grande_gerador_situacao'])) ? $data['grande_gerador_situacao'] : null;
-        $this->emp_prestadora_fk = (!empty($data['emp_prestadora_fk'])) ? $data['emp_prestadora_fk'] : null;
     }
 
     public function exchangeArray2($data) {
@@ -52,10 +33,10 @@ class GrandeGerador {
 
         $this->grande_gerador_cnpj = (!empty($data['grande_gerador_cnpj'])) ? $data['grande_gerador_cnpj'] : null;
 
-//        echo '<pre>';
-//
-//        var_dump($this->grande_gerador_cnpj);
-//        echo '</pre>';
+        echo '<pre>';
+
+        var_dump($this->grande_gerador_cnpj);
+        echo '</pre>';
     }
 
 //    public $emp_prest_id;

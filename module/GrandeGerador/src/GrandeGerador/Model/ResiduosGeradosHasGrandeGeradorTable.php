@@ -95,7 +95,7 @@ class ResiduosGeradosHasGrandeGeradorTable extends AbstractTableGateway {
      * @return ResultSet
      */
     public function fetchAll() {
-         echo "<br> Entrou no metódo fetchall GrandeGeradorTable";
+         //echo "<br> Entrou no metódo fetchall GrandeGeradorHasGrandeGeradorTable";
         return $this->tableGateway->select();
     }
     /**

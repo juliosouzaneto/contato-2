@@ -97,7 +97,7 @@ class TipoResiduoTable extends AbstractTableGateway {
      * @return ResultSet
      */
     public function fetchAll() {
-         echo "<br> Entrou no metódo fetchall GrandeGeradorTable";
+       //  echo "<br> Entrou no metódo fetchall GrandeGeradorTable";
         return $this->tableGateway->select();
     }
     /**

@@ -1,20 +1,18 @@
-<div class="panel panel-primary" style=" width: 800px; height: 600px; position: relative;
-     margin: auto auto ">
+<div class="panel panel-primary"  style=" width: 900px; height: 750px; " >
     <div class="panel-heading">
         <div class="panel-title">
             Cadastro Empresa Prestadora          
         </div>
     </div>
-    <form class="form-horizontal" role="form" method="POST" action="<?php echo $this->url('prestadora', array('action' => 'novo')); ?>" style=" width: 800px; height: 1000px;">
-        <div class="panel-body" style=" width: 760px; height: 700px;">
-
+    <form class="form-horizontal" role="form" method="POST" action="<?php echo $this->url('prestadora', array('action' => 'novo')); ?>">
+        <div class="panel-body"  style=" width: 800px; height: 600px;">
             <div class="row">
                 <div class="col-lg-6">
                     <div class="input-group">
                         <span class="input-group-addon ">
                             <label for="inputCNPJ" class="col-lg-2 col-md-2 control-label">CNPJ:</label>
                         </span>
-                        <input type="text" name="emp_prest_cnpj" class="form-control col-lg-1" id="inputNome" placeholder="Digite seu CNPJ">
+                        <input type="text" name="emp_prest_cnpj" class="form-control col-lg-1" id="inputNome" placeholder="">
                     </div>
                 </div>
 
@@ -24,21 +22,28 @@
                             <label for="inputInscEstadul" class="col-lg-2 col-md-3 control-label">Insc. Estadual</label>
                         </span>
 
-                        <input type="text" name="emp_prest_insc_estadual" class="form-control" id="inputTelefonePrincipal" placeholder="Digite a inscrição estadual">
+                        <input type="text" name="emp_prest_insc_estadual" class="form-control" id="inputTelefonePrincipal" placeholder="">
                     </div>
                 </div>
             </div>
-            
-       
-            
-            
-             <div class="row">
+            <div class="row">
+
+                <div class="input-group form-group">
+                    <span class="input-group-addon ">
+                        <label for="inputTelefone" class="col-lg-2 col-md-2 control-label">Nome Fantasia</label>
+                    </span>
+                    <input type="text" name="emp_prest_telefone" class="form-control col-lg-1" id="inputTelefone" placeholder="">
+                </div>
+
+            </div>
+
+            <div class="row">
                 <div class="col-lg-7">
                     <div class="input-group">
                         <span class="input-group-addon ">
                             <label for="inputTelefone" class="col-lg-1 col-md-2 control-label">Email:</label>
                         </span>
-                        <input type="text" name="emp_prest_telefone" class="form-control col-lg-3" id="inputTelefone" placeholder="Digite seu CNPJ">
+                        <input type="text" name="emp_prest_telefone" class="form-control col-lg-3" id="inputTelefone" placeholder="">
                     </div>
                 </div>
 
@@ -48,37 +53,173 @@
                             <label for="inputCelular" class="col-lg-2 col-md-2 control-label">Data Cadastro</label>
                         </span>
 
-                        <input type="date" name="emp_prest_insc_estadual" class="form-control col-lg-2" id="inputCelular" placeholder="Digite a inscrição estadual">
+                        <input type="date" name="emp_prest_insc_estadual" class="form-control col-lg-2" id="inputCelular" placeholder="">
                     </div>
                 </div>
             </div>
-            
 
-             <div class="row">
+
+            <div class="row">
                 <div class="col-lg-6">
                     <div class="input-group">
                         <span class="input-group-addon ">
                             <label for="inputTelefone" class="col-lg-2 col-md-2 control-label">Telefone:</label>
                         </span>
-                        <input type="text" name="emp_prest_telefone" class="form-control col-lg-1" id="inputTelefone" placeholder="Digite seu CNPJ">
+                        <input type="text" name="emp_prest_telefone" class="form-control col-lg-1" id="inputTelefone" placeholder="">
                     </div>
                 </div>
 
                 <div class="form-group">
                     <div class="input-group">
                         <span class="input-group-addon">
-                            <label for="inputCelular" class="col-lg-2 col-md-2 control-label">Celular</label>
+                            <label for="inputCelular  control-label">Celular</label>
                         </span>
 
-                        <input type="text" name="emp_prest_insc_estadual" class="form-control" id="inputCelular" placeholder="Digite a inscrição estadual">
+                        <input type="text" name="emp_prest_insc_estadual" class="form-control" id="inputCelular" placeholder="">
                     </div>
                 </div>
             </div>
+            <div class="row">
+
+                <div class="input-group form-group">
+                    <span class="input-group-addon ">
+                        <label for="inputTelefone" class="col-lg-2 col-md-2 control-label">Resp Lesgal:</label>
+                    </span>
+                    <input type="text" name="emp_prest_telefone" class="form-control col-lg-1" id="inputTelefone" placeholder="">
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-lg-5">
+                    <div class="input-group">
+                        <span class="input-group-addon ">
+                            <label for="inputTelefone" class="col-lg-2 col-md-2 control-label">Resp Lesgal RG:</label>
+                        </span>
+                        <input type="text" name="emp_prest_telefone" class="form-control col-lg-1" id="inputTelefone" placeholder="">
+                    </div>
+                </div>
+
+                <div class="form-group col-lg-4">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <label for="inputCelular" class="col-lg-1 col-md-2 control-label">ORG Emissor</label>
+                        </span>
+                        <input type="text" name="emp_prest_insc_estadual" class="form-control" id="inputCelular" placeholder="">
+                    </div>
+                </div>
+                <div class="form-group" >
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <label for="inputCelular" class="col-lg-1 col-md-2 control-label">UF</label>
+                        </span>  
+                        <select  class="form-control selectpicker" name="estados">
+                            <option value="AC">Acre</option>
+                            <option value="AL">Alagoas</option>
+                            <option value="AM">Amazonas</option>
+                            <option value="AP">Amapá</option>
+                            <option value="BA">Bahia</option>
+                            <option value="CE">Ceará</option>
+                            <option value="DF">Distrito Federal</option>
+                            <option value="ES">Espirito Santo</option>
+                            <option value="GO">Goiás</option>
+                            <option value="MA">Maranhão</option>
+                            <option value="MG">Minas Gerais</option>
+                            <option value="MS">Mato Grosso do Sul</option>
+                            <option value="MT">Mato Grosso</option>
+                            <option value="PA">Pará</option>
+                            <option value="PB">Paraíba</option>
+                            <option value="PE">Pernambuco</option>
+                            <option value="PI">Piauí</option>
+                            <option value="PR">Paraná</option>
+                            <option value="RJ">Rio de Janeiro</option>
+                            <option value="RN">Rio Grande do Norte</option>
+                            <option value="RO">Rondônia</option>
+                            <option value="RR">Roraima</option>
+                            <option value="RS">Rio Grande do Sul</option>
+                            <option value="SC">Santa Catarina</option>
+                            <option value="SE">Sergipe</option>
+                            <option value="SP">São Paulo</option>
+                            <option value="TO">Tocantins</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+
+            <table class="table table-striped table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>Placa</th>
+                        <th>Capacidade</th>
+                        <th>Cor</th>
+                        <th>Modelo</th>
+                        <th>Ano</th>  
+                        <th>Estado Conservação</th>  
+                        <th>Resp Lesgal</th>  
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td><input type="text" name="emp_prest_insc_estadual" class="form-control" id="inputCelular" placeholder=""/></td>
+                        <td><input type="text" name="emp_prest_insc_estadual" class="form-control" id="inputCelular" placeholder=""/></td>
+                        <td><select  class="form-control selectpicker" name="estados">
+                                <option value="AC">Branco</option>
+                                <option value="AL">Índigo</option>
+                                <option value="AM">Roxo</option>
+                                <option value="AP">Pink</option>
+                                <option value="BA">Amarelo</option>
+                                <option value="CE">Cinza</option>
+                                <option value="DF">Marrom</option>
+                                <option value="ES">Preto</option>
+                                <option value="GO">Prata</option>
+                                <option value="MA">Vermelho</option>
+                                <option value="MG">Laranja</option>
+                                <option value="MS">Azul</option>
+                                <option value="MT">Dourado</option>
+                                <option value="PA">Verde</option>
+                                <option value="PB">Turquesa</option>
+                                <option value="PE">Castanho-avermelhado</option>
+                            </select></td>
+                        <td><input type="text" name="emp_prest_insc_estadual" class="form-control" id="inputCelular" placeholder=""/></td>
+                     
+                       <td><select  class="form-control selectpicker" name="estados">
+                                <option value="AC">Branco</option>
+                                <option value="AL">Índigo</option>
+                                <option value="AM">Roxo</option>
+                                <option value="AP">Pink</option>
+                                <option value="BA">Amarelo</option>
+                                <option value="CE">Cinza</option>
+                                <option value="DF">Marrom</option>
+                                <option value="ES">Preto</option>
+                                <option value="GO">Prata</option>
+                                <option value="MA">Vermelho</option>
+                                <option value="MG">Laranja</option>
+                                <option value="MS">Azul</option>
+                                <option value="MT">Dourado</option>
+                                <option value="PA">Verde</option>
+                                <option value="PB">Turquesa</option>
+                                <option value="PE">Castanho-avermelhado</option>
+                        </select></td>
+                            
+                     
+                        
+                        <td><input type="text" name="emp_prest_insc_estadual" class="form-control" id="inputCelular" placeholder=""/></td>
+                        <td><input type="text" name="emp_prest_insc_estadual" class="form-control" id="inputCelular" placeholder=""/></td>
+                    </tr>
+
+
+                </tbody>
+            </table>
+
 
         </div>
         <div class="panel-footer">
             <button type="submit" class="btn btn-primary">Salvar</button>
             <a href="<?php echo $this->url('prestadora'); ?>" class="btn btn-default">Voltar</a>
         </div>
+
+
+        
     </form>
 </div>

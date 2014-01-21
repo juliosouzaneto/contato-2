@@ -194,10 +194,18 @@
 <?php $this->headScript()->captureStart(); ?>
 
     $(document).ready(function() {
+
+
         // jQuery.noConflict();
         // alert('Teste');
-
         $('.fone').mask('(99) 999-9999'); //telefone
+        $('.numer').bind("keyup blur focus", function(e) {
+            e.preventDefault();
+            var expre = /[^\d]/g;
+            $(this).val($(this).val().replace(expre, ''));
+        });
+
+        //telefone
         $('cnpj').mask("99.999.999/9999-99");
         $('.cpf').mask("999.999.999-99");
         $('.cpf-sem-underline').mask("999.999.999-99", {placeholder: " "});
@@ -209,109 +217,51 @@
         $('.fax').mask("(99) 9999-9999");
         $('.inscricao-estadual').mask("999.999.999.999");
 
+        //     $('#emp_prestadora_fk').css('border', 'solid 1px red');
+        /**
+         * Seleciona a empresa prestadora vinculada ao grande gerador
+         */
+        $('#emp_prestadora_fk').val(<?php echo $this->escapeHtml($this->form['emp_prestadora_fk']); ?>);
+
     });
 
-    function inserirResiduo() {
-        alert('inserirResiduo');
+    var mensagem = '';
 
-        // Captura a referência da tabela com id “minhaTabela”
-        var table = document.getElementById("tabela_residuos");
-        // var selectTipoResiduo = document.getElementById("tipo_residuo_fk") ;
-        var selectTipoResiduo = document.getElementById("tipo_residuo_fk").options[document.getElementById("tipo_residuo_fk").selectedIndex].text;
-        var selectTipoResiduoCod = document.getElementById("tipo_residuo_fk").value;
-        var selectResiduo = document.getElementById("residuo_id").options[document.getElementById("residuo_id").selectedIndex].text; //pega a descrição do resíduo
-        var selectResiduoCod = document.getElementById("residuo_id").value; //pega o código do resíduo
+    function validaEmail()
+    {
 
-        var inputQtdResiduo = document.getElementById("tipo_residuo_fk");
-        var inputPesoResiduo = document.getElementById("tipo_residuo_fk");
-        // Captura a quantidade de linhas já existentes na tabela
-        var numOfRows = table.rows.length;
-        // Captura a quantidade de colunas da última linha da tabela
-        var numOfCols = table.rows[numOfRows - 1].cells.length;
-        // Insere uma linha no fim da tabela.
-        var newRow = table.insertRow(numOfRows);
+        var obj = document.getElementById("grande_gerador_email");
+        var txt = obj.value;
 
-        // Insere uma coluna na nova linha 
-        newCell = newRow.insertCell(0);
-        // Insere um conteúdo na coluna
-        // newCell.innerHTML = "Linha " + numOfRows + " – Coluna " + 0 + " ->" + selectTipoResiduo;
-        newCell.innerHTML = selectTipoResiduo;
+        if ((txt.length != 0) && ((txt.indexOf("@") < 1) || (txt.indexOf('.') < 7)))
+        {
+            $('#grande_gerador_email').css('border', 'solid 1px red');
+            $("#email").show();
+            // alert('Email incorreto');
+            //obj.focus();
 
-        // Insere uma coluna na nova linha 
-        newCell = newRow.insertCell(1);
-        // Insere um conteúdo na coluna
-        newCell.innerHTML = selectTipoResiduoCod;
+            return false;
+        }
+        else
+        {
+            $('#grande_gerador_email').css('border', '1px solid #ccc');
+            $("#email").hide();
+            return true;
+        }
 
-        // Insere uma coluna na nova linha 
-        newCell = newRow.insertCell(2);
-        // Insere um conteúdo na coluna
-        newCell.innerHTML = selectTipoResiduo;
+        // alert('Email Inválido!!!');
+        // $("#grande_gerador_cnpj").removeAttr("disabled");
 
-        // Insere uma coluna na nova linha cod resíduo
-        newCell = newRow.insertCell(3);
-        // Insere um conteúdo na coluna
-        newCell.innerHTML = selectResiduoCod;
-
-
-        // Insere uma coluna na nova linha quantidade
-        newCell = newRow.insertCell(4);
-        // Insere um conteúdo na coluna
-        newCell.innerHTML = 'Quantidade';
-
-        // Insere uma coluna na nova linha  peso
-        newCell = newRow.insertCell(5);
-        // Insere um conteúdo na coluna
-        newCell.innerHTML = 'Peso';
-
-        // Insere uma coluna na nova linha  ação
-        newCell = newRow.insertCell(6);
-        // Insere um conteúdo na coluna
-        newCell.innerHTML = '<a class="btn btn-xs btn-danger" title="Deletar" onclick="excluirResiduo(this)" ><span class="glyphicon glyphicon-floppy-remove"></span></a>';
-
-        // newCell.Cells[2].Visible = true;
-
-
-        // Faz um loop para criar as colunas
-//            for (var j = 0; j < numOfCols; j++) {
-//                // Insere uma coluna na nova linha 
-//                newCell = newRow.insertCell(j);
-//                // Insere um conteúdo na coluna
-//                newCell.innerHTML = "Linha "+ numOfRows + " – Coluna "+ j;
-//            }
-
-
-
-//        $("table[name=residuo_id]").html('<tbody>\n\
-//                    <tr>\n\
-//                        <td>Nome</td>\n\
-//                        <td>as</td>\n\
-//                        <td>asdf</td>\n\
-//                        <td>asdf</td>\n\
-//                        <td>\n\
-//                            <a class="btn btn-xs btn-info" title="Visualizar" href="<?php echo $this->url('grande-gerador', array("action" => "detalhes", "id" => $tipo_residuo->grande_gerador_id,)); ?>"><span class="glyphicon glyphicon-new-window"></span></a>\n\
-//                            <a class="btn btn-xs btn-warning" title="Editar" href="<?php echo $this->url('grande-gerador', array("action" => "editar", "id" => $tipo_residuo->grande_gerador_id,)); ?>"><span class="glyphicon glyphicon-edit"></span></a>\n\
-//                            <a class="btn btn-xs btn-danger" title="Deletar" href="<?php echo $this->url('grande-gerador', array("action" => "deletar", "id" => $tipo_residuo->grande_gerador_id,)); ?>"><span class="glyphicon glyphicon-floppy-remove"></span></a>\n\
-//                        </td>\n\
-//                    </tr>\n\
-//            </tbody>')
-        event.preventDefault();
     }
 
-    function excluirResiduo(obj) {
 
-        // Capturamos a referência da TR (linha) pai do objeto
-        var objTR = obj.parentNode.parentNode;
-        // Capturamos a referência da TABLE (tabela) pai da linha
-        var objTable = objTR.parentNode;
-        // Capturamos o índice da linha
-        var indexTR = objTR.rowIndex;
-        // Chamamos o método de remoção de linha nativo do JavaScript, passando como parâmetro o índice da linha  
-        objTable.deleteRow(indexTR);
-        // Exibe uma mensagem de confirmação da remoção
-        alert("Remoção Efetuada com Sucesso!!");
 
-        // Insere uma coluna na nova linha 
-    }
+
+    /**
+     * Insere um residuo  na tabela resíduo
+     * o valor não é salvo banco de dados
+     */
+
 
     function atualizaComboResidio(campo) {
 
@@ -320,24 +270,7 @@
         // Função responsável por inserir linhas na tabela
         $("select[name=residuo_fk]").html('<option value="0"> Escolha algo </option>')
 
-        //$("select[name=residuo_id]").html('<option  value="<?= $residuo->residuo_id ?>">  <?php echo $this->escapeHtml($residuo->residuo_descricao); ?></option>')
-//        $.ajax({
-//            type: 'post',
-//            cache: false,
-//            data: {campo: campo, tipo: 1},
-//            url: '/ajax/residuos.php',
-//            beforeSend: function() {
-//            },
-//            success: function(data) {
-//
-//                $('#residuo_id').html(data);
-//                console.log(data);
-//
-//            },
-//            error: function() {
-//                alert('Nao achou o PHP')
-//            }
-//        });
+
         $.ajax({
             type: 'post',
             cache: false,
@@ -356,23 +289,7 @@
             }
         });
 
-//    $e=1;
-//    $.ajax({
-//        type: 'post',
-//        cache: false,
-//        data: {campo: campo},
-//        url: '<?php echo $this->url('grande-gerador', array("action" => "detalhes", "id" => $residuo->residuo_id)); ?>"',
-//        beforeSend: function() {},
-//        success: function(data) {
-//            
-//            $('#residuo_id').html(data);
-//            console.log(data);
-//            
-//        },
-//        error: function() {alert('Nao achou o PHP')}
-//    });
 
-        // Aqui vai o valor e o nome do campo que pediu a requisição.
         var url = "GrandeGeradorController.php?campo=" + campo;
 
         // Chamada do método open para processar a requisição
@@ -384,12 +301,7 @@
 
     function salvarResiduoBanco() {
 
-        alert('Salvador no banco');
-        
-//         <?php echo '<pre>' ?>;
-//
-//                var_dump(<?php  $this->escapeHtml(redisudoHasGrandeGerador); ?>);
-//               <?php echo '</pre>' ?>;
+        // alert(campo);
 
 
         var table = document.getElementById("tabela_residuos");
@@ -405,131 +317,127 @@
         var numOfRows = table.rows.length;
         // Captura a quantidade de colunas da última linha da tabela
         var numOfCols = table.rows[numOfRows - 1].cells.length;
-
         // Insere uma linha no fim da tabela.
         var newRow = table.insertRow(numOfRows);
-        var valorCelTab;
 
         var numOfCols;
-        alert('Número de Linhas: ' + numOfRows);
-        alert('Número de Colunas: ' + numOfCols);
 
-//        $("td").dblclick(function() {
-//             var conteudoOriginal = $(this).text();
-//            $(this).addClass("celulaEmEdicao");
-//            $(this).html("<input type='text' value='" + conteudoOriginal + "' />");
-//            $(this).children().first().focus();
-//            $(this).children().first().keypress(function(e) {
-//                if (e.which == 13) {
-//                    var novoConteudo = $(this).val();
-//                    $(this).parent().text(novoConteudo);
-//                    $(this).parent().removeClass("celulaEmEdicao");
-//                }
-//            });
-//            $(this).children().first().blur(function() {
-//                $(this).parent().text(conteudoOriginal);
-//                $(this).parent().removeClass("celulaEmEdicao");
-//            });
-//        });
-
-
-
-        var rows = document.getElementById("tabela_residuos").getElementsByTagName("tr");
-
-        for (row = 0; row < rows.length; row++) {
-            var cells = rows[row].getElementsByTagName("td");
-
-            var name = cells[0].Text;
-            var quantity = cells[1].Text;
-            var price = cells[2].Text;
-            var last = cells[3].Text;
-            
-            alert(name);
-
-            if (name == input) {
-                alert("Already selected");
-            }
-        }
-
-
-        //var residuosHasGerador = new Array(); 
+        var residuosHasGerador = new Array();
         // Faz um loop para criar as colunas
         for (var i = 0; i < numOfRows; i++) {
-
+            numOfCols = table.rows[i - 1].cells.length;//captura a primeira linha
             // Insere uma linha no fim da tabela.
+            var newRow = table.insertRow(numOfRows);
 
             for (var j = 0; j < numOfCols; j++) {
-                // var cells = table[j].getElementsByTagName("td");
-                // console.log(numOfCols[j].toString()); 
+                console.log(numOfCols[j].toString());
                 // Insere uma coluna na nova linha 
 //                residuosHasGerador[0] = table.
 //                newCell.
 //                // Insere um conteúdo na coluna
 //                newCell.innerHTML = "Linha " + numOfRows + " – Coluna " + j;
-                //  valorCelTab = table.getCell(i , j);
-                //   alert(cells[j]);
             }
-
+            event.preventDefault();
         }
-
-        alert(valorCelTab);
-        // event.preventDefault();
 
 
 
 
         // Função responsável por inserir linhas na tabela
-//        $("select[name=residuo_fk]").html('<option value="0"> Escolha algo </option>')
-//
-//        $.ajax({
-//            type: 'post',
-//            cache: false,
-//            data: {campo: campo, tipo: 1},
-//            url: '/grande-gerador/lista',
-//            beforeSend: function() {
-//            },
-//            success: function(data) {
-//
-//                $('#residuo_id').html(data);
-//                console.log(data);
-//
-//            },
-//            error: function() {
-//                alert('Nao achou o PHP')
-//            }
-//        });
+        $("select[name=residuo_fk]").html('<option value="0"> Escolha algo </option>')
+
+        $.ajax({
+            type: 'post',
+            cache: false,
+            data: {campo: campo, tipo: 1},
+            url: '/grande-gerador/lista',
+            beforeSend: function() {
+            },
+            success: function(data) {
+
+                $('#residuo_id').html(data);
+                console.log(data);
+
+            },
+            error: function() {
+                alert('Nao achou o PHP')
+            }
+        });
     }
 
 
 
     function validaCadastro()
     {
+        // alert('valida Cadastro');
         emp_prestadora = document.getElementById('emp_prestadora_fk').value;
-        if (emp_prestadora == 0) {
-            alert("Selecione um empresa prestadora: " + emp_prestadora);
-            event.preventDefault();
-        }
-    }
-    $(function() {
-        // variável para conter a url deletar
-        //var url_deletar = '<?php echo $this->url('grande-gerador', array("action" => "deletar")); ?>' + '/';
+        email = document.getElementById('emp_prestadora_fk').value;
+        $("#grande_gerador_cnpj").removeAttr("disabled");
+        // nome_fantasia = document.getElementById('grande_gerador_nome_fantasia').value;
 
-        // qualquer link que tiver a url deletar vai sofrer um evento quando for clicada
-//        $('.cpf').focusout((function(event) {
-//            // variável contendo o id referente ao botão clicado
-//         //   var contato_id = $(this).attr('href').split(url_deletar).pop();
-//            // variável contendo mensagem da janela
-//            var mensagem = "Deseja realmente apagar o contato de ID " + contato_id + "?";
-//            // variável com resposta da mensagem colocada na janela
-//            var confirmacao = confirm(mensagem);
-//
-//            // se a confirmação for false o fluxo é interrompido
-//            if (!confirmacao)
-//                // elimar o evendo do botão clicado
-//                event.preventDefault();
-//        });
-    });
+        if (!verificaValidacao()) {
+            alert(mensagem);
+        }
+
+        else
+        {
+            $("#grande_gerador_cnpj").removeAttr("disabled");
+            mensagem = "Deseja salvar os dados ?";
+            // variável com resposta da mensagem colocada na janela
+            var confirmacao = confirm(mensagem);
+
+            // se a confirmação for false o fluxo é interrompido
+            if (!confirmacao)
+                // elimar o evendo do botão clicado
+                event.preventDefault();
+        }
+
+
+    }
+
+
+
+    function verificaValidacao()
+    {
+        var email = document.getElementById("grande_gerador_email").value;
+        var razao_social = document.getElementById("grande_gerador_razao_social").value;
+        var nome_fantasia = document.getElementById("grande_gerador_nome_fantasia").value;
+
+        if (emp_prestadora == 0) {
+
+            event.preventDefault();
+            mensagem = 'Selecione um empresa prestadora';
+            return false;
+        }
+
+
+
+        if ((!validaEmail()) || (email == ''))
+        {
+            mensagem = 'Email Inválido';
+           // obj.focus;
+            event.preventDefault();
+            return false;
+        }
+
+        if (nome_fantasia == '')
+        {
+            mensagem = 'Informa o nome de fantasia';
+            event.preventDefault();
+            return false;
+        }
+        if (razao_social == '')
+        {
+            mensagem = 'Informe a razão social';
+            event.preventDefault();
+            return false;
+        }
+
+
+        return true;
+    }
+
+
 
 <?php $this->headScript()->captureEnd(); ?>
-
 </script>

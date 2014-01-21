@@ -68,6 +68,7 @@ class PrestadoraController extends AbstractActionController {
                 $this->flashMessenger()->addSuccessMessage("Contato criado com sucesso");
 
                 // redirecionar para action index no controller contatos
+                $this->_helper->layout->setLayout('layout2');
                 return $this->redirect()->toRoute('prestadora');
             } else {
                 // adicionar mensagem de erro

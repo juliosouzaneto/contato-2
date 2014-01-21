@@ -1,6 +1,6 @@
 <?php
 
-namespace GrandeGerador\Controller;
+namespace Contato\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
