@@ -2,44 +2,107 @@
 
 </script>
 
+<div class="panel panel-primary" style="
+     width: 420; 
+     height: 500; border: 2px black;
+     background-color: rgba(8, 71, 151, 0.06);
+     float: left;
+     margin-top: 20px;
+     margin-left:50px;
+     ">
 
-<div class="panel panel-primary col-lg-6 col-md-6 " style="   left: 270px; top: 20px; /* posiciona a 70px para baixo */">
+
+    <div class="panel-heading ">
+        <div class="panel-title">
+            Histórico de Pendências                 
+        </div>
+    </div  >
+    <div class="corpo-table">
+        <table class="table table-striped table-bordered table-hover">
+
+            <thead>
+                <tr>
+                    <th>Cod</th>
+                    <th>Descrição</th>
+                    <th>Data</th>
+                    <th>Ações</th>
+                </tr>    
+            </thead>
+
+            <?php foreach ($this->listaPendencia as $pend) : ?>
+             <input type="hidden" id="id<?php echo $pend->pendencia_id?>"   value="<?php echo $pend->pendencia_id?>">
+             <input type="hidden" id="descricao<?php echo $pend->pendencia_id?>"   value="<?php echo $pend->pendencia_descricao?>">
+             <input type="hidden" id="email<?php echo $pend->pendencia_id?>"   value="<?php echo $pend->pendencia_email?>">
+             <input type="hidden" id="data<?php echo $pend->pendencia_id?>"   value="<?php echo $this->escapeHtml(date("d-m-Y",strtotime($pend->pendencia_data))); ?>">
+                <tr>
+                    <td><?php echo $this->escapeHtml($pend->pendencia_id); ?></td> 
+                    <td><?php echo substr($this->escapeHtml($pend->pendencia_descricao), 0, 20) ; ?></td> 
+                   
+                    <!--Converte a data no fomrado do banco (2000-10-10)  -->
+                    <td><?php echo $this->escapeHtml(date("d-m-Y",strtotime($pend->pendencia_data))); ?></td> 
+                    <td class="col-lg-3">
+                        <a id="<?php echo $pend->grande_gerador_fk?>" 
+                           onclick="editarPendencia(<?php echo $pend->pendencia_id;?>)" 
+                           class="btn btn-xs btn-warning" title="Editar"
+                           >
+                            <span class="glyphicon glyphicon-edit"></span>
+                        </a>
+                            <a class="btn btn-xs btn-danger " title="Deletar" href="<?php echo $this->url('grande-gerador', array("action" => "deletar", "id" => $pend->grande_gerador_fk,)); ?>"><span class="glyphicon glyphicon-floppy-remove"></span></a>
+                    </td>
+                </tr>
+               
+            <?php endforeach; ?>
+
+
+        </table>
+    </div>
+
+</div>
+<div class="panel panel-primary col-lg-6 col-md-6 " style="   left: 25px; top: 20px; /* posiciona a 70px para baixo */">
 
     <div class="panel-heading ">
         <div class="panel-title">
             Pendências                 
         </div>
     </div  >
-    <form class="form-horizontal " role="form" method="POST" action="<?php echo $this->url('grande-gerador', array('action' => 'autenticar')); ?>">
+
+
+    <form class="form-horizontal " role="form" method="POST" action="<?php echo $this->url('grande-gerador', array('action' => 'salvarPendencia')); ?>">
+        <!-- salva o id do grande gerador a quem a pendencia se destina -->
+        <input type="text" name="grande_gerador_fk"   value="<?php echo $this->escapeHtml($this->form['grande_gerador_id']); ?>">
+
+
         <div class="panel-body">
             <div class="form-group">
-
+                <div class="form-group">
+                    <label for="inputCnpj" class="col-lg-3 col-md-3 control-label">Data Envio Email</label>
+                    <div class="col-lg-9  col-md-9">
+                        <input readonly type="datetime" name="pendencia_data" class="form-control cnpj" id="pendencia_data"  value="<?php $data=date("d-m-Y");echo $data;?>">                </div>
+                </div>
                 <div class="form-group">
                     <label for="inputCnpj" class="col-lg-3 col-md-3 control-label">Email</label>
                     <div class="col-lg-9  col-md-9">
-                        <input type="text" name="grande_gerador_email" class="form-control cnpj" id="inputCnpj"  value="<?php echo $this->escapeHtml($this->form['grande_gerador_email']); ?>">                </div>
+                        <input type="text" name="pendencia_email" class="form-control cnpj" id="pendencia_email"  value="<?php echo $this->escapeHtml($this->form['grande_gerador_email']); ?>">                </div>
                 </div>
                 <div class="form-group">
                     <label for="inputCnpj" class="col-lg-3 col-md-3 control-label">Descrição Pendência</label>
                     <div class="col-lg-9  col-md-9">
-                        <textarea rows="10" cols="150" name="residuo_para_coleta_solido_desc" class="form-control " id="inputRespLegal" placeholder="Digite">
-                            
+                        <textarea rows="10" cols="150" name="pendencia_descricao" class="form-control " id="pendencia_descricao" placeholder="Digite">
+                            <?php echo $this->pendencia->pendencia_descricao; ?> 
                         </textarea>
                     </div>
                 </div>
 
                 <div class="panel-footer">
-                    <button type="submit" class="btn btn-primary " onclick="validaCadastro()" > Confirmar</button>
+                    <button type="submit" class="btn btn-primary " onclick="" > Confirmar</button>
                     <a href="<?php echo $this->url('grande-gerador'); ?>" class="btn btn-primary">Cancelar</a> 
                 </div>
             </div>
         </div>
     </form>
 </div>
-
-
-
 <script type="text/javascript">
+
 
     <?php $this->headScript()->captureStart(); ?>
 
@@ -64,6 +127,36 @@
         }
 
     }
+    function editarPendencia(pendencia_id)
+    {
+        //alert('clicou em editar pendencia');
+       // alert(pendencia_id);
+        var p_id= "#id";
+        p_id = p_id.concat(pendencia_id);
+       
+        var p_descricao = "#descricao";
+        p_descricao = p_descricao.concat(pendencia_id);
+       
+        var p_email = "#email";
+        p_email = p_email.concat(pendencia_id);
+       
+        var p_data = "#data";
+        p_data = p_data.concat(pendencia_id);
+      
+        
+       // alert($(p_descricao).val());
+      
+    
+        
+        
+        //$('.pendencia_descricao').mask("999.999.999.999");
+        //$("textarea[name='conteudo']").val('ae');
+        $('#pendencia_descricao').val($(p_descricao).val());
+        $('#pendencia_email').val($(p_email).val());
+        $('#pendencia_data').val($(p_data).val());
+        event.preventDefault();
+    }
 
 
     <?php $this->headScript()->captureEnd(); ?>
+       
