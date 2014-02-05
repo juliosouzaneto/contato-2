@@ -9,7 +9,13 @@ use GrandeGerador\Model\GrandeGerador,
 use Zend\Db\ResultSet\ResultSet,
     Zend\Db\TableGateway\TableGateway;
 
-class GrandeGerador {
+use Zend\InputFilter\Factory as InputFactory;     // <-- Add this import
+use Zend\InputFilter\InputFilter;                 // <-- Add this import
+use Zend\InputFilter\InputFilterAwareInterface;   // <-- Add this import
+use Zend\InputFilter\InputFilterInterface;        // <-- Add this import
+
+
+class GrandeGerador implements InputFilterAwareInterface {
 
     public $grande_gerador_id;
     public $grande_gerador_razao_social;
@@ -22,6 +28,10 @@ class GrandeGerador {
     public $grande_gerador_resp_legal;
     public $grande_gerador_nome_fantasia;
     public $grande_gerador_situacao;
+    public $grande_gerador_data_cadastro;
+    public $grande_gerador_senha;
+    public $grande_gerador_atividade_principal;
+    public $grande_gerador_codigo_atividade_principal;
     public $emp_prestadora_fk;
 
     public function exchangeArray($data) {
@@ -44,6 +54,10 @@ class GrandeGerador {
         $this->grande_gerador_cnpj = (!empty($data['grande_gerador_cnpj'])) ? $data['grande_gerador_cnpj'] : null;
         $this->grande_gerador_nome_fantasia = (!empty($data['grande_gerador_nome_fantasia'])) ? $data['grande_gerador_nome_fantasia'] : null;
         $this->grande_gerador_situacao = (!empty($data['grande_gerador_situacao'])) ? $data['grande_gerador_situacao'] : null;
+        $this->grande_gerador_data_cadastro = (!empty($data['grande_gerador_data_cadastro'])) ? $data['grande_gerador_data_cadastro'] : null;
+        $this->grande_gerador_senha = (!empty($data['grande_gerador_senha'])) ? $data['grande_gerador_senha'] : null;
+        $this->grande_gerador_atividade_principal = (!empty($data['grande_gerador_atividade_principal'])) ? $data['grande_gerador_atividade_principal'] : null;
+        $this->grande_gerador_codigo_atividade_principal = (!empty($data['grande_gerador_codigo_atividade_principal'])) ? $data['grande_gerador_codigo_atividade_principal'] : null;
         $this->emp_prestadora_fk = (!empty($data['emp_prestadora_fk'])) ? $data['emp_prestadora_fk'] : null;
     }
 
@@ -57,6 +71,57 @@ class GrandeGerador {
 //        var_dump($this->grande_gerador_cnpj);
 //        echo '</pre>';
     }
+    
+    
+      // Add content to this method:
+    public function setInputFilter(InputFilterInterface $inputFilter)
+    {
+        throw new \Exception("Not used");
+    }
+
+    public function getInputFilter()
+    {
+        if (!$this->inputFilter) {
+            $inputFilter = new InputFilter();
+            $factory     = new InputFactory();
+
+            $inputFilter->add($factory->createInput(array(
+                'name'     => 'id',
+                'required' => true,
+                'filters'  => array(
+                    array('name' => 'Int'),
+                ),
+            )));
+
+            $inputFilter->add($factory->createInput(array(
+                'name'     => 'grande_gerador_nome_fantasia',
+                'required' => true,
+                'filters'  => array(
+                    array('name' => 'StripTags'),
+                    array('name' => 'StringTrim'),
+                ),
+                'validators' => array(
+                    array(
+                        'name'    => 'StringLength',
+                        'options' => array(
+                            'encoding' => 'UTF-8',
+                            'min'      => 1,
+                            'max'      => 100,
+                        ),
+                    ),
+                ),
+            )));
+
+      
+
+            $this->inputFilter = $inputFilter;
+        }
+
+        return $this->inputFilter;
+    }
+
+    
+    
 
 //    public $emp_prest_id;
 //    public $emp_prest_cnpj;

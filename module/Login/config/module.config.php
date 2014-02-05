@@ -4,32 +4,22 @@ return array(
     # definir e gerenciar controllers
     'controllers' => array(
         'invokables' => array(
-            'HomeController' => 'GrandeGerador\Controller\HomeController',
+            'LoginController' => 'Login\Controller\HomeController',
+            'LoginController' => 'Login\Controller\LoginController',
             'GrandeGeradorController' => 'GrandeGerador\Controller\GrandeGeradorController',
         ),
     ),
 # definir e gerenciar rotas
     'router' => array(
         'routes' => array(
-            # literal para action index home;
+            # literal para action index home
             'home' => array(
                 'type' => 'Literal',
                 'options' => array(
                     'route' => '/',
                     'defaults' => array(
-                        'controller' => 'GrandeGeradorController',
-                        'action' => 'login',
-                    ),
-                ),
-            ),
-            # literal para action index home;
-            'index' => array(
-                'type' => 'Literal',
-                'options' => array(
-                    'route' => '/grande-gerador',
-                    'defaults' => array(
-                        'controller' => 'GrandeGeradorController',
-                        'action' => 'index',
+                        'controller' => 'LoginController',
+                        'action' => 'limpurblogin',
                     ),
                 ),
             ),
@@ -39,12 +29,27 @@ return array(
                 'options' => array(
                     'route' => '/sobre',
                     'defaults' => array(
-                        'controller' => 'GrandeGeradorController',
+                        'controller' => 'HomeController',
                         'action' => 'sobre',
                     ),
                 ),
             ),
-            # segment para controller GrandeGerador
+            # segment para controller contatos
+            'login' => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/login[/:action][/:id]',
+                    'constraints' => array(
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id' => '[0-9]+',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'LoginController',
+                        'action' => 'limpurblogin',
+                    ),
+                ),
+            ),
+                   # segment para controller GrandeGerador
             'grande-gerador' => array(
                 'type' => 'Segment',
                 'options' => array(
@@ -76,7 +81,7 @@ return array(
         'exception_template' => 'error/index',
         'template_map' => array(
             'layout/layout' => __DIR__ . '/../view/layout/layout.phtml',
-            'grande-gerador/home/index' => __DIR__ . '/../view/grande-gerador/home/index.phtml',
+            'login/home/index' => __DIR__ . '/../view/login/home/index.phtml',
             'error/404' => __DIR__ . '/../view/error/404.phtml',
             'error/index' => __DIR__ . '/../view/error/index.phtml',
         ),

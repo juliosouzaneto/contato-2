@@ -8,6 +8,7 @@
 var_dump($_POST);
 $id = $_POST['id'];
 $situacao = $_POST['situacao'];
+$situacao = $_POST['situacao'];
 
 
 //if ($campo == 0) {

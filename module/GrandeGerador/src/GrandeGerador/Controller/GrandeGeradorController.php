@@ -1,4 +1,4 @@
-<?php
+sj<?php
 
 /**
  * namespace de localizacao do nosso controller
@@ -17,7 +17,9 @@ use Zend\View\Model\ViewModel,
     GrandeGerador\Model\ResiduosGeradosHasGrandeGerador,
     GrandeGerador\Model\ResiduosGeradosHasGrandeGeradorTable,
     GrandeGerador\Model\ResiduoParaColetaTable,
-    GrandeGerador\Model\ResiduoParaColeta;
+    GrandeGerador\Model\ResiduoParaColeta,
+    GrandeGerador\Model\Pendencia,
+    GrandeGerador\Model\PendenciaTable;
 
 class GrandeGeradorController extends AbstractActionController {
 
@@ -25,8 +27,32 @@ class GrandeGeradorController extends AbstractActionController {
 
     // GET /GrandeGerador
     public function indexAction() {
+
         $request = $this->getRequest();
         $response = $this->getResponse();
+        $adapter = $this->getServiceLocator()->get('AdapterDb');
+
+        $postData = $request->getPost();
+        $filtroPesquisa = $postData['filtro_pesquisa'];
+        $valor_ditado_pesquisa = $postData['valor_digitado_pesquisa'];
+
+        $data_inicial = '';
+        $data_final = '';
+
+        if ($request->isPost()) {
+
+
+
+
+            echo 'post index';
+            echo $valor_ditado_pesquisa;
+            echo $filtroPesquisa;
+            // exit();
+
+            return new ViewModel(array('grandegerador' => $this->getGrandeGeradorTable()->fetchAllComFiltro($adapter, $filtroPesquisa, $valor_ditado_pesquisa, $data_inicial, $data_final),
+                'filtroPesquisa' => $filtroPesquisa, 'valorDigitadoPesquisa' => $valor_ditado_pesquisa)
+            );
+        }
 
         //  echo 'método index';
         // enviar para view o array com key GrandeGerador e value com todos os GrandeGerador
@@ -34,7 +60,160 @@ class GrandeGeradorController extends AbstractActionController {
         //  $view->setTerminal(true);//desabilita a redenrização da view
         // $view->setTemplate($template);//especifica um template
         //return $view;
-        return new ViewModel(array('grandegerador' => $this->getGrandeGeradorTable()->fetchAll()));
+        return new ViewModel(array('grandegerador' => $this->getGrandeGeradorTable()->fetchAllPaginaPrincial($adapter),
+            'filtroPesquisa' => $filtroPesquisa, 'valorDigitadoPesquisa' => $valor_ditado_pesquisa));
+    }
+
+    public function filtrarAction() {
+        echo 'metódo filtrar';
+
+
+        $request = $this->getRequest();
+        $response = $this->getResponse();
+
+        $adapter = $this->getServiceLocator()->get('AdapterDb');
+        $filtroPesquisa = $_POST['filtro_pesquisa'];
+        $valor_ditado_pesquisa = $_POST['valor_digitado_pesquisa'];
+
+        $data_inicial = $_POST['data_inicial'];
+        $data_final = $_POST['data_final'];
+
+//        echo 'data inicial  ';
+//        echo $data_inicial;
+//        echo 'data final  ';
+//        echo $data_final;
+//        
+//        exit();
+        //  echo 'método index';
+        // enviar para view o array com key GrandeGerador e value com todos os GrandeGerador
+        $view = new ViewModel(array(array('grandegerador' => $this->getGrandeGeradorTable()->fetchAll())));
+        //  $view->setTerminal(true);//desabilita a redenrização da view
+        // $view->setTemplate($template);//especifica um template
+        //return $view;
+//        echo 'metódo filtrar';
+//        
+//        echo 'filtro<br>';
+//        echo $filtroPesquisa;
+//        echo 'Valor digitado pesquisa<br>';
+//        echo $valor_ditado_pesquisa;
+        //  exit();
+
+
+        if ($request->isPost()) {
+            echo 'Metódo Listaaaaaa';
+
+            // $residuoTable->listaResidoPorTipo(2);
+            //   echo "aasdf"+$residuoTable->listaResidoPorTipo(2);
+
+            echo '         <thead>';
+            echo ' <tr>';
+            echo '      <th>Codigo</th>';
+            echo '       <th>Nome Fantasia</th>';
+            echo '       <th>CNPJ</th>';
+            echo '        <th>Razão Social</th>';
+            echo '        <th>Endereço</th>';
+            echo '       <th>Data Cadastro</th>';
+            echo '        <th>Situação</th>';
+            echo '       <th>Ação</th>  ';
+            echo '   </tr>';
+            echo '   </thead>';
+            foreach ($this->getGrandeGeradorTable()->fetchAllComFiltro($adapter, $filtroPesquisa, $valor_ditado_pesquisa, $data_inicial, $data_final) as $value) {
+                // echo '<option value="' . $value['residuo_id']. '"> ' . utf8_encode($value['residuo_descricao']) . ' </option>';  
+
+
+
+                echo '     <tr>';
+                echo '     <td>' . $value['grande_gerador_id'] . '</td>';
+                echo '     <td>' . $value['grande_gerador_nome_fantasia'] . '</td>';
+                echo '     <td class="col-lg-2">' . $value['grande_gerador_cnpj'] . '</td>';
+                echo '     <td>' . $value['grande_gerador_razao_social'] . '</td>';
+                echo '     <td>' . $value['grande_gerador_rua'] . '</td>';
+                echo '     <td>' . date("d-m-Y", strtotime($value['grande_gerador_data_cadastro'])) . '</td>';
+                echo '     <td class="col-lg-2">';
+                echo '   <select class="col-lg-2 form-control" name="grande_gerador_situacao" id="grande_gerador_situacao' . $value['grande_gerador_id'] . '" itemscope="4564"';
+                echo '  onclick="atualizaSituacao(grande_gerador_situacao' . $value['grande_gerador_id'] . ',' . $value['grande_gerador_id'] . ')">';
+                echo '      <option value="' . $value['grande_gerador_situacao'] . '">' . $value['grande_gerador_situacao'] . '</option>';
+                echo '      <option value="Analisar">Analisar</option>';
+                echo '      <option value="Analisando">Analisando</option>';
+                echo '      <option value="Pendente">Pendente</option>';
+                echo '      <option value="Deferido">Deferido</option>';
+                echo '      <option value="Concluido">Concluido</option>';
+                echo ' </select>';
+                /*     <!-- Div que exibirá o botão de pendencia
+                  Esta div só será exibida se situação selecionada for pendente
+                  --> */
+                echo '  <div class="col-lg-2"  id="pendencia' . $value['grande_gerador_id'] . '"';
+                echo ' style="display:';
+                if ($value['grande_gerador_situacao'] == 'Pendente') {
+                    echo 'block ';
+                } else {
+                    echo 'none;';
+                } echo ' color:red;">';
+                echo' <a href="grande-gerador/pendencia/' . $value['grande_gerador_id'] . '" class="btn btn-primary">Pendência</a>';
+                echo' </div>';
+                // <!-- Input para guardar o valor anterior do combobox situação
+                //esta flag é necessário pq quando o usuário seleciona uma situção na combobox ela já é alterada
+                //-->
+                echo' <input  type="hidden" id="flag_situacao' . $value['grande_gerador_id'] . '" name="flag_situacao' . $value['grande_gerador_id'] . '" value="' . $value['grande_gerador_situacao'] . '">';
+
+                echo ' </td>';
+                echo '  <td>';
+                echo '<a class="btn btn-primary btn-warning   " title="Editar" href="grande-gerador/autenticar/' . $value['grande_gerador_id'] . ' "><span class="glyphicon glyphicon-edit"></span></a>';
+                echo '   </td>';
+                echo '  </tr> ';
+            }
+            //   $this->flashMessenger()->addSuccessMessage("Metódodo Lista");
+
+            return $response->setContent(array(
+                            //'residuo' => $residuoTable->listaResidoPorTipo(2)
+            ));
+        }
+    }
+
+    /*
+     * Verica se o grande gerador esta cadastrado
+     * Caso esteja cadastrado retorna os dados do grande gerador
+     * @return array com os dados do grande gerador
+     */
+
+    public function vericaCadastroGrandeGeradorAction() {
+        $request = $this->getRequest();
+        $response = $this->getResponse();
+
+        $adapter = $this->getServiceLocator()->get('AdapterDb');
+        $grandeGerador = new GrandeGerador();
+
+        $cnpjGrandeGerador = $_POST['cnpj'];
+
+        if ($request->isPost()) {
+            $postData = $request->getPost();
+
+            $grandeGerador->grande_gerador_cnpj = $cnpjGrandeGerador;
+
+            /**
+             * Realiza uma busca na tabela grade gerador 
+             * para buscar o id do grande gerador pelo cnpj
+             */
+            $grandeGerador = $this->getGrandeGeradorTable()->findCnpj($grandeGerador->grande_gerador_cnpj);
+
+            /**
+             * Verifica se o CNPJ informado esta cadastradastro no banco
+             */
+            $form = (array) $grandeGerador;
+            //('a'=>1,'b'=>2,'c'=>3,'d'=>4,'e'=>5);
+            //$form = array ('a'=>1,'b'=>2,'c'=>3,'d'=>4,'e'=>5);
+            // if (!empty($grandeGerador->grande_gerador_id)) {
+            //codifica para um arquivo json
+            echo json_encode($grandeGerador);
+
+            //  }
+
+            /*
+             * Para usar um retorno json não pode retornar um array no retorno da $response
+             */
+            return $response;
+            // return $response->setContent(array('grandegerador' => $grandeGerador ));
+        }
     }
 
     public function loginAction() {
@@ -42,21 +221,31 @@ class GrandeGeradorController extends AbstractActionController {
         return new ViewModel();
     }
 
+    /**
+     * Carrega a view pendencia
+     * retorna para a view pendencia o histórico de pendências do grande gerador
+     * parametros $id -> recebe o id do grande gerador que receberá a pendência. 
+     * @return type
+     */
     public function pendenciaAction() {
 
+        $adapter = $this->getServiceLocator()->get('AdapterDb');
+
         // return new ViewModel();
-        // filtra id passsado pela url
+        // filtra pelo id passsado pela url
         $id = (int) $this->params()->fromRoute('id', -1);
+        $pendencia = new Pendencia();
+        $pendenciaTable = new PendenciaTable($adapter);
+       
         //para , assunto, mensagem 
         // O remetente deve ser um e-mail do seu domínio conforme determina a RFC 822.
 // O return-path deve ser ser o mesmo e-mail do remetente.
-        $headers = "MIME-Version: 1.1\r\n";
-        $headers .= "Content-type: text/plain; charset=iso-8859-1\r\n";
-        $headers .= "From: juliofsn@hotmail.com\r\n"; // remetente
-        $headers .= "Return-Path: julio.souza@salvador.ba.gov.br\r\n"; // return-path
-        $envio = mail("julio.souza@salvador.ba.gov.br", "Assunto", "Texto", $headers);
-
-      //  echo phpinfo();
+//        $headers = "MIME-Version: 1.1\r\n";
+//        $headers .= "Content-type: text/plain; charset=iso-8859-1\r\n";
+//        $headers .= "From: juliofsn@hotmail.com\r\n"; // remetente
+//        $headers .= "Return-Path: julio.souza@salvador.ba.gov.br\r\n"; // return-path
+//        $envio = mail("julio.souza@salvador.ba.gov.br", "Assunto", "Texto", $headers);
+        //  echo phpinfo();
 //        if ($envio)
 //            echo "Mensagem enviada com sucesso";
 //        else
@@ -78,22 +267,19 @@ class GrandeGeradorController extends AbstractActionController {
         if ($id != -1) {
             $form = (array) $this->getGrandeGeradorTable()->find($id);
 
-            // $this->flashMessenger()->addSuccessMessage('Grande Geradora Encontrado: ' . $grandegerador->grande_gerador_cnpj);
-            // echo 'Grande Gerador Encontrado';
             return array(
                 'id' => $id,
                 'form' => $form,
+               // 'pendencia' => $pendenciaTable->find(1),
+                'listaPendencia' => $pendenciaTable->findSQL($id, $adapter),
+                    // 'listaPendencia' => $pendenciaTable->findUltimaPendenciaGrandeGerador($id, $adapter),
             );
         }
 
-        exit();
 
-
+        //  exit();
         try {
-            // aqui vai a lógica para pegar os dados referente ao GrandeGerador
-            // 1 - solicitar serviço para pegar o model responsável pelo find
-            // 2 - solicitar form com dados desse GrandeGerador encontrado
-            // formulário com dados preenchidos
+
             $form = $id;
         } catch (\Exception $exc) {
             // adicionar mensagem
@@ -109,8 +295,10 @@ class GrandeGeradorController extends AbstractActionController {
     }
 
     /**
-     * Realiza a aumenteticacao do grande gerado
+     * Realiza a aumenteticacao do grande gerador
      * Verica se o mesmo ja esta cadastrado
+     * 
+     * a tela autenciar é usada tbm para edição do grande gerador pelo administrador da limpurb
      * @return \Zend\View\Model\ViewModel
      */
     public function autenticarAction() {
@@ -134,16 +322,19 @@ class GrandeGeradorController extends AbstractActionController {
         $grandegerador = new GrandeGerador();
         $grandegerador2 = new GrandeGerador();
         $cnpj;
-
+        $usuario = 'grande_gerador'; //botão cancelar por padrão redicireciona para a página home
         //  echo "<br>entrou no método autenticar<br><br>";
         /*
          * Se id válido 
          * o usuário clicou em no link editar da tela lista grande geradores
          */
         if ($id != -1) {
+            $usuario = 'administrador_limpurb';
             $residuoParaColeta = $residuoParaColetaTable->findPorFkGrandGedaor($id);
             $form = (array) $this->getGrandeGeradorTable()->find($id);
 
+
+            // exit();
             // $this->flashMessenger()->addSuccessMessage('Grande Geradora Encontrado: ' . $grandegerador->grande_gerador_cnpj);
             // echo 'Grande Gerador Encontrado';
             return array(
@@ -154,9 +345,11 @@ class GrandeGeradorController extends AbstractActionController {
                 'residuo' => $residuoTable->listaResidoPorTipo(2),
                 'tipoResiduo' => $tipoResiduoTable->fetchAll(),
                 'redisudoHasGrandeGerador' => $residuoHasGrandeGerador->fetchAll(),
-                'residuoParaColeta' => $residuoParaColeta
+                'residuoParaColeta' => $residuoParaColeta,
+                'usuario' => $usuario
             );
-        }/**
+        }
+        /*
          * O usuário esta se autenticando usando o CNPJ
          */ else {
             //$id = (int) $this->params()->fromRoute('id', 1);
@@ -188,6 +381,15 @@ class GrandeGeradorController extends AbstractActionController {
                  * Verifica se o CNPJ informado esta cadastradastro no banco
                  */
                 if (!empty($grandegerador->grande_gerador_id)) {
+                    $pendenciaTable = new PendenciaTable($adapter);
+                    $pendencia = new Pendencia();
+                    $pendencia = $pendenciaTable->findUltimaPendenciaGrandeGerador($grandegerador->grande_gerador_id, $adapter);
+
+                    if (empty($pendencia->pendencia_id)) {
+                        $pendencia = new Pendencia();
+                    }
+
+                    $usuario = 'grande_gerador';
                     /**
                      * Busca o residuo para coleta vinculado ao grande gerador
                      */
@@ -195,8 +397,21 @@ class GrandeGeradorController extends AbstractActionController {
                     // print_r($residoParaColeta);
 //                  var_dump($residoParaColeta);
                     $form = (array) $this->getGrandeGeradorTable()->findCnpj($grandegerador->grande_gerador_cnpj);
+                    /**
+                     * verifica se a situação é diferente de anliazando
+                     * caso seja a variável habilitaEdicao recebe true
+                     */
+                    $habilitaEdicao;
+                    if ($form['grande_gerador_situacao'] == 'Analisar')
+                        $habilitaEdicao = '';
+                    else
+                        $habilitaEdicao = 'disabled';
+
+
+                    //  exit();
                     //  $this->flashMessenger()->addSuccessMessage('Grande Geradora Encontrado: ' . $grandegerador->grande_gerador_cnpj);
                     // echo 'Grande Gerador Encontradooooo';
+
                     return array(
                         'id' => $id,
                         'form' => $form,
@@ -205,7 +420,10 @@ class GrandeGeradorController extends AbstractActionController {
                         'residuo' => $residuoTable->listaResidoPorTipo(2),
                         'tipoResiduo' => $tipoResiduoTable->fetchAll(),
                         'redisudoHasGrandeGerador' => $residuoHasGrandeGerador->fetchAll(),
-                        'residuoParaColeta' => $residoParaColeta
+                        'ultimaPendencia' => $pendencia,
+                        'residuoParaColeta' => $residoParaColeta,
+                        'habilitaEdicao' => $habilitaEdicao,
+                        'usuario' => $usuario
                     );
                 }
                 /**
@@ -223,11 +441,20 @@ class GrandeGeradorController extends AbstractActionController {
 //
 //                var_dump($grandegerador2);
 //                echo '</pre>';
+
+                    $data = date("d-m-Y");
+                    $data_format_banco = date("Y-m-d", strtotime($data));
+
+                    $form['grande_gerador_data_cadastro'] = $data_format_banco;
+                    // var_dump($form['grande_gerador_data_cadastro']);
+
+
                     return array(
                         'empresaPrestadora' => $prestadoraTable->fetchAll(),
                         'gradegerador' => $grandegerador2,
                         'form' => $form,
-                        'residuoParaColeta' => new ResiduoParaColeta()
+                        'residuoParaColeta' => new ResiduoParaColeta(),
+                        'usuario' => $usuario
                     );
                 }
                 /**
@@ -250,25 +477,6 @@ class GrandeGeradorController extends AbstractActionController {
 
     // GET /contGrandeGeradoratos/novo
     public function novoAction() {
-
-
-//        $request = $this->getRequest();
-//        $grandegerador = new GrandeGerador();
-//        if ($request->isPost) {// verifica se a requisição é do tipo post
-//            $postData = $request->getPost();
-//            echo '<pre>';
-//
-//            var_dump($postData);
-//            echo '</pre>';
-//
-//
-//            //echo '<br><br>CNPJ: ';
-//            //echo $grandegerador->grande_gerador_cnpj;
-//            // echo $postData+'<br>';
-//            $grandegerador->exchangeArray2($postData);
-//            echo $grandegerador->grande_gerador_cnpj;
-//        }
-
         $cnpj = (string) $this->params()->fromRoute('cnpj', 0);
         echo 'valor cnpj: ';
         echo $cnpj;
@@ -287,6 +495,12 @@ class GrandeGeradorController extends AbstractActionController {
         ));
     }
 
+    /*
+     * Lista os resíduos cadastrado
+     * obs: o métido não está sendo mais usado
+     * era usado quando a tabela resíduos possuia vinculo com a tabela tipo resíduo
+     */
+
     public function listaAction() {
 
         $campo = $_POST['campo'];
@@ -298,25 +512,30 @@ class GrandeGeradorController extends AbstractActionController {
         $residuoTable = new ResiduoTable($adapter);
         echo 'Metódo Listaaaaaa';
 
-//        if ($request->isPost()) {
-//            echo 'Metódo Listaaaaaa';
-//
-//            // $residuoTable->listaResidoPorTipo(2);
-//            //   echo "aasdf"+$residuoTable->listaResidoPorTipo(2);
-//
-//            echo '<option value="0"> Selecione </option>';
-//            foreach ($residuoTable->listaResidoPorTipo($campo) as $value) {
-//                //echo '<option value="' . $value['residuo_id']. '"> ' . utf8_encode($value['residuo_descricao']) . ' </option>';  
-//                echo '<option value="' . $value->residuo_id . '"> ' . ($value->residuo_descricao) . ' </option>';
-//            }
-//            $this->flashMessenger()->addSuccessMessage("Metódodo Lista");
-//
-//            return $response->setContent(array(
-//                        'residuo' => $residuoTable->listaResidoPorTipo(2)
-//            ));
-//        }
+        if ($request->isPost()) {
+            echo 'Metódo Listaaaaaa';
+
+            // $residuoTable->listaResidoPorTipo(2);
+            //   echo "aasdf"+$residuoTable->listaResidoPorTipo(2);
+
+            echo '<option value="0"> Selecione </option>';
+            foreach ($residuoTable->listaResidoPorTipo($campo) as $value) {
+                //echo '<option value="' . $value['residuo_id']. '"> ' . utf8_encode($value['residuo_descricao']) . ' </option>';  
+                echo '<option value="' . $value->residuo_id . '"> ' . ($value->residuo_descricao) . ' </option>';
+            }
+            $this->flashMessenger()->addSuccessMessage("Metódodo Lista");
+
+            return $response->setContent(array(
+                        'residuo' => $residuoTable->listaResidoPorTipo(2)
+            ));
+        }
     }
 
+    /**
+     * Altera o atributo situação da tabela grande gerador
+     * Método ainda não esta sendo utilizado
+     * @return type
+     */
     public function atualizaSituacaoAction() {
 
         $campo = $_POST['campo'];
@@ -332,7 +551,6 @@ class GrandeGeradorController extends AbstractActionController {
 
             // $residuoTable->listaResidoPorTipo(2);
             //   echo "aasdf"+$residuoTable->listaResidoPorTipo(2);
-
             echo '<option value="0"> Selecione </option>';
             foreach ($residuoTable->listaResidoPorTipo($campo) as $value) {
                 //echo '<option value="' . $value['residuo_id']. '"> ' . utf8_encode($value['residuo_descricao']) . ' </option>';  
@@ -361,7 +579,11 @@ class GrandeGeradorController extends AbstractActionController {
         return $response;
     }
 
-    // POST /GrandeGerador/adicionar
+    /*
+     * Chamado quando o usuário clica no botão salvar grande gerador  na tela autenticar
+     * Service para adicionar um grande gerador e atualizar um grande gerador
+     */
+
     public function adicionarAction() {
 
 
@@ -376,12 +598,19 @@ class GrandeGeradorController extends AbstractActionController {
         $grandegerador = new \GrandeGerador\Model\GrandeGerador;
         $residuoParaColeta = new ResiduoParaColeta();
         $residuoParaColetaTable = new ResiduoParaColetaTable($adapter);
+        /*
+         * Recebe o nome do usuário que esta acessando a página
+         * pode ser o grande gerador ou o administrador limpurb
+         */
+        $usuario;
 
 
         if ($request->isPost()) {// verifica se a requisição é do tipo post
             //  $this->flashMessenger()->addSuccessMessage("Metódodo adicionar");
             // obter e armazenar valores do post
             $postData = $request->getPost();
+            $usuario = $postData['usuario'];
+            echo $usuario;
             //    echo 'if request';
             // $formularioValido->setData($postData);
             $formularioValido = true;
@@ -400,18 +629,8 @@ class GrandeGeradorController extends AbstractActionController {
                 // $grandegerador->grande_gerador_id = $grande_gerador_id;
 
                 $residuoParaColeta->exchangeArray($postData);
-                //  print_r($residuoParaColeta);
-                //  exit;
-//                echo '<pre>';
-//                var_dump($residuoParaColeta);
-//                //  exit;
-//
-//                echo '</pre>';
-                /**
-                 * Salva o Grande Gerador
-                 */
-                // print_r($residuoParaColetaTable);
-
+ 
+                
                 /**
                  * if para vericar se o usuário esta cadastrando ou editando um novo grande garador
                  */
@@ -421,13 +640,37 @@ class GrandeGeradorController extends AbstractActionController {
                     // $grandegerador = $this->getGrandeGeradorTable()->findCnpj($grandegerador->grande_gerador_cnpj);
                     $residuoParaColeta->grande_gerador_fk = $grandegerador->grande_gerador_id;
                     $residuoParaColetaTable->atualizar($residuoParaColeta);
-                } else {
+                }
+                /*
+                 * O usuário esta atualizando um grande gerador 
+                 */ else {
                     $this->getGrandeGeradorTable()->saveGrandeGerador($grandegerador);
 
 
                     $grandegerador = $this->getGrandeGeradorTable()->findCnpj($grandegerador->grande_gerador_cnpj);
                     $residuoParaColeta->grande_gerador_fk = $grandegerador->grande_gerador_id;
                     $residuoParaColetaTable->save($residuoParaColeta);
+                }
+
+                echo $usuario;
+              //  exit();
+                if ($usuario == 'administrador_limpurb') {
+                    return $this->redirect()->toRoute(
+                                    'grande-gerador', array('action' => 'index',
+                                'form' => $form,
+                                'cnpj' => $cnpj
+                    ));
+                    $this->flashMessenger()->addSuccessMessage($retorno + " GrandeGerador inserido com sucesso!");
+                }
+                else
+                {
+                      return $this->redirect()->toRoute(
+                                    'grande-gerador', array('action' => 'login',
+                                'form' => $form,
+                                'cnpj' => $cnpj
+                    ));
+                    $this->flashMessenger()->addSuccessMessage($retorno + " GrandeGerador inserido com sucesso!");
+                    
                 }
 
 
@@ -444,19 +687,69 @@ class GrandeGeradorController extends AbstractActionController {
                 // adicionar mensagem de sucesso
                 // redirecionar para action index no controller GrandeGerador
                 // return $this->redirect()->toRoute('grande-gerador');
-
-                return $this->redirect()->toRoute(
-                                'grande-gerador', array('action' => 'login',
-                            'form' => $form,
-                            'cnpj' => $cnpj
-                ));
-                $this->flashMessenger()->addSuccessMessage($retorno + " GrandeGerador inserido com sucesso!");
             } else {
                 // adicionar mensagem de erro
                 $this->flashMessenger()->addErrorMessage("Erro ao criar GrandeGerador");
 
                 // redirecionar para action novo no controllers GrandeGerador
                 return $this->redirect()->toRoute('grande-gerador', array('action' => 'novo'));
+            }
+        }
+    }
+
+    /*
+     * Salva uma pendencia 
+     * 
+     */
+
+    public function salvarPendenciaAction() {
+        echo 'Clicou em salvar pendencia';
+        // exit();
+        $adapter = $this->getServiceLocator()->get('AdapterDb');
+
+        // obtém a requisição
+        // return new ViewModel(array('grandegerador' => $this->getGrandeGeradorTable()->fetchAll()));
+        // echo "<br>clicou no método adicionarAction";
+        $request = $this->getRequest();
+
+        $pendencia = new Pendencia();
+        $pendenciaTable = new PendenciaTable($adapter);
+
+
+        if ($request->isPost()) {// verifica se a requisição é do tipo post
+            $postData = $request->getPost();
+            $formularioValido = true;
+            if ($formularioValido) {
+                echo "<br>if formulario válido";
+                $pendencia->exchangeArray($postData);
+                //$data =  "15/10/2015";
+                //$data =  "10/20/2013";
+                $data = (date($pendencia->pendencia_data));
+                //  $data_format_banco = "";
+                // echo '<br>';
+                $data_format_banco = date("Y-m-d", strtotime($data));
+                // echo $data_format_banco;
+                //  echo '<br>';
+                //  echo $pendencia->pendencia_data;
+                // echo '<br>';
+                //  echo '<br>';
+                // echo date("Y-m-d",strtotime('12/02/2013')); 
+                //exit();
+                //exit();
+                $pendencia->pendencia_data = $data_format_banco;
+
+
+
+                $pendenciaTable->save($pendencia);
+                echo 'Pendencia salva com sucesso!!!';
+                return $this->redirect()->toRoute('grande-gerador', array('action' => 'index'));
+                // $grandegerador = $this->getGrandeGeradorTable()->findCnpj($grandegerador->grande_gerador_cnpj);  
+            } else {
+                // adicionar mensagem de erro
+                $this->flashMessenger()->addErrorMessage("Erro ao criar GrandeGerador");
+
+                // redirecionar para action novo no controllers GrandeGerador
+                return $this->redirect()->toRoute('grande-gerador', array('action' => 'index'));
             }
         }
     }

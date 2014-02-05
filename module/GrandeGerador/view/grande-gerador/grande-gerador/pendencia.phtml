@@ -30,27 +30,32 @@
             </thead>
 
             <?php foreach ($this->listaPendencia as $pend) : ?>
-             <input type="hidden" id="id<?php echo $pend->pendencia_id?>"   value="<?php echo $pend->pendencia_id?>">
-             <input type="hidden" id="descricao<?php echo $pend->pendencia_id?>"   value="<?php echo $pend->pendencia_descricao?>">
-             <input type="hidden" id="email<?php echo $pend->pendencia_id?>"   value="<?php echo $pend->pendencia_email?>">
-             <input type="hidden" id="data<?php echo $pend->pendencia_id?>"   value="<?php echo $this->escapeHtml(date("d-m-Y",strtotime($pend->pendencia_data))); ?>">
+                <!--   
+                    as Flags input abaixo são usadas para salvar os valores de cada linha ta tabela
+                -->
+                <input type="hidden" id="id<?php echo $pend->pendencia_id ?>"   value="<?php echo $pend->pendencia_id ?>">
+                <input type="hidden" id="descricao<?php echo $pend->pendencia_id ?>"   value="<?php echo $pend->pendencia_descricao ?>">
+                <input type="hidden" id="email<?php echo $pend->pendencia_id ?>"   value="<?php echo $pend->pendencia_email ?>">
+                <input type="hidden" id="data<?php echo $pend->pendencia_id ?>"   value="<?php echo $this->escapeHtml(date("d-m-Y", strtotime($pend->pendencia_data))); ?>">
+                <!--   
+                    Fim Flags
+                -->
                 <tr>
                     <td><?php echo $this->escapeHtml($pend->pendencia_id); ?></td> 
-                    <td><?php echo substr($this->escapeHtml($pend->pendencia_descricao), 0, 20) ; ?></td> 
-                   
+                    <td><?php echo substr($this->escapeHtml($pend->pendencia_descricao), 0, 20); ?></td> 
+
                     <!--Converte a data no fomrado do banco (2000-10-10)  -->
-                    <td><?php echo $this->escapeHtml(date("d-m-Y",strtotime($pend->pendencia_data))); ?></td> 
+                    <td><?php echo $this->escapeHtml(date("d-m-Y", strtotime($pend->pendencia_data))); ?></td> 
                     <td class="col-lg-3">
-                        <a id="<?php echo $pend->grande_gerador_fk?>" 
-                           onclick="editarPendencia(<?php echo $pend->pendencia_id;?>)" 
+                        <a id="<?php echo $pend->grande_gerador_fk ?>" 
+                           onclick="editarPendencia(<?php echo $pend->pendencia_id; ?>)" 
                            class="btn btn-xs btn-warning" title="Editar"
                            >
                             <span class="glyphicon glyphicon-edit"></span>
                         </a>
-                            <a class="btn btn-xs btn-danger " title="Deletar" href="<?php echo $this->url('grande-gerador', array("action" => "deletar", "id" => $pend->grande_gerador_fk,)); ?>"><span class="glyphicon glyphicon-floppy-remove"></span></a>
                     </td>
                 </tr>
-               
+
             <?php endforeach; ?>
 
 
@@ -69,15 +74,18 @@
 
     <form class="form-horizontal " role="form" method="POST" action="<?php echo $this->url('grande-gerador', array('action' => 'salvarPendencia')); ?>">
         <!-- salva o id do grande gerador a quem a pendencia se destina -->
-        <input type="text" name="grande_gerador_fk"   value="<?php echo $this->escapeHtml($this->form['grande_gerador_id']); ?>">
+        <input type="hidden" name="grande_gerador_fk"   value="<?php echo $this->escapeHtml($this->form['grande_gerador_id']); ?>">
 
-
+        <label for="inputCnpj" >Nome Fantasia Grande Gerador: <?php echo $this->escapeHtml($this->form['grande_gerador_nome_fantasia']); ?></label>
         <div class="panel-body">
+            
             <div class="form-group">
-                <div class="form-group">
+                
+                <div class="form-group">                
                     <label for="inputCnpj" class="col-lg-3 col-md-3 control-label">Data Envio Email</label>
                     <div class="col-lg-9  col-md-9">
-                        <input readonly type="datetime" name="pendencia_data" class="form-control cnpj" id="pendencia_data"  value="<?php $data=date("d-m-Y");echo $data;?>">                </div>
+                        <input readonly type="datetime" name="pendencia_data" class="form-control cnpj" id="pendencia_data"  value="<?php $data = date("d-m-Y"); echo $data; ?>">
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="inputCnpj" class="col-lg-3 col-md-3 control-label">Email</label>
@@ -88,7 +96,7 @@
                     <label for="inputCnpj" class="col-lg-3 col-md-3 control-label">Descrição Pendência</label>
                     <div class="col-lg-9  col-md-9">
                         <textarea rows="10" cols="150" name="pendencia_descricao" class="form-control " id="pendencia_descricao" placeholder="Digite">
-                            <?php echo $this->pendencia->pendencia_descricao; ?> 
+
                         </textarea>
                     </div>
                 </div>
@@ -102,9 +110,7 @@
     </form>
 </div>
 <script type="text/javascript">
-
-
-    <?php $this->headScript()->captureStart(); ?>
+<?php $this->headScript()->captureStart(); ?>
 
     $(document).ready(function() {
         // jQuery.noConflict();
@@ -130,25 +136,25 @@
     function editarPendencia(pendencia_id)
     {
         //alert('clicou em editar pendencia');
-       // alert(pendencia_id);
-        var p_id= "#id";
+        // alert(pendencia_id);
+        var p_id = "#id";
         p_id = p_id.concat(pendencia_id);
-       
+
         var p_descricao = "#descricao";
         p_descricao = p_descricao.concat(pendencia_id);
-       
+
         var p_email = "#email";
         p_email = p_email.concat(pendencia_id);
-       
+
         var p_data = "#data";
         p_data = p_data.concat(pendencia_id);
-      
-        
-       // alert($(p_descricao).val());
-      
-    
-        
-        
+
+
+        // alert($(p_descricao).val());
+
+
+
+
         //$('.pendencia_descricao').mask("999.999.999.999");
         //$("textarea[name='conteudo']").val('ae');
         $('#pendencia_descricao').val($(p_descricao).val());
@@ -158,5 +164,11 @@
     }
 
 
-    <?php $this->headScript()->captureEnd(); ?>
-       
+<?php $this->headScript()->captureEnd(); ?>
+
+
+</script>
+
+
+
+

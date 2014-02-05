@@ -1,5 +1,44 @@
 
 
+
+
+
+<div class="panel panel-primary col-lg-6 col-md-6 " style="   left: 270px; top: 20px; /* posiciona a 70px para baixo */">
+
+    <div class="panel-heading ">
+        <div class="panel-title">
+            Cadastro Grande Gerador     
+        </div>
+    </div  >
+    <form class="form-horizontal " role="form" method="POST" action="<?php echo $this->url('grande-gerador', array('action' => 'autenticar')); ?>">
+        <div class="panel-body">
+            <input type="hidden" name="novo_cadastro" id="novo_cadastro" value="true">
+            <div class="form-group">
+
+                <div class="form-group">
+                    <label for="inputCnpj" class="col-lg-5 col-md-3 control-label">Informe seu CNPJ</label>
+                    <div class="col-lg-7  col-md-9">
+                        <input type="text" name="grande_gerador_cnpj" class="form-control cnpj" id="inputCnpj" placeholder="Digite seu CNPJ" value="<?php echo $this->escapeHtml($this->form['grande_gerador_cnpj']); ?>">               
+                    </div>
+                </div>
+                <div class="form-group" id="divDispalyChaveSeguranca" style="display: none">
+                    <label class="col-lg-5 control-label">Informe a chame de segurança</label>
+                    <div class="col-lg-7  col-md-9">
+                        <input class="form-control"  type="password" name="grande_gerador_senha"  id="grande_gerador_senha">
+                    </div>
+                </div>
+            </div>
+            <div class="panel-footer">
+                <button type="button" class="btn btn-primary " onclick="validaCadastro()" > Confirmar</button>
+                <div id='div' style='display:none'> 
+                    <button hidden="true" id="confirmaCadastroComSubmit" type="submit" class="btn btn-primary " onclick="validaCadastro()" > Confirmar submit</button>
+                </div>
+                <a href="<?php echo $this->url('home'); ?>" class="btn btn-default">Cancelar</a> 
+            </div>
+        </div>
+    </form>
+</div>
+
 <script type="text/javascript">
 
 <?php $this->headScript()->captureStart(); ?>
@@ -8,94 +47,193 @@
         // jQuery.noConflict();
         // alert('Teste');
 
-       
-       
-        $('.cpf').mask("999.999.999-99");
-        $('.cpf-sem-underline').mask("999.999.999-99", {placeholder: " "});
-        $('.nascimento').mask("99/99/9999");
-        $('.placa').mask("aaa-9999");
-        $('.cep').mask("99999-999");
         $('.cnpj').mask("99.999.999/9999-99");
-        $('.telefone').mask("(99) 9999-9999");
-        $('.fax').mask("(99) 9999-9999");
-        $('.inscricao-estadual').mask("999.999.999.999");
 
     });
 
- 
 
-    
+
+
     function validarCNPJ(cnpj) {
-        
-      
-       // alert('entrou em valida cnpj')
- 
-    cnpj = cnpj.replace(/[^\d]+/g,'');
- 
-    if(cnpj == '') return false;
-     
-    if (cnpj.length != 14)
-        return false;
- 
-    // Elimina CNPJs invalidos conhecidos
-    if (cnpj == "00000000000000" || 
-        cnpj == "11111111111111" || 
-        cnpj == "22222222222222" || 
-        cnpj == "33333333333333" || 
-        cnpj == "44444444444444" || 
-        cnpj == "55555555555555" || 
-        cnpj == "66666666666666" || 
-        cnpj == "77777777777777" || 
-        cnpj == "88888888888888" || 
-        cnpj == "99999999999999")
-        return false;
-         
-    // Valida DVs
-    tamanho = cnpj.length - 2
-    numeros = cnpj.substring(0,tamanho);
-    digitos = cnpj.substring(tamanho);
-    soma = 0;
-    pos = tamanho - 7;
-    for (i = tamanho; i >= 1; i--) {
-      soma += numeros.charAt(tamanho - i) * pos--;
-      if (pos < 2)
-            pos = 9;
+
+
+        // alert('entrou em valida cnpj')
+
+        cnpj = cnpj.replace(/[^\d]+/g, '');
+
+        if (cnpj == '')
+            return false;
+
+        if (cnpj.length != 14)
+            return false;
+
+        // Elimina CNPJs invalidos conhecidos
+        if (cnpj == "00000000000000" ||
+                cnpj == "11111111111111" ||
+                cnpj == "22222222222222" ||
+                cnpj == "33333333333333" ||
+                cnpj == "44444444444444" ||
+                cnpj == "55555555555555" ||
+                cnpj == "66666666666666" ||
+                cnpj == "77777777777777" ||
+                cnpj == "88888888888888" ||
+                cnpj == "99999999999999")
+            return false;
+
+        // Valida DVs
+        tamanho = cnpj.length - 2
+        numeros = cnpj.substring(0, tamanho);
+        digitos = cnpj.substring(tamanho);
+        soma = 0;
+        pos = tamanho - 7;
+        for (i = tamanho; i >= 1; i--) {
+            soma += numeros.charAt(tamanho - i) * pos--;
+            if (pos < 2)
+                pos = 9;
+        }
+        resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
+        if (resultado != digitos.charAt(0))
+            return false;
+
+        tamanho = tamanho + 1;
+        numeros = cnpj.substring(0, tamanho);
+        soma = 0;
+        pos = tamanho - 7;
+        for (i = tamanho; i >= 1; i--) {
+            soma += numeros.charAt(tamanho - i) * pos--;
+            if (pos < 2)
+                pos = 9;
+        }
+        resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
+        if (resultado != digitos.charAt(1))
+            return false;
+
+        return true;
+
     }
-    resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
-    if (resultado != digitos.charAt(0))
-        return false;
-         
-    tamanho = tamanho + 1;
-    numeros = cnpj.substring(0,tamanho);
-    soma = 0;
-    pos = tamanho - 7;
-    for (i = tamanho; i >= 1; i--) {
-      soma += numeros.charAt(tamanho - i) * pos--;
-      if (pos < 2)
-            pos = 9;
-    }
-    resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
-    if (resultado != digitos.charAt(1))
-          return false;
-           
-    return true;
-    
-}
 
 
 
     function validaCadastro()
     {
-       // alert('valida cadastro')
-          var cnpj =   document.getElementById('inputCnpj').value;
-       
-        if(!validarCNPJ(cnpj))
+        // alert('valida cadastro')
+        var cnpj = document.getElementById('inputCnpj').value;
+
+        if (!validarCNPJ(cnpj))
         {
-              alert('CNPJ Inválido');
-              event.preventDefault();
+            $('#divDispalyChaveSeguranca').hide();
+            alert('CNPJ Inválido');
+            event.preventDefault();
         }
-  
+        if (validarCNPJ(cnpj))
+        {
+            // alert('cnpj válido');
+            vericaCadastroGrandeGerador();
+
+            //  event.preventDefault();
+        }
+
+//           var novo_cadastro = document.getElementById('novo_cadastro').value;
+//
+//            if (novo_cadastro == 'false')
+//            {
+//                alert('novo cadastro do if false');
+//                event.preventDefault();
+//            }
+//            if (novo_cadastro == 'true')
+//            {
+//                alert('novo cadastro do if true');
+//                event.preventDefault();
+//            }
+
     }
+
+    function vericaCadastroGrandeGerador()
+    {
+        var contact;
+        //alert('Verifica cadastro grande gerador');
+        var cnpj2 = document.getElementById('inputCnpj').value;
+        var senha = document.getElementById('grande_gerador_senha').value;
+        //    alert(filtro_pesquisa);
+
+        // event.preventDefault();
+
+
+        if (cnpj2 != '') {
+            $.ajax({
+                type: 'post',
+                cache: false,
+                data: {cnpj: cnpj2},
+                url: "<?php echo $this->url('grande-gerador', array('action' => 'vericaCadastroGrandeGerador')); ?>",
+                // url: '/grande-gerador/lista',
+                beforeSend: function() {
+                },
+                success: function(data) {
+                    // alert(data.length);
+                    console.log(data);
+
+                    contact = JSON.parse(data);
+
+
+                    if (contact.grande_gerador_id != null)
+                    {
+                       
+                        if (contact.grande_gerador_senha == senha)
+                        {
+                            document.getElementById("confirmaCadastroComSubmit").click();
+                        }
+                        else {
+                            alert('Informe a senha');
+                            $('#novo_cadastro').val('false');
+                            $('#divDispalyChaveSeguranca').show();
+                           
+                        }
+                        //  event.preventDefault();
+
+                    }
+                    else {
+
+                        alert('Novo cadastro');
+                        $('#divDispalyChaveSeguranca').hide();
+                        $('#novo_cadastro').val('true');
+                        document.getElementById("confirmaCadastroComSubmit").click();
+
+                        //event.preventDefault();
+                        //console.log(contact);
+                    }
+
+
+                    // event.preventDefault();
+
+                },
+                error: function() {
+                    alert('Nao achou o PHP')
+                }
+            });
+
+
+
+
+        }
+
+
+
+
+
+
+
+
+        // alert(contact.grande_gerador_id);
+        // 
+
+
+
+
+
+    }
+
+
+
     $(function() {
         // variável para conter a url deletar
         //var url_deletar = '<?php echo $this->url('grande-gerador', array("action" => "deletar")); ?>' + '/';
@@ -119,31 +257,4 @@
 <?php $this->headScript()->captureEnd(); ?>
 
 </script>
-
-
-<div class="panel panel-primary col-lg-6 col-md-6 " style="   left: 270px; top: 20px; /* posiciona a 70px para baixo */">
-
-    <div class="panel-heading ">
-        <div class="panel-title">
-            Autenticação   Gerador de Resíduos              
-        </div>
-    </div  >
-    <form class="form-horizontal " role="form" method="POST" action="<?php echo $this->url('grande-gerador', array('action' => 'autenticar')); ?>">
-        <div class="panel-body">
-            <div class="form-group">
-
-                <div class="form-group">
-                    <label for="inputCnpj" class="col-lg-3 col-md-3 control-label">Informe seu CNPJ</label>
-                    <div class="col-lg-9  col-md-9">
-                        <input type="text" name="grande_gerador_cnpj" class="form-control cnpj" id="inputCnpj" placeholder="Digite seu CNPJ (Campo Obrigatório)" value="<?php echo $this->escapeHtml($this->form['grande_gerador_cnpj']); ?>">                </div>
-                </div>
-
-                <div class="panel-footer">
-                    <button type="submit" class="btn btn-primary " onclick="validaCadastro()" > Confirmar</button>
-                   <!-- <a href="<?php echo $this->url('grande-gerador'); ?>" class="btn btn-default">Cancelar</a> -->
-                </div>
-            </div>
-        </div>
-    </form>
-</div>
 

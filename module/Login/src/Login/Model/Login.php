@@ -1,45 +1,27 @@
 <?php
 
-namespace GrandeGerador\Model;
+namespace Login\Model;
 
-// import Model\GrandeGerador
-use GrandeGerador\Model\Pendencia,
-    GrandeGerador\Model\PendenciaTable;
-// import Zend\Db
-use Zend\Db\ResultSet\ResultSet,
-    Zend\Db\TableGateway\TableGateway;
+//// import Model\GrandeGerador
+//use Login\Model\Login,
+//    Login\Model\LoginTable;
+//// import Zend\Db
+//use Zend\Db\ResultSet\ResultSet,
+//    Zend\Db\TableGateway\TableGateway;
 
-class Pendencia {
+class Login {
 
-    public $pendencia_id;
-    public $pendencia_descricao;
-    public $pendencia_email;
-    public $pendencia_data;
-    public $grande_gerador_fk;
+
+    public $login_usuario;
+    public $login_senha;
+    public $login_id;
+
 
     public function exchangeArray($data) {
-
-        $this->pendencia_id = (!empty($data['pendencia_id'])) ? $data['pendencia_id'] : null;
-        $this->pendencia_descricao = (!empty($data['pendencia_descricao'])) ? $data['pendencia_descricao'] : null;
-        $this->pendencia_email = (!empty($data['pendencia_email'])) ? $data['pendencia_email'] : null;
-        $this->pendencia_data = (!empty($data['pendencia_data'])) ? $data['pendencia_data'] : null;
-        $this->grande_gerador_fk = (!empty($data['grande_gerador_fk'])) ? $data['grande_gerador_fk'] : null;
-        //        echo '<pre>';
-//
-//                var_dump($data);
-//                echo '</pre>';
-        // echo "<br> Entrou no construtor GrandeGerador";
-    }
-
-    public function exchangeArray2($data) {
-        // echo "<br> Entrou no construtor GrandeGerador";
-
-        $this->grande_gerador_cnpj = (!empty($data['grande_gerador_cnpj'])) ? $data['grande_gerador_cnpj'] : null;
-
-        echo '<pre>';
-
-        var_dump($this->grande_gerador_cnpj);
-        echo '</pre>';
+         echo "<br> Entrou no construtor Residuo";
+        $this->login_usuario = (!empty($data['login_usuario'])) ? $data['login_usuario'] : null;
+        $this->login_senha = (!empty($data['login_senha'])) ? $data['login_senha'] : null;   
+        $this->login_id = (!empty($data['login_id'])) ? $data['login_id'] : null;   
     }
 
 //    public $emp_prest_id;
@@ -69,4 +51,5 @@ class Pendencia {
 //        $this->emp_prest_resp_legal_emissor_rg = (!empty($data['emp_prest_resp_legal_emissor_rg'])) ? $data['emp_prest_resp_legal_emissor_rg'] : null;
 //        $this->emp_prest_resp_legal_uf_orgao_emissor = (!empty($data['emp_prest_resp_legal_uf_orgao_emissor'])) ? $data['emp_prest_resp_legal_uf_orgao_emissor'] : null;
 //    }
+
 }

@@ -7,7 +7,10 @@ namespace GrandeGerador\Model;
 // import Zend\Db
 //Zend\Db\Adapter\Adapter,
 use Zend\Db\ResultSet\ResultSet,
-    Zend\Db\TableGateway\TableGateway;
+    Zend\Db\TableGateway\TableGateway,
+    Zend\Db\Adapter\Adapter;
+use Zend\Db\Sql\Select;
+use Zend\Db\Sql\Sql;
 
 class GrandeGeradorTable {
 
@@ -36,6 +39,10 @@ class GrandeGeradorTable {
             'grande_gerador_resp_legal' => $grandegerador->grande_gerador_resp_legal,
             'grande_gerador_nome_fantasia' => $grandegerador->grande_gerador_nome_fantasia,
             'grande_gerador_situacao' => $grandegerador->grande_gerador_situacao,
+            'grande_gerador_data_cadastro' => $grandegerador->grande_gerador_data_cadastro,
+            'grande_gerador_senha' => $grandegerador->grande_gerador_senha,
+            'grande_gerador_atividade_principal' => $grandegerador->grande_gerador_atividade_principal,
+            'grande_gerador_codigo_atividade_principal' => $grandegerador->grande_gerador_codigo_atividade_principal,
             'emp_prestadora_fk' => $grandegerador->emp_prestadora_fk,
                 // 'descricao' => strtoupper($grandegerador->descricao)
         );
@@ -76,6 +83,10 @@ class GrandeGeradorTable {
             'grande_gerador_resp_legal' => $grandegerador->grande_gerador_resp_legal,
             'grande_gerador_nome_fantasia' => $grandegerador->grande_gerador_nome_fantasia,
             'grande_gerador_situacao' => $grandegerador->grande_gerador_situacao,
+            'grande_gerador_data_cadastro' => $grandegerador->grande_gerador_data_cadastro,
+            'grande_gerador_senha' => $grandegerador->grande_gerador_senha,
+            'grande_gerador_atividade_principal' => $grandegerador->grande_gerador_atividade_principal,
+            'grande_gerador_codigo_atividade_principal' => $grandegerador->grande_gerador_codigo_atividade_principal,
             'emp_prestadora_fk' => $grandegerador->emp_prestadora_fk,
                 // 'descricao' => strtoupper($grandegerador->descricao)
         );
@@ -126,8 +137,150 @@ class GrandeGeradorTable {
      * @return ResultSet
      */
     public function fetchAll() {
-      //  echo "<br> Entrou no metódo fetchall GrandeGeradorTable";
+        //  echo "<br> Entrou no metódo fetchall GrandeGeradorTable";
         return $this->tableGateway->select();
+    }
+
+    public function fetchAllPaginacao($currentPage = 1, $countPerPage = 2) {
+        $select = new Select();
+        $select->from($this->tableGateway)->order('produto_id');
+        $adapter = $this->getServiceLocator()->get('AdapterDb');
+        $paginator = new \Zend\Paginator\Paginator($adapter);
+        $paginator->setItemCountPerPage($countPerPage);
+        $paginator->setCurrentPageNumber($currentPage);
+        return $paginator;
+    }
+
+    public function fetchAllComFiltro(Adapter $adapter, $filtro, $like, $data_inicial, $data_final) {
+
+        // $adapter = $this->getServiceLocator()->get('AdapterDb');  
+
+        try {
+            $sql = new Sql($adapter);
+            $select = $sql->select();
+            $select->from('grande_gerador');
+            //  $filtro = "Analisar";
+            $analisando = "Analisando";
+            $pendente = "Pendente";
+            $deferido = "Deferido";
+            $concluido = "Concluido";
+
+            //$like = '6';
+            //$select->where(array('id' => 2)); // $select already has the from('foo') applied  nome_cliente like “g%”;
+            // $select->where(array('grande_gerador_fk' => $id_grande_gerador, 'pendencia_descricao' => "F"));
+            //  $filtro = 'F';
+            //$select->where("pendencia_descricao LIKE '%$for%' OR pendencia_descricao LIKE '%$for%' OR pendencia_descricao LIKE '%$for%'");
+            //$select->where('pendencia_descricao LIKE  F%');
+            //orderna por orden de data decrescente
+            // $select->order('grande_gerador_data_cadastro DES');
+            //  $select->where("grande_gerador_situacao LIKE '$filtro%' "
+//                    . "OR grande_gerador_situacao LIKE '$analisando%' "
+//                    . "OR grande_gerador_situacao LIKE '$pendente%' "
+//                    . "OR grande_gerador_situacao LIKE '$deferido%' "
+//                    . " OR grande_gerador_situacao LIKE '$concluido%'");
+            //$select->order('grande_gerador_situacao ASC');
+            /**
+             * Filtra por nome fantasia
+             */
+            if ($filtro == 'grande_gerador_nome_fantasia') {
+                $select->where("grande_gerador_nome_fantasia LIKE '%$like%'");
+                //  $select->where('grande_gerador_nome_fantasia LIKE  %6%');
+                $select->order('grande_gerador_data_cadastro ASC');
+                // $select->where("'$filtro' LIKE '%6%' ");
+            }
+            /*
+             * Filtra por CNPJ
+             */
+            if ($filtro == 'grande_gerador_cnpj') {
+                $select->where("grande_gerador_cnpj LIKE '%$like%'");
+                //  $select->where('grande_gerador_nome_fantasia LIKE  %6%');
+                $select->order('grande_gerador_data_cadastro ASC');
+                // $select->where("'$filtro' LIKE '%6%' ");
+            }
+            /*
+             * Filtra por situação
+             */
+            if ($filtro == 'grande_gerador_situacao') {
+                $select->where("grande_gerador_situacao LIKE '%$like%'");
+                //  $select->where('grande_gerador_nome_fantasia LIKE  %6%');
+                $select->order('grande_gerador_data_cadastro ASC');
+                // $select->where("'$filtro' LIKE '%6%' ");
+            }
+            /**
+             * Filtra por data do cadastro
+             */
+            if ($filtro == 'grande_gerador_data_cadastro') {
+
+//                echo 'Filtro por data do cadastro';
+//                exit();
+                $select->where("grande_gerador_data_cadastro BETWEEN '$data_inicial' AND '$data_final' ");
+                //  $select->where('grande_gerador_nome_fantasia LIKE  %6%');
+                $select->order('grande_gerador_data_cadastro ASC');
+                // $select->where("'$filtro' LIKE '%6%' ");
+            }
+//            else
+//            {
+//                         $select->where("grande_gerador_data_cadastro BETWEEN '$data_inicial' AND '$data_final' ");  
+//           //  $select->where('grande_gerador_nome_fantasia LIKE  %6%');
+//             $select->order('grande_gerador_data_cadastro ASC');
+//                
+//            }
+            //$select->order('grande_gerador_data_cadastro ASC');
+            // $select->order('grande_gerador_nome_fantasia ASC');
+
+            $selectString = $sql->getSqlStringForSqlObject($select);
+            return $results = $adapter->query($selectString, $adapter::QUERY_MODE_EXECUTE);
+        } catch (Exception $exc) {
+            throw new \Exception("Não foi encontrado contado de id = {$id}");
+            echo $exc->getTraceAsString();
+        }
+
+        if (!$row)
+            throw new \Exception("Não foi encontrado contado de id = {$id}");
+
+        return $row;
+    }
+
+    public function fetchAllPaginaPrincial(Adapter $adapter) {
+
+        // $adapter = $this->getServiceLocator()->get('AdapterDb');  
+
+        try {
+            $sql = new Sql($adapter);
+            $select = $sql->select();
+            $select->from('grande_gerador');
+            $filtro = "Analisar";
+            $analisando = "Analisando";
+            $pendente = "Pendente";
+            $deferido = "Deferido";
+            $concluido = "Concluido";
+            //$select->where(array('id' => 2)); // $select already has the from('foo') applied  nome_cliente like “g%”;
+            // $select->where(array('grande_gerador_fk' => $id_grande_gerador, 'pendencia_descricao' => "F"));
+            //  $filtro = 'F';
+            //$select->where("pendencia_descricao LIKE '%$for%' OR pendencia_descricao LIKE '%$for%' OR pendencia_descricao LIKE '%$for%'");
+            //$select->where('pendencia_descricao LIKE  F%');
+            //orderna por orden de data decrescente
+            // $select->order('grande_gerador_data_cadastro DES');
+//            $select->where("grande_gerador_situacao LIKE '$filtro%' "
+//                    . "OR grande_gerador_situacao LIKE '$analisando%' "
+//                    . "OR grande_gerador_situacao LIKE '$pendente%' "
+//                    . "OR grande_gerador_situacao LIKE '$deferido%' "
+//                    . " OR grande_gerador_situacao LIKE '$concluido%'");
+            $select->order('grande_gerador_situacao ASC');
+            $select->order('grande_gerador_data_cadastro ASC');
+            // $select->order('grande_gerador_nome_fantasia ASC');
+
+            $selectString = $sql->getSqlStringForSqlObject($select);
+            return $results = $adapter->query($selectString, $adapter::QUERY_MODE_EXECUTE);
+        } catch (Exception $exc) {
+            throw new \Exception("Não foi encontrado contado de id = {$id}");
+            echo $exc->getTraceAsString();
+        }
+
+        if (!$row)
+            throw new \Exception("Não foi encontrado contado de id = {$id}");
+
+        return $row;
     }
 
     /**

@@ -1,0 +1,66 @@
+<html>
+    <head>
+        <script type="text/javascript" src="<?php echo $this->baseUrl ?>/public/mootools.js"></script>
+    </head>
+    <script>
+        // Pegando os valores e montando o objeto ajax 
+        function validar() {
+            var usuario = $('usuario').value;
+            var senha = $('senha').value;
+            var queryString = {"usuario": usuario, "senha": senha};
+            var opcoes =
+                    {
+                        "method": "get",
+                        "data": queryString,
+                        "onComplete": completouSolicitacao
+                    };
+            var ajaxObj = new Ajax("<?php echo $this->baseUrl ?>/Login/login", opcoes).request();
+        }
+
+        function completouSolicitacao(info) {
+            // limpa o hint
+            $('hint').innerHTML = "";
+            var obj = Json.evaluate(info);
+            // Caso tenha tido erro na validacao do login
+            if (obj.erro == true) {
+                // Caso o problema tenha sido na senha
+                if (obj.tipo == "senha")
+                    $('hint').innerHTML = "Senha nao confere. Hint: " + obj.hint;
+                else
+                    // Caso o problema tenha sido o login invalido
+                    $('hint').innerHTML = "Login invalido";
+            } else {
+                // Nao teve erros, submeter formulario
+                $('frm').submit();
+            }
+        }
+    </script>
+    <div class="panel panel-primary col-lg-4 col-md-6 " style="   left: 300px; top: 20px; /* posiciona a 70px para baixo */">
+
+        <div class="panel-heading ">
+            <div class="panel-title">
+                Login     
+            </div>
+        </div  >
+
+        <form class="form-horizontal " role="form" method="POST" action="<?php echo $this->url('login', array('action' => 'limpurblogin')); ?>">
+
+            <div class="form-group">
+                <label class="control-label" for="inputEmail">Usuário</label>
+                <div class="controls">
+                    <input class="form-control" id="usuario" name="usuario" type="text" placeholder="Digite o seu login..." />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="inputEmail">Senha</label>
+                <div class="controls">
+                    <input class="form-control"  id="senha" name="senha" type="password" placeholder="Digite sua senha..." />
+                </div>
+            </div>
+
+
+            <button hidden="true" id="confirmaCadastroComSubmit" type="submit" class="btn btn-primary " onclick=""> Acessar</button>
+        </form>
+    </div>
+
+</html>

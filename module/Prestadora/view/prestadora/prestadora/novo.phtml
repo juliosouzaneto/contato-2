@@ -1,118 +1,138 @@
-<div class="panel panel-primary"  style=" width: 900px; height: 750px; " >
+
+
+
+
+<div class="panel panel-primary">
+
+
     <div class="panel-heading">
         <div class="panel-title">
             Cadastro Empresa Prestadora          
         </div>
     </div>
-    <form class="form-horizontal" role="form" method="POST" action="<?php echo $this->url('prestadora', array('action' => 'novo')); ?>">
-        <div class="panel-body"  style=" width: 800px; height: 600px;">
-            <div class="row">
-                <div class="col-lg-6">
+    <form class="form-horizontal" role="form" method="POST" action="<?php echo $this->url('prestadora', array('action' => 'adicionar')); ?>">
+        <div class="tab-pane panel-body"  >
+            <!-- flag para salvar o id da empresa prestadora -->
+          
+            <input type="hidden" name="emp_prest_id" id="emp_prest_id" value="" >
+          
+
+            <div class="row" style="width:370px; height: 300px; float: left">
+
+                <div class="form-group">
                     <div class="input-group">
                         <span class="input-group-addon ">
-                            <label for="inputCNPJ" class="col-lg-2 col-md-2 control-label">CNPJ:</label>
+                            Nome Fantasia
                         </span>
-                        <input type="text" name="emp_prest_cnpj" class="form-control col-lg-1" id="inputNome" placeholder="">
+                        <input type="text" name="emp_prest_nome_fantasia" class="form-control" id="emp_prest_nome_fantasia" placeholder="">
                     </div>
                 </div>
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-group-addon ">
+                            CNPJ:
+                        </span>
+                        <input type="text" name="emp_prest_cnpj" class="form-control col-lg-3 cnpj" id="emp_prest_cnpj" placeholder="">
+                    </div>
+                </div> 
+
+
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-group-addon ">
+                            Email:
+                        </span>
+                        <input type="text" name="emp_prest_email" class="form-control col-lg-3" id="emp_prest_email" placeholder="">
+                    </div>
+                </div>
+
+                <div class="form-group ">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            Celular
+                        </span>
+
+                        <input type="text" name="emp_prest_celular" class="form-control fone" id="emp_prest_celular" placeholder="">
+                    </div>
+                </div>
+
+
+                <div class="form-group ">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            Resp Lesgal:
+                        </span>
+                        <input type="text" name="emp_prest_telefone" class="form-control col-lg-1" id="emp_prest_telefone" placeholder="">
+                    </div>
+                </div>
+
+
 
                 <div class="form-group">
                     <div class="input-group">
                         <span class="input-group-addon">
-                            <label for="inputInscEstadul" class="col-lg-2 col-md-3 control-label">Insc. Estadual</label>
+                            ORG Emissor
                         </span>
-
-                        <input type="text" name="emp_prest_insc_estadual" class="form-control" id="inputTelefonePrincipal" placeholder="">
+                        <input type="text" name="emp_prest_resp_legal_emissor_rg" class="form-control" id="emp_prest_resp_legal_emissor_rg" placeholder="">
                     </div>
-                </div>
-            </div>
-            <div class="row">
-
-                <div class="input-group form-group">
-                    <span class="input-group-addon ">
-                        <label for="inputTelefone" class="col-lg-2 col-md-2 control-label">Nome Fantasia</label>
-                    </span>
-                    <input type="text" name="emp_prest_telefone" class="form-control col-lg-1" id="inputTelefone" placeholder="">
                 </div>
 
             </div>
-
-            <div class="row">
-                <div class="col-lg-7">
-                    <div class="input-group">
-                        <span class="input-group-addon ">
-                            <label for="inputTelefone" class="col-lg-1 col-md-2 control-label">Email:</label>
-                        </span>
-                        <input type="text" name="emp_prest_telefone" class="form-control col-lg-3" id="inputTelefone" placeholder="">
-                    </div>
-                </div>
+            <div class="row" style="width:315px; height: 300px; float: left; margin-left: 20px; ">
 
                 <div class="form-group">
                     <div class="input-group">
-                        <span class="input-group-addon">
-                            <label for="inputCelular" class="col-lg-2 col-md-2 control-label">Data Cadastro</label>
+                        <span class="input-group-addon ">
+                            Razão Social
                         </span>
-
-                        <input type="date" name="emp_prest_insc_estadual" class="form-control col-lg-2" id="inputCelular" placeholder="">
+                        <input type="text" name="emp_prest_telefone" class="form-control col-lg-1" id="emp_prest_telefone" placeholder="">
                     </div>
                 </div>
-            </div>
-
-
-            <div class="row">
-                <div class="col-lg-6">
+                <div class="form-group">
                     <div class="input-group">
                         <span class="input-group-addon ">
-                            <label for="inputTelefone" class="col-lg-2 col-md-2 control-label">Telefone:</label>
+                            Insc. Estadual
                         </span>
-                        <input type="text" name="emp_prest_telefone" class="form-control col-lg-1" id="inputTelefone" placeholder="">
+                        <input type="text" name="emp_prest_insc_estadual" class="form-control col-lg-3" id="emp_prest_insc_estadual" placeholder="">
                     </div>
                 </div>
+
 
                 <div class="form-group">
                     <div class="input-group">
-                        <span class="input-group-addon">
-                            <label for="inputCelular  control-label">Celular</label>
+                        <span class="input-group-addon ">
+                            Telefone:
                         </span>
-
-                        <input type="text" name="emp_prest_insc_estadual" class="form-control" id="inputCelular" placeholder="">
+                        <input type="text" name="emp_prest_telefone" class="form-control fone" id="emp_prest_telefone" placeholder="">
                     </div>
                 </div>
-            </div>
-            <div class="row">
 
-                <div class="input-group form-group">
-                    <span class="input-group-addon ">
-                        <label for="inputTelefone" class="col-lg-2 col-md-2 control-label">Resp Lesgal:</label>
-                    </span>
-                    <input type="text" name="emp_prest_telefone" class="form-control col-lg-1" id="inputTelefone" placeholder="">
+                <div class="form-group  ">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            Data Cadastro
+                        </span>
+                        <input type="date" name="emp_prest_data_cadastro" class="form-control" id="emp_prest_data_cadastro" >
+                    </div>
                 </div>
 
-            </div>
-            <div class="row">
-                <div class="col-lg-5">
+
+                <div class="form-group">
                     <div class="input-group">
                         <span class="input-group-addon ">
-                            <label for="inputTelefone" class="col-lg-2 col-md-2 control-label">Resp Lesgal RG:</label>
+                            Resp Legal RG:
                         </span>
-                        <input type="text" name="emp_prest_telefone" class="form-control col-lg-1" id="inputTelefone" placeholder="">
+                        <input type="text" name="emp_prest_resp_legal_rg" class="form-control col-lg-1" id="emp_prest_resp_legal_rg" placeholder="">
                     </div>
                 </div>
 
-                <div class="form-group col-lg-4">
-                    <div class="input-group">
-                        <span class="input-group-addon">
-                            <label for="inputCelular" class="col-lg-1 col-md-2 control-label">ORG Emissor</label>
-                        </span>
-                        <input type="text" name="emp_prest_insc_estadual" class="form-control" id="inputCelular" placeholder="">
-                    </div>
-                </div>
+
                 <div class="form-group" >
                     <div class="input-group">
                         <span class="input-group-addon">
                             <label for="inputCelular" class="col-lg-1 col-md-2 control-label">UF</label>
                         </span>  
-                        <select  class="form-control selectpicker" name="estados">
+                        <select  class="form-control selectpicker" name="emp_prest_resp_legal_uf_orgao_emissor" id="emp_prest_resp_legal_uf_orgao_emissor">
                             <option value="AC">Acre</option>
                             <option value="AL">Alagoas</option>
                             <option value="AM">Amazonas</option>
@@ -144,82 +164,305 @@
                     </div>
                 </div>
             </div>
-
-
-            <table class="table table-striped table-bordered table-hover">
-                <thead>
-                    <tr>
-                        <th>Placa</th>
-                        <th>Capacidade</th>
-                        <th>Cor</th>
-                        <th>Modelo</th>
-                        <th>Ano</th>  
-                        <th>Estado Conservação</th>  
-                        <th>Resp Lesgal</th>  
-                    </tr>
-                </thead>
-
-                <tbody>
-                    <tr>
-                        <td><input type="text" name="emp_prest_insc_estadual" class="form-control" id="inputCelular" placeholder=""/></td>
-                        <td><input type="text" name="emp_prest_insc_estadual" class="form-control" id="inputCelular" placeholder=""/></td>
-                        <td><select  class="form-control selectpicker" name="estados">
-                                <option value="AC">Branco</option>
-                                <option value="AL">Índigo</option>
-                                <option value="AM">Roxo</option>
-                                <option value="AP">Pink</option>
-                                <option value="BA">Amarelo</option>
-                                <option value="CE">Cinza</option>
-                                <option value="DF">Marrom</option>
-                                <option value="ES">Preto</option>
-                                <option value="GO">Prata</option>
-                                <option value="MA">Vermelho</option>
-                                <option value="MG">Laranja</option>
-                                <option value="MS">Azul</option>
-                                <option value="MT">Dourado</option>
-                                <option value="PA">Verde</option>
-                                <option value="PB">Turquesa</option>
-                                <option value="PE">Castanho-avermelhado</option>
-                            </select></td>
-                        <td><input type="text" name="emp_prest_insc_estadual" class="form-control" id="inputCelular" placeholder=""/></td>
-                     
-                       <td><select  class="form-control selectpicker" name="estados">
-                                <option value="AC">Branco</option>
-                                <option value="AL">Índigo</option>
-                                <option value="AM">Roxo</option>
-                                <option value="AP">Pink</option>
-                                <option value="BA">Amarelo</option>
-                                <option value="CE">Cinza</option>
-                                <option value="DF">Marrom</option>
-                                <option value="ES">Preto</option>
-                                <option value="GO">Prata</option>
-                                <option value="MA">Vermelho</option>
-                                <option value="MG">Laranja</option>
-                                <option value="MS">Azul</option>
-                                <option value="MT">Dourado</option>
-                                <option value="PA">Verde</option>
-                                <option value="PB">Turquesa</option>
-                                <option value="PE">Castanho-avermelhado</option>
-                        </select></td>
-                            
-                     
-                        
-                        <td><input type="text" name="emp_prest_insc_estadual" class="form-control" id="inputCelular" placeholder=""/></td>
-                        <td><input type="text" name="emp_prest_insc_estadual" class="form-control" id="inputCelular" placeholder=""/></td>
-                    </tr>
-
-
-                </tbody>
-            </table>
-
-
-        </div>
-        <div class="panel-footer">
-            <button type="submit" class="btn btn-primary">Salvar</button>
-            <a href="<?php echo $this->url('prestadora'); ?>" class="btn btn-default">Voltar</a>
+            <div class="row" style="width:600px; height: 10px; float: left; ">
+                <div class="rowpanel-footer">
+                    <button type="submit" onclick="savarPrestadora()" class="btn btn-primary">Salvar Prestadora</button>
+                    <a href="<?php echo $this->url('prestadora'); ?>" class="btn btn-default">Voltar</a>
+                </div> 
+            </div>
         </div>
 
-
-        
     </form>
+
+    <div class="panel panel-primary">
+
+        <div class="panel-heading">
+            <div class="panel-title">
+                Cadastro Veículos   
+                <!-- Button trigger modal -->
+                <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+                    Inserir Veículo
+                </button>
+            </div>
+        </div>
+
+        <table class="table table-striped table-bordered table-hover" id="tabelaVeiculo">
+            <thead>
+                <tr>
+                    <th>Placa</th>
+                    <th>Capacidade</th>
+                    <th>Cor</th>
+                    <th>Modelo</th>
+                    <th>Ano</th>  
+                    <th>Estado Conservação</th>  
+                    <th>Responsável Legal</th>  
+                </tr>
+            </thead>
+            <tbody id="tbody_tabela_veiculo">
+                
+                
+            </tbody>
+        </table>
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel">Cadastro Veículos </h4>
+                    </div>
+                    <div class="modal-body">
+                        <label>Placa</label>
+                        <input type="text" name="veiculo_placa" class="form-control" id="veiculo_placa" placeholder=""/>
+                        <label>Capacidade</label>
+                        <input type="text" name="veiculo_capacidade" class="form-control" id="veiculo_capacidade" placeholder=""/>
+                        <label>Cor</label>
+                        <select  class="form-control selectpicker" name="veiculo_cor" id="veiculo_cor">
+                            <option value="AC">Branco</option>
+                            <option value="AL">Índigo</option>
+                            <option value="AM">Roxo</option>
+                            <option value="AP">Pink</option>
+                            <option value="BA">Amarelo</option>
+                            <option value="CE">Cinza</option>
+                            <option value="DF">Marrom</option>
+                            <option value="ES">Preto</option>
+                            <option value="GO">Prata</option>
+                            <option value="MA">Vermelho</option>
+                            <option value="MG">Laranja</option>
+                            <option value="MS">Azul</option>
+                            <option value="MT">Dourado</option>
+                            <option value="PA">Verde</option>
+                            <option value="PB">Turquesa</option>
+                            <option value="PE">Castanho-avermelhado</option>
+                        </select>
+                        <label>Modelo</label> 
+                        <input type="text" name="veiculo_modelo" class="form-control" id="veiculo_modelo" placeholder=""/>
+                        <label>Ano</label> 
+                        <select  class=" form-control selectpicker" name="veiculo_ano" id="veiculo_ano">
+                            <option  value="0"> 
+                                .......
+                            </option>
+                            <?php
+                            $ano = 1950;
+                            for ($i = 0; $i < 100; $i++) {
+                                $ano ++
+                                ?>
+                                <option value="<?php echo $ano; ?>"><?php echo $ano; ?></option>
+                            <?php } ?>
+                        </select>
+                        <label>Estado Conservação</label>
+                        <input type="text" name="veiculo_est_conserv" class="form-control" id="veiculo_est_conserv" placeholder=""/>
+                        <label>Resp Lesgal</label>
+                        <input type="text" name="veiculo_resp_legal" class="form-control" id="veiculo_resp_legal" placeholder=""/>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="botaoCloseDivModal" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" onclick="adicionarVeiculo()">Inserir</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
 </div>
+
+
+
+<script type="text/javascript">
+
+<?php $this->headScript()->captureStart(); ?>
+
+    var arrayCarros = new Array();
+
+
+    $(document).ready(function() {
+        // jQuery.noConflict();
+        // alert('Teste');
+
+        $('.fone').mask("(99)9999-9999");
+        $('cnpj').mask("99.999.999/9999-99");
+        $('.cpf').mask("999.999.999-99");
+        $('.cpf-sem-underline').mask("999.999.999-99", {placeholder: " "});
+        $('.nascimento').mask("99/99/9999");
+        $('.placa').mask("aaa-9999");
+        $('.cep').mask("99999-999");
+        $('.cnpj').mask("99.999.999/9999-99");
+        $('.telefone').mask("(99) 9999-9999");
+        $('.fax').mask("(99) 9999-9999");
+        $('.inscricao-estadual').mask("999.999.999.999");
+
+    });
+
+    function savarPrestadora()
+    {
+        alert('Salvador Prestadora');
+        inserirPrestadoracomAjaxAction
+        
+        
+        
+              alert('Clicou em adicionar veículo');
+        var placa = $('#veiculo_placa').val();
+        var capacidade = $('#veiculo_capacidade').val();
+        var cor = $('#veiculo_cor').val();
+        var modelo = $('#veiculo_modelo').val();
+        var ano = $('#veiculo_ano').val();
+        var estado_conserv = $('#veiculo_est_conserv').val();
+        var resp_legal = $('#veiculo_resp_legal').val();
+       // var emp_prest_fk = $('#emp_prest_id').val();
+       // emp_prest_fk = 5;
+
+        var emp_prest_id = $('#emp_prest_id').val();
+        var emp_prest_cnpj = $('#emp_prest_cnpj').val();
+        var emp_prest_insc_estadual = $('#emp_prest_insc_estadual').val();
+        var emp_prest_email = $('#emp_prest_email').val();
+        var emp_prest_telefone = $('#emp_prest_telefone').val();
+        var emp_prest_celular = $('#emp_prest_celular').val();
+        var emp_prest_data_cadastro = $('#emp_prest_data_cadastro').val();
+        var emp_prest_resp_legal = $('#emp_prest_resp_legal').val();
+        var emp_prest_resp_legal_rg = $('#emp_prest_resp_legal_rg').val();
+        var emp_prest_resp_legal_emissor_rg = $('#emp_prest_resp_legal_emissor_rg').val();
+        var emp_prest_resp_legal_uf_orgao_emissor = $('#emp_prest_resp_legal_uf_orgao_emissor').val();
+        var emp_prest_nome_fantasia = $('#emp_prest_nome_fantasia').val();
+        
+        alert(emp_prest_id);
+        
+        var contact;
+        
+        $.ajax(
+                {
+                    type: 'post',
+                    cache: false,
+                    data: {veiculo_placa: placa,
+                        veiculo_capacidade: capacidade, // propriedade/valor
+                        veiculo_cor: cor, // propriedade/método 
+                        veiculo_modelo: modelo,
+                        veiculo_ano: ano,
+                        veiculo_est_conserv: estado_conserv,
+                        veiculo_resp_legal: resp_legal,
+                       // emp_prestadora_fk: emp_prest_fk,
+                        emp_prest_id: emp_prest_id, 
+                        emp_prest_cnpj: emp_prest_cnpj, 
+                        emp_prest_email: emp_prest_email, 
+                        emp_prest_telefone: emp_prest_telefone, 
+                        emp_prest_celular: emp_prest_celular, 
+                        emp_prest_data_cadastro: emp_prest_data_cadastro, 
+                        emp_prest_resp_legal: emp_prest_resp_legal, 
+                        emp_prest_resp_legal_rg: emp_prest_resp_legal_rg, 
+                        emp_prest_resp_legal_uf_orgao_emissor: emp_prest_resp_legal_uf_orgao_emissor, 
+                        emp_prest_nome_fantasia: emp_prest_nome_fantasia 
+                    },
+                    url: "<?php echo $this->url('prestadora', array('action' => 'inserirPrestadoracomAjax')); ?>",
+                    // url: '/grande-gerador/lista',
+                    beforeSend: function() {
+                    },
+                    success: function(data) {
+
+                        console.log(data);
+                        contact = JSON.parse(data);
+                       // contact = data;
+                        console.log(contact.tabela);
+                        $('#tabelaVeiculo').html(contact.tabela); 
+                        $('#emp_prest_id').val(contact.emp_prest_id);
+                        $('#botaoCloseDivModal').click();
+                            
+                    },
+                    error: function() {
+                        alert('Nao achou o PHP')
+                    }
+                });
+                
+        
+        
+        
+        
+         event.preventDefault();
+    }
+
+    function adicionarVeiculo()
+    {
+        
+        alert('Clicou em adicionar veículo');
+        var placa = $('#veiculo_placa').val();
+        var capacidade = $('#veiculo_capacidade').val();
+        var cor = $('#veiculo_cor').val();
+        var modelo = $('#veiculo_modelo').val();
+        var ano = $('#veiculo_ano').val();
+        var estado_conserv = $('#veiculo_est_conserv').val();
+        var resp_legal = $('#veiculo_resp_legal').val();
+       // var emp_prest_fk = $('#emp_prest_id').val();
+       // emp_prest_fk = 5;
+
+        var emp_prest_id = $('#emp_prest_id').val();
+        var emp_prest_cnpj = $('#emp_prest_cnpj').val();
+        var emp_prest_insc_estadual = $('#emp_prest_insc_estadual').val();
+        var emp_prest_email = $('#emp_prest_email').val();
+        var emp_prest_telefone = $('#emp_prest_telefone').val();
+        var emp_prest_celular = $('#emp_prest_celular').val();
+        var emp_prest_data_cadastro = $('#emp_prest_data_cadastro').val();
+        var emp_prest_resp_legal = $('#emp_prest_resp_legal').val();
+        var emp_prest_resp_legal_rg = $('#emp_prest_resp_legal_rg').val();
+        var emp_prest_resp_legal_emissor_rg = $('#emp_prest_resp_legal_emissor_rg').val();
+        var emp_prest_resp_legal_uf_orgao_emissor = $('#emp_prest_resp_legal_uf_orgao_emissor').val();
+        var emp_prest_nome_fantasia = $('#emp_prest_nome_fantasia').val();
+        
+        alert(emp_prest_id);
+        
+        var contact;
+        
+        $.ajax(
+                {
+                    type: 'post',
+                    cache: false,
+                    data: {veiculo_placa: placa,
+                        veiculo_capacidade: capacidade, // propriedade/valor
+                        veiculo_cor: cor, // propriedade/método 
+                        veiculo_modelo: modelo,
+                        veiculo_ano: ano,
+                        veiculo_est_conserv: estado_conserv,
+                        veiculo_resp_legal: resp_legal,
+                       // emp_prestadora_fk: emp_prest_fk,
+                        emp_prest_id: emp_prest_id, 
+                        emp_prest_cnpj: emp_prest_cnpj, 
+                        emp_prest_email: emp_prest_email, 
+                        emp_prest_telefone: emp_prest_telefone, 
+                        emp_prest_celular: emp_prest_celular, 
+                        emp_prest_data_cadastro: emp_prest_data_cadastro, 
+                        emp_prest_resp_legal: emp_prest_resp_legal, 
+                        emp_prest_resp_legal_rg: emp_prest_resp_legal_rg, 
+                        emp_prest_resp_legal_uf_orgao_emissor: emp_prest_resp_legal_uf_orgao_emissor, 
+                        emp_prest_nome_fantasia: emp_prest_nome_fantasia 
+                        
+                        
+                    },
+                    url: "<?php echo $this->url('prestadora', array('action' => 'inserirVeiculo')); ?>",
+                    // url: '/grande-gerador/lista',
+                    beforeSend: function() {
+                    },
+                    success: function(data) {
+
+                        console.log(data);
+                        contact = JSON.parse(data);
+                       // contact = data;
+                        console.log(contact.tabela);
+                        $('#tabelaVeiculo').html(contact.tabela); 
+                        $('#emp_prest_id').val(contact.emp_prest_id);
+                        $('#botaoCloseDivModal').click();
+                            
+                    },
+                    error: function() {
+                        alert('Nao achou o PHP')
+                    }
+                });
+                
+
+    }
+
+
+
+
+
+
+<?php $this->headScript()->captureEnd(); ?>
+</script>

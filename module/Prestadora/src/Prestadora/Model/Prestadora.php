@@ -18,7 +18,7 @@ class Prestadora {
     public $emp_prest_nome_fantasia;
 
     public function exchangeArray($data) {
-        $this->id = (!empty($data['id'])) ? $data['id'] : null;
+      //  $this->id = (!empty($data['id'])) ? $data['id'] : null;
         $this->emp_prest_id = (!empty($data['emp_prest_id'])) ? $data['emp_prest_id'] : null;
         $this->emp_prest_cnpj = (!empty($data['emp_prest_cnpj'])) ? $data['emp_prest_cnpj'] : null;
         $this->emp_prest_insc_estadual = (!empty($data['emp_prest_insc_estadual'])) ? $data['emp_prest_insc_estadual'] : null;
@@ -33,7 +33,7 @@ class Prestadora {
         $this->emp_prest_nome_fantasia = (!empty($data['emp_prest_nome_fantasia'])) ? $data['emp_prest_nome_fantasia'] : null;
     }
 
-    public function getInputFilter() {
+   /* public function getInputFilter() {
         if (!$this->inputFilter) {
             $inputFilter = new InputFilter();
             $factory = new InputFactory();
@@ -88,7 +88,7 @@ class Prestadora {
         }
 
         return $this->inputFilter;
-    }
+    }*/
 
     public function cadastrarAction() {
         $form = new OrgaoForm();

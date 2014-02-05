@@ -7,52 +7,11 @@
             Cadastro Grande Gerador de Resíduos           
         </div>
     </div>
-
-
-
     <form d class="form-horizontal" role="form" method="POST" action="<?php echo $this->url('grande-gerador', array('action' => 'adicionar')); ?>">
         <div class="panel-body">
             <div class="form-group"  >
-                <!-- ============Div Situação=================
-                    Irá exibir a situação do grande gerador
-                    só é exibida quando a situação é diferente de analisando
-                -->
-                <div id="situacaoCadastro" 
-                     style="border:1px solid black; 
-                     margin-top: 30px; 
-                     margin-bottom:30px; 
 
-                     position: relative;
-                     left: 30%;
-                     top: 55%;
-                     width: 600px; 
-                     height: 190px; display:<?php
-                     if ($this->habilitaEdicao == 'disabled')
-                         echo 'block';
-                     else
-                         echo 'none';
-                     ?>" >
-                    <p> <h2 style="text-align: center ">Situação do Cadastro</h2></p>
-                    <p> <h3 style="text-align: center "><?php echo $this->escapeHtml($this->form['grande_gerador_situacao']); ?></h3></p>
-                    <div style="display: <?php
-                    if ($this->form['grande_gerador_situacao'] == 'Pendente')
-                        echo 'block';
-                    else
-                        echo 'none';
-                    ?> ">
-                        <textarea rows="3" cols="150"  class="form-control "  placeholder="Digite">
-                            <?php echo $this->ultimaPendencia->pendencia_descricao; ?> 
- 
-                        </textarea>
-
-
-                    </div>
-                </div>
-                <!-- flag para armazenar o ID do grande gerador -->
                 <input  type="hidden" name="grande_gerador_id" class="form-control"   value="<?php echo $this->escapeHtml($this->form['grande_gerador_id']); ?>">
-                <!-- flag para armazenar a situação do grande gerador
-                     se a situação do grande grande gerador for igual a vazio, a situação recebe analisar
-                -->
                 <input  type="hidden" name="grande_gerador_situacao" class="form-control"   
                         value="<?php
                         if ($this->form['grande_gerador_situacao'] == '') {
@@ -61,26 +20,12 @@
                             echo $this->escapeHtml($this->form['grande_gerador_situacao']);
                         }
                         ?>">
-                <!-- 
-                    ===============flag para armazenar o ID do residuo para coleta, é usado durante a edição 
-                -->
                 <input  type="hidden" name="residuo_para_coleta_id" class="form-control" id="inputNomeFantasia" placeholder="Nome Completo" value="<?php echo $this->residuoParaColeta->residuo_para_coleta_id ?>">
-                <!-- 
-                    =========flag para armazenar a chave estrangeira da empresa prestadora==========
-                -->
                 <input  type="hidden" name="grande_gerador_fk" class="form-control" id="inputNomeFantasia" placeholder="Nome Completo" value="<?php echo $this->residuoParaColeta->grande_gerador_fk ?>">
-                <!-- 
-                    ===========flag para armazenar o usuário que esta acessando a tela de autenticação====== 
-                -->
-                <input  type="hidden" name="usuario" class="form-control" id="inputNomeFantasia" placeholder="Nome Completo" value="<?php echo $this->usuario ?>">
-                <!-- 
-                    =============flag para armazenar a data do cadastro do grande gerador
-                -->
-                <div style="display: none">
-                    <input  type="datetime" name="grande_gerador_data_cadastro"  id="grande_gerador_data_cadastro"  value="<?php echo $this->escapeHtml($this->form['grande_gerador_data_cadastro']); ?>">
-                </div>
+                <input  type="datetime" name="grande_gerador_data_cadastro"  id="grande_gerador_data_cadastro"  value="<?php echo $this->escapeHtml($this->form['grande_gerador_data_cadastro']); ?>">
 
-                <!-- Inicio inputs do Formulário --> 
+
+
                 <div class="form-group">
                     <label for="inputNomeFantasia" class="col-lg-3 col-md-3 control-label">Nome Fantasia</label>
                     <div class="col-lg-9 col-md-9">
@@ -100,19 +45,6 @@
                     <div class="col-lg-9  col-md-9">
                         <input disabled type="text" name="grande_gerador_cnpj" class="form-control cnpj" id="grande_gerador_cnpj" placeholder="Digite seu telefone principal" value="<?php echo $this->escapeHtml($this->form['grande_gerador_cnpj']); ?>">               
                     </div>
-                </div>
-
-                <div class="form-group">
-
-                    <label for="inputAtividadePrincipal" class="col-lg-3  control-label">Atividade Princial</label>
-                    <div class="col-lg-5 ">
-                        <input <?php echo $this->habilitaEdicao; ?>  type="text" name="grande_gerador_atividade_principal" class="form-control" id="grande_gerador_atividade_principal" placeholder="Digite sua atividade principal" value="<?php echo $this->escapeHtml($this->form['grande_gerador_atividade_principal']); ?>">               
-                    </div>
-                    <label for="inputAtividadePrincial" class="col-lg-2 col-md-3 control-label">Código (CNAE)</label>
-                    <div class="col-lg-2 ">
-                        <input <?php echo $this->habilitaEdicao; ?>   type="text" name="grande_gerador_codigo_atividade_principal" class="form-control" id="grande_gerador_codigo_atividade_principal" placeholder="Digite o código (CNAE)" value="<?php echo $this->escapeHtml($this->form['grande_gerador_codigo_atividade_principal']); ?>">               
-                    </div>
-
                 </div>
 
 
@@ -164,20 +96,19 @@
 
                 <div class=" form-group">
                     <div class="form-group">
-                        <label for="inputRespLegal" class="col-lg-3 col-md-3 control-label">Chave de Segurança</label>
-                        <div class="col-lg-3 ">
+                        <label for="inputRespLegal" class="col-lg-3 col-md-3 control-label">Senha</label>
+                        <div class="col-lg-4 ">
                             <input <?php echo $this->habilitaEdicao; ?>  type="PASSWORD" name="grande_gerador_senha" class="form-control" id="grande_gerador_senha"  value="<?php echo $this->escapeHtml($this->form['grande_gerador_senha']); ?>">
                         </div>
 
-                        <label for="inputRespLegal" class="col-lg-3 control-label">Redigitar Chave de Segurança</label>
-                        <div class="col-lg-3 ">
+                        <label for="inputRespLegal" class="col-lg-1 control-label">Confirmar</label>
+                        <div class="col-lg-4 ">
                             <input <?php echo $this->habilitaEdicao; ?>  type="PASSWORD" name="grande_gerador_senha_confirmacao" class="form-control" id="grande_gerador_senha_confirmacao" onblur="validaSenha()"  value="<?php echo $this->escapeHtml($this->form['grande_gerador_senha']); ?>">
                         </div>
-                        <div class="col-lg-9  col-md-9"  id="displaySenha" style="display:none; color: red;"><label >As Chaves de Segurança não Correspondem</label></div>
+                        <div class="col-lg-9  col-md-9"  id="displaySenha" style="display:none; color: red;"><label >A senha não conferi com a confirmação de senha</label></div>
                     </div>
 
                 </div>
-                <!-- Fim inputs do Formulário grande gerador--> 
             </div>
 
 
@@ -235,12 +166,11 @@
                                 <td><textarea <?php echo $this->habilitaEdicao; ?>  rows="3" cols="2" name="residuo_para_coleta_solido_peso" class="form-control numer" id="inputRespLegal" placeholder="Digite"><?php echo $this->residuoParaColeta->residuo_para_coleta_solido_peso ?></textarea></td>
                                 <td><textarea <?php echo $this->habilitaEdicao; ?>  rows="3" cols="30" name="residuo_para_coleta_solido_tipo_acodic" class="form-control" id="inputRespLegal" placeholder="Digite"><?php echo $this->residuoParaColeta->residuo_para_coleta_solido_tipo_acodic ?></textarea></td>
                                 <td><label for="inputEmail" class="col-lg-3 col-md-3 control-label" pattern="^@\w{2,}" >Cooperativa</label>
-                                    <select <?php echo $this->habilitaEdicao; ?>  class="combobox form-control" name="residuo_para_coleta_solido_nome_cooperativa" id="residuo_para_coleta_solido_nome_cooperativa" onclick="analisaCooperativa(this)"   >
+                                    <select <?php echo $this->habilitaEdicao; ?>  class="combobox form-control" name="residuo_para_coleta_solido_cooperativa" id="residuo_para_coleta_solido_cooperativa" onclick="atualizaComboResidio(this)" itemscope="4564"  >
                                         <option  value="0">Selecione uma Cooperativa</option>
-                                        <option  value="Cooperativa Pega Tudo">Cooperativa Pega Tudo</option>
-                                        <option  value="Reciclagem com Qualidade">Reciclagem com Qualidade</option>
-                                        <option  value="Qualidade na Reciclagem">Qualidade na Reciclagem</option>
-                                        <option  value="Outros">Outros</option>
+                                        <option  value="1">Cooperativa Pega Tudo</option>
+                                        <option  value="2">Reciclagem com Qualidade</option>
+                                        <option  value="3">Qualidade na Reciclagem</option>
                                     </select>
                                 </td>
                                 <td><textarea <?php echo $this->habilitaEdicao; ?>  rows="3" cols="30" name="residuo_para_coleta_solido_local_destinacao" class="form-control" id="inputRespLegal" placeholder="Digite"><?php echo $this->residuoParaColeta->residuo_para_coleta_solido_local_destinacao ?></textarea></td>
@@ -250,29 +180,27 @@
                 </div>
             </div>
 
-
-
             <div class="panel-footer">
 
                 <button <?php echo $this->habilitaEdicao; ?>  type="submit" class="btn btn-primary" onclick=" validaCadastro(), salvarResiduoBanco()" >Salvar Grande Gerador</button>
                 <!--  O botão cancelar irá redirecionar para a página lista grande geradores (página index) 
                     se botão cancelar igual a home o botão é exibido
                 -->
-                <?php
-                $bCancelar;
-                if ($this->usuario == 'grande_gerador'):
-                    $bCancelar = 'home';
-                    ?>
-                    <a href="<?php echo $this->url($bCancelar) ?>" class="btn btn-default">Cancelar</a>
-
-                    <?php
-                else:
-                    $bCancelar = 'index';
-                    ?>
-                    <a href="<?php echo $this->url($bCancelar) ?>" class="btn btn-default">Cancelar</a>        
-                <?php endif; ?>
-
-
+                <div  id="cancelarIndex" style="display:<?php if ($this->botaoCancelar == 'home')
+                                                    echo 'block';
+                                                else
+                                                    echo 'none';
+                                                ?>; color: red;">
+                    <a href="<?php echo $this->url('home') ?>" class="btn btn-default">Cancelar</a>
+                </div>
+                <!--  O botão cancelar irá redirecionar para a página lista grande geradores (index) -->
+                <div  id="cancelarIndex" style="display:<?php if ($this->botaoCancelar == 'index')
+                                                    echo 'block';
+                                                else
+                                                    echo 'none';
+                                                ?>; color: red;">
+                    <a href="<?php echo $this->url('grande-gerador') ?>" class="btn btn-default">Cancelar</a>
+                </div>
             </div>
     </form>
 </div>
@@ -311,18 +239,6 @@
          */
         $('#emp_prestadora_fk').val(<?php echo $this->escapeHtml($this->form['emp_prestadora_fk']); ?>);
 
-        /*
-         * se grande_gerador_id for diferente de vazio é selecionado a cooperativa do grande gerador
-         * na combox cooperativa
-         */
-        <?php
-        if ($this->form['grande_gerador_id'] != ''):
-            ?>
-                    $('#residuo_para_coleta_solido_nome_cooperativa').append('<option value="<?php echo $this->residuoParaColeta->residuo_para_coleta_solido_nome_cooperativa ?>" selected="selected"> <?php echo $this->residuoParaColeta->residuo_para_coleta_solido_nome_cooperativa ?> </option>');
-        <?php endif; ?>
-
-
-        //  $('#residuo_para_coleta_solido_nome_cooperativa').val(<?php echo $this->residuoParaColeta->residuo_para_coleta_solido_nome_cooperativa ?>);
     });
 
     var mensagem = '';
@@ -353,34 +269,6 @@
         // $("#grande_gerador_cnpj").removeAttr("disabled");
 
     }
-
-    function analisaCooperativa(cooperativa)
-    {
-        //var outraCooperativa;
-        var outraCooperativa;
-
-        if (cooperativa.value == 'Outros')
-        {
-
-
-            do {
-
-                outraCooperativa = prompt("Informe o nome da cooperativa");
-
-            } while (outraCooperativa == null || outraCooperativa == "");
-
-            $('#residuo_para_coleta_solido_nome_cooperativa').append('<option value="' + outraCooperativa + '" selected="selected">' + outraCooperativa + '</option>');
-
-            // var options = $('#residuo_para_coleta_solido_cooperativa').attr('options');
-            // options[options.length+1] = new Option('Foo', 'foo', true, true);
-
-            // $("#residuo_para_coleta_solido_cooperativa").val(outraCooperativa);
-
-            //alert(outraCooperativa);
-        }
-
-    }
-
     function validaSenha()
     {
         // alert('valida senha');
@@ -412,18 +300,15 @@
         // $("#grande_gerador_cnpj").removeAttr("disabled");
 
     }
-
-    /*
-     * Evetua a busca com filtro 
-     */
+    
     function pesquisa()
     {
-        $.ajax({
+           $.ajax({
             type: 'post',
             cache: false,
-            data: {campo: 2, tipo: 1},
+             data: {campo: 2, tipo: 1},
             url: "<?php echo $this->url('grande-gerador', array('action' => 'lista')); ?>",
-            // url: '/grande-gerador/lista',
+           // url: '/grande-gerador/lista',
             beforeSend: function() {
             },
             success: function(data) {
@@ -439,6 +324,10 @@
             }
         });
     }
+
+
+
+
     /**
      * Insere um residuo  na tabela resíduo
      * o valor não é salvo banco de dados
@@ -473,9 +362,9 @@
         $.ajax({
             type: 'post',
             cache: false,
-            data: {campo: 2, tipo: 1},
+             data: {campo: 2, tipo: 1},
             url: "<?php echo $this->url('grande-gerador', array('action' => 'lista')); ?>",
-            // url: '/grande-gerador/lista',
+           // url: '/grande-gerador/lista',
             beforeSend: function() {
             },
             success: function(data) {
@@ -501,10 +390,6 @@
         // document.location.href = "http://www.teste.com.br" + campo.options[campo.selectedIndex].value;
     }
 
-    /*
-     * Era usado para salvar um resíduo 
-     * quando o resíduo era dividido por tipo
-     */
     function salvarResiduoBanco() {
 
         // alert(campo);
@@ -579,8 +464,6 @@
         emp_prestadora = document.getElementById('emp_prestadora_fk').value;
         email = document.getElementById('emp_prestadora_fk').value;
         $("#grande_gerador_cnpj").removeAttr("disabled");
-
-        // event.preventDefault();
         // nome_fantasia = document.getElementById('grande_gerador_nome_fantasia').value;
 
         if (!verificaValidacao()) {

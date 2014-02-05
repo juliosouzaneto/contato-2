@@ -1,0 +1,61 @@
+<html>
+<head>
+<script type="text/javascript" src="<?php echo $this->baseUrl ?>/public/mootools.js"></script>
+</head>
+<script>
+// Pegando os valores e montando o objeto ajax 
+        function validar(){
+            var usuario = $('usuario').value;   
+            var senha   = $('senha').value;
+            var queryString = {"usuario": usuario, "senha": senha };   
+            var opcoes =   
+            {   
+                                 "method":"get",   
+                                 "data": queryString,   
+                                 "onComplete": completouSolicitacao   
+            };   
+            var ajaxObj = new Ajax("<?php echo $this->baseUrl ?>/Login/login", opcoes).request(); 
+        }
+         
+        function completouSolicitacao(info){
+// limpa o hint
+                                      $('hint').innerHTML = "";
+            var obj = Json.evaluate( info );
+// Caso tenha tido erro na validacao do login
+            if (obj.erro == true){
+// Caso o problema tenha sido na senha
+                if(obj.tipo == "senha" )
+                    $('hint').innerHTML = "Senha nao confere. Hint: " + obj.hint;
+                else
+// Caso o problema tenha sido o login invalido
+                    $('hint').innerHTML = "Login invalido";
+            }else{
+// Nao teve erros, submeter formulario
+                $('frm').submit();
+            }
+        }
+</script>
+        <form name="frm" id="frm" onSubmit="return validar(this)"
+            action=action="<?php echo $this->url('grande-gerador', array('action' => 'limpurblogin')); ?>" method="post">
+            <table>
+                <tr>
+                    <td>
+                        Usuario:
+                    </td>
+                    <td>
+                         <input type="text" name="usuario" id="usuario"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Senha:
+                    </td>
+                     <td>
+                        <input type="password" name="senha" id="senha" value="" />
+                        <label id="hint"></label>
+                    </td>
+                </tr>
+            </table>      
+            <input class="botao" type="button" value="Entrar" onclick="validar();"/>
+        </form>
+</html>
