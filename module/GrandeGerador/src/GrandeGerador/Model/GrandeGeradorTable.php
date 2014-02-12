@@ -195,6 +195,8 @@ class GrandeGeradorTable {
                 $select->where("grande_gerador_cnpj LIKE '%$like%'");
                 //  $select->where('grande_gerador_nome_fantasia LIKE  %6%');
                 $select->order('grande_gerador_data_cadastro ASC');
+               // echo var_dump($like);
+               // exit();
                 // $select->where("'$filtro' LIKE '%6%' ");
             }
             /*
@@ -307,6 +309,14 @@ class GrandeGeradorTable {
             throw new \Exception("Não foi encontrado contado de id = {$id}");
 
         return $row;
+    }
+    /*
+     * Retorna todos os grande geradores vinculados a empresa prestadora selecionada
+     */
+    public function fetchAllGrandeGeradorPrestadora($idPrestadora) {
+        $idPrestadora = (int) $idPrestadora;
+        return $rowset = $this->tableGateway->select(array('emp_prestadora_fk' => $idPrestadora));
+
     }
 
     public function findCnpj($cnpj) {

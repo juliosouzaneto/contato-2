@@ -18,6 +18,9 @@ class PrestadoraController extends AbstractActionController {
     protected $pretadoraTable;
 
     public function getPrestadoraTable() {
+        if (\Login\Service\Auth::authorize() == false) {
+            return $this->redirect()->toRoute('login');
+        }
         if (!$this->pretadoraTable) {
             $sm = $this->getServiceLocator();
             $this->pretadoraTable = $sm->get('AdapterDb');
@@ -27,13 +30,75 @@ class PrestadoraController extends AbstractActionController {
 
     // GET /contatos
     public function indexAction() {
+             if (\Login\Service\Auth::authorize() == false) {
+            return $this->redirect()->toRoute('login');
+        }
+        $request = $this->getRequest();
+
+
+//        if ($request->isPost()) {
+//
+
+        $id = (int) $this->params()->fromRoute('id', 0);
+        $pagina = (int) $this->params()->fromRoute('pagina', 0);
+//        } else {
+//            $pagina = 1;
+//        }
+//            if($pagina  < 0){
+//                $pagina = 1;
+//                
+//                echo $pagina;
+//                
+//            }
+        //   $postData = $request->getPost();
+        //$postData[''];
         // localizar adapter do banco
         $adapter = $this->getServiceLocator()->get('AdapterDb');
-
+        $intensPorPagina = 5;
+        //$pagina = 2;
         // model ContatoTable instanciadoo
         $modelPrestadora = new PrestadoraTable($adapter); // alias para ContatoTable
+        //
+        //
+         //var_dump($modelPrestadora->fetchAllPaginacao($adapter, $intensPorPagina, 3 )->getItemCountPerPage());
+        // exit();
+        //
         // enviar para view o array com key contatos e value com todos os contatos
-        return new ViewModel(array('prestadora' => $modelPrestadora->fetchAll()));
+        $paginator = $modelPrestadora->fetchAllPaginacao($adapter, $intensPorPagina, $pagina);
+        $totalPagina = $paginator->count();
+
+        return new ViewModel(array('prestadora' => $paginator,
+            'intensPorPagina' => $intensPorPagina,
+            'pagina' => $pagina,
+            'totalPagina' => $totalPagina));
+    }
+
+    public function paginacaoAction() {
+        $id = (int) $this->params()->fromRoute('id', 0);
+        $pagina = (int) $this->params()->fromRoute('pagina', 0);
+
+        // exit();
+        // $request = $this->getRequest();
+        // $response = $this->getResponse();
+        $adapter = $this->getServiceLocator()->get('AdapterDb');
+
+        $modelPrestadora = new PrestadoraTable($adapter);
+        //  exit();
+
+        $intensPorPagina = 3;
+        // $pagina = $pagina;
+
+
+        echo $pagina;
+        //  pagesInRange;
+        echo $modelPrestadora->fetchAllPaginacao($adapter, $intensPorPagina, 3)->pagesInRange;
+
+        exit();
+        //  return $this->redirect()->toRoute('prestadora');
+        return $this->redirect()->toRoute('prestadora', array('prestadora' => $modelPrestadora->fetchAllPaginacao($adapter, $intensPorPagina, 3),
+                    'intensPorPagina' => $intensPorPagina,
+                    'pagina' => $pagina));
+        // }
     }
 
     public function inserirVeiculoAction() {
@@ -196,6 +261,9 @@ class PrestadoraController extends AbstractActionController {
     }
 
     public function editarPrestadoraAction() {
+             if (\Login\Service\Auth::authorize() == false) {
+            return $this->redirect()->toRoute('login');
+        }
         $request = $this->getRequest();
         $response = $this->getResponse();
 
@@ -208,9 +276,9 @@ class PrestadoraController extends AbstractActionController {
         $listVeiculoPrestadora = $veiculoTable->fetchAllVeiculoPrestadora($id_prestadora);
 
         if ($request->isPost()) {
-            try{
-            
-                      $tabela = '<thead><tr>' .
+            try {
+
+                $tabela = '<thead><tr>' .
                         '  <tr>' .
                         '      <th>Id</th>' .
                         '      <th>Placa</th>' .
@@ -240,9 +308,9 @@ class PrestadoraController extends AbstractActionController {
             } catch (Exception $exc) {
                 echo $exc->getTraceAsString();
             }
-            
-            
-            
+
+
+
             /*
              * array com a string $tabela e o id da empresa prestadora
              * será retornado no arquivo json
@@ -273,7 +341,7 @@ class PrestadoraController extends AbstractActionController {
 
         $postData = $request->getPost();
         $prestadora->exchangeArray($postData);
-       // exit();
+        // exit();
 
         if ($request->isPost()) {
             /*
@@ -283,8 +351,8 @@ class PrestadoraController extends AbstractActionController {
             if ($prestadora->emp_prest_id != '') {
 
                 $prestadoraTable->atualizarPrestadora($prestadora);
-               // echo 'id prestadora é difente de vazio';
-               // exit();
+                // echo 'id prestadora é difente de vazio';
+                // exit();
             }
             /*
              * Será cadastrado a empresa prestadora
@@ -292,8 +360,8 @@ class PrestadoraController extends AbstractActionController {
                 //  echo 'Prestadora não cadastrada';
                 // exit();
                 $prestadoraTable->savePrestadora($prestadora);
-               //   echo 'id prestadora é difente de vazio';
-               // exit();
+                //   echo 'id prestadora é difente de vazio';
+                // exit();
             }
         }
 
@@ -315,8 +383,12 @@ class PrestadoraController extends AbstractActionController {
             // 1 - solicitar serviço para pegar o model responsável pelo delete
             // 2 - deleta contato
             // adicionar mensagem de sucesso
-            $prestadoraTable->deletePrestadora($id, $adapter);
-            $this->flashMessenger()->addSuccessMessage("Prestadora de ID $id deletado com sucesso");
+            $retornoExclusao = $prestadoraTable->deletePrestadora($id, $adapter);
+            if ($retornoExclusao['excluiu'] == true) {
+                $this->flashMessenger()->addSuccessMessage("Prestadora de ID $id deletado com sucesso");
+            } else {
+                $this->flashMessenger()->addMessage($retornoExclusao['mensagem']);
+            }
         }
         return $this->redirect()->toRoute('prestadora');
     }
@@ -327,6 +399,9 @@ class PrestadoraController extends AbstractActionController {
      */
 
     public function novoAction() {
+             if (\Login\Service\Auth::authorize() == false) {
+            return $this->redirect()->toRoute('login');
+        }
         // obtém a requisição
         $request = $this->getRequest();
 
@@ -345,6 +420,9 @@ class PrestadoraController extends AbstractActionController {
      */
 
     public function adicionarAction() {
+             if (\Login\Service\Auth::authorize() == false) {
+            return $this->redirect()->toRoute('login');
+        }
 
         // obtém a requisição
         $request = $this->getRequest();
@@ -405,132 +483,62 @@ class PrestadoraController extends AbstractActionController {
         }
     }
 
-    // GET /contatos/editar/id
-    public function editarAction() {
-        // filtra id passsado pela url
-        $id = (int) $this->params()->fromRoute('id', 0);
-
-        // se id = 0 ou não informado redirecione para contatos
-        if (!$id) {
-            // adicionar mensagem de erro
-            $this->flashMessenger()->addMessage("Contato não encotrado");
-
-            // redirecionar para action index
-            return $this->redirect()->toRoute('prestadora');
-        }
-
-        // aqui vai a lógica para pegar os dados referente ao contato
-        // 1 - solicitar serviço para pegar o model responsável pelo find
-        // 2 - solicitar form com dados desse contato encontrado
-        // formulário com dados preenchidos
-        $form = array(
-            'nome' => 'Igor Rocha',
-            "telefone_principal" => "(085) 8585-8585",
-            "telefone_secundario" => "(085) 8585-8585",
-        );
-
-        // dados eviados para editar.phtml
-        return array('id' => $id, 'form' => $form);
-    }
-
-    // GET /contatos/detalhes/id
-    public function detalhesAction() {
-        // filtra id passsado pela url
-        $id = (int) $this->params()->fromRoute('id', 0);
-
-        // se id = 0 ou não informado redirecione para contatos
-        if (!$id) {
-            // adicionar mensagem
-            $this->flashMessenger()->addMessage("Contato não encotrado");
-
-            // redirecionar para action index
-            return $this->redirect()->toRoute('prestadora');
-        }
-
-        // aqui vai a lógica para pegar os dados referente ao contato
-        // 1 - solicitar serviço para pegar o model responsável pelo find
-        // 2 - solicitar form com dados desse contato encontrado
-        // formulário com dados preenchidos
-//        $form = array(
-//            'nome' => 'Igor Rocha',
-//            "telefone_principal" => "(085) 8585-8585",
-//            "telefone_secundario" => "(085) 8585-8585",
-//            "data_criacao" => "02/03/2013",
-//            "data_atualizacao" => "02/03/2013",
-//        );
-        //localizar adapter do banco
-        $adapter = $this->getServiceLocator()->get('AdapterDb');
-
-        //model ContatoTable instanciado
-        $modelPrestadora = new ModelPrestadora($adapter);
-
-        try {
-            $form = (array) $modelPrestadora->find($id);
-        } catch (\Exception $exc) {
-            // adicionar mensagem
-            $this->flashMessenger()->addErrorMessage($exc->getMessage());
-
-            // redirecionar para action index
-            return $this->redirect()->toRoute('contatos');
-        }
-
-
-
-
-        // dados eviados para detalhes.phtml
-        return array('id' => $id, 'form' => $form);
-    }
-
-    // PUT /contatos/editar/id
-    public function atualizarAction() {
-        // obtém a requisição
+    public function filtrarAction() {
+        echo 'metódo filtrar';
         $request = $this->getRequest();
+        $response = $this->getResponse();
 
-        // verifica se a requisição é do tipo post
+        $adapter = $this->getServiceLocator()->get('AdapterDb');
+        $filtroPesquisa = $_POST['filtro_pesquisa'];
+        $valor_ditado_pesquisa = $_POST['valor_digitado_pesquisa'];
+        $data_inicial = '';
+        $data_final = '';
+
+
+        $prestadoraTable = new PrestadoraTable($adapter);
+//        echo 'filtro<br>';
+//        echo $filtroPesquisa;
+//        echo 'Valor digitado pesquisa<br>';
+//        echo $valor_ditado_pesquisa;
+        //  exit();
+
+
         if ($request->isPost()) {
-            // obter e armazenar valores do post
-            $postData = $request->getPost()->toArray();
-            $formularioValido = true;
+            echo 'Metódo Listaaaaaa';
 
-            // verifica se o formulário segue a validação proposta
-            if ($formularioValido) {
-                // aqui vai a lógica para editar os dados à tabela no banco
-                // 1 - solicitar serviço para pegar o model responsável pela atualização
-                // 2 - editar dados no banco pelo model
-                // adicionar mensagem de sucesso
-                $this->flashMessenger()->addSuccessMessage("Contato editado com sucesso");
+            // $residuoTable->listaResidoPorTipo(2);
+            //   echo "aasdf"+$residuoTable->listaResidoPorTipo(2);
 
-                // redirecionar para action detalhes
-                return $this->redirect()->toRoute('contatos', array("action" => "detalhes", "id" => $postData['id'],));
-            } else {
-                // adicionar mensagem de erro
-                $this->flashMessenger()->addErrorMessage("Erro ao editar contato");
+            $tabela = '         <thead>' .
+                    ' <tr>' .
+                    '      <th>Codigo</th>' .
+                    '       <th>Nome Fantasia</th>' .
+                    '       <th>CNPJ</th>' .
+                    '        <th>Data Cadastro</th>' .
+                    '       <th>Ação</th>' .
+                    '   </tr>' .
+                    '   </thead>';
+            foreach ($prestadoraTable->fetchAllComFiltro($adapter, $filtroPesquisa, $valor_ditado_pesquisa, $data_inicial, $data_final) as $value) {
+                //foreach ($prestadoraTable->fetchAll() as $value) {
 
-                // redirecionar para action editar
-                return $this->redirect()->toRoute('contatos', array('action' => 'editar', "id" => $postData['id'],));
+                $tabela.= ' <tr>' .
+                        '<td>' . $value->emp_prest_id . '</td>' .
+                        '<td>' . $value->emp_prest_nome_fantasia . '</td>' .
+                        ' <td>' . $value->emp_prest_cnpj . '</td>' .
+                        ' <td>' . $value->emp_prest_data_cadastro . '</td>' .
+                        '<td>' .
+                        '    <!-- Button trigger modal -->' .
+                        '    <button id="<?php echo $prest->emp_prest_id ?>" value="' . $value->emp_prest_id . '"  class="btn btn-primary " data-toggle="modal" data-target="#myModal" onclick="editarPrestador(this)">Editar</button>' .
+                        '   <a class="btn btn-primary btn-danger" title="Deletar" href="prestadora/deletarPrestadora/' . $value->emp_prest_id . '"><span class="glyphicon glyphicon-floppy-remove"></span></a>' .
+                        ' </td>' .
+                        ' </tr>' .
+                        '</tbody>';
             }
         }
-    }
+        echo $tabela;
+        //   $this->flashMessenger()->addSuccessMessage("Metódodo Lista");
 
-    // DELETE /contatos/deletar/id
-    public function deletarAction() {
-        // filtra id passsado pela url
-        $id = (int) $this->params()->fromRoute('id', 0);
-
-        // se id = 0 ou não informado redirecione para contatos
-        if (!$id) {
-            // adicionar mensagem de erro
-            $this->flashMessenger()->addMessage("Contato não encotrado");
-        } else {
-            // aqui vai a lógica para deletar o contato no banco
-            // 1 - solicitar serviço para pegar o model responsável pelo delete
-            // 2 - deleta contato
-            // adicionar mensagem de sucesso
-            $this->flashMessenger()->addSuccessMessage("Contato de ID $id deletado com sucesso");
-        }
-
-        // redirecionar para action index
-        return $this->redirect()->toRoute('contatos');
+        return $response;
     }
 
 }

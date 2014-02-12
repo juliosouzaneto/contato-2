@@ -12,6 +12,7 @@ class HomeController extends AbstractActionController {
      * @return \Zend\View\Model\ViewModel
      */
     public function indexAction() {
+        
         /**
          * função anônima para var_dump estilizado
          */

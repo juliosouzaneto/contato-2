@@ -12,6 +12,7 @@ use GrandeGerador\Model\GrandeGerador,
 // import Zend\Db
 use Zend\Db\ResultSet\ResultSet,
     Zend\Db\TableGateway\TableGateway;
+use Zend\ModuleManager\ModuleManager;
 
 class Module {
 
@@ -73,6 +74,16 @@ class Module {
         }
             )
         );
+    }
+    
+    public function init(ModuleManager $moduleManager)
+    {
+        $sharedEvents = $moduleManager->getEventManager()->getSharedManager();
+        $sharedEvents->attach(__NAMESPACE__, 'dispatch', function($e) {
+            // This event will only be fired when an ActionController under the MyModule namespace is dispatched.
+            $controller = $e->getTarget();
+            $controller->layout('layout/layout.phtml');
+        }, 100);
     }
  
 

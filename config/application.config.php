@@ -17,7 +17,8 @@ return array(
          'Login',
          'GrandeGerador',
          'ZfcBase',
-        'ZfcUser',
+         'ZfcUser',
+        'Core',
         
         
          

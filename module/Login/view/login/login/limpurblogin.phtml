@@ -35,7 +35,8 @@
             }
         }
     </script>
-    <div class="panel panel-primary col-lg-4 col-md-6 " style="   left: 300px; top: 20px; /* posiciona a 70px para baixo */">
+    <div class="panel panel-primary col-lg-4 col-md-6 " style="width:450px; height: 280px;  left: 17%; top: 20px; /* posiciona a 70px para baixo */">
+
 
         <div class="panel-heading ">
             <div class="panel-title">
@@ -43,23 +44,24 @@
             </div>
         </div  >
 
-        <form class="form-horizontal " role="form" method="POST" action="<?php echo $this->url('login', array('action' => 'limpurblogin')); ?>">
-
-            <div class="form-group">
-                <label class="control-label" for="inputEmail">Usuário</label>
-                <div class="controls">
-                    <input class="form-control" id="usuario" name="usuario" type="text" placeholder="Digite o seu login..." />
+        <form class="form-horizontal " role="form" method="POST" action="<?php echo $this->url('auth', array('action' => 'login')); ?>">
+            <div class="row" style="width:300px; height: 280px; margin-left: 12%;">
+                <div class="form-group">
+                    <label class="control-label" for="inputEmail">Usuário</label>
+                    <div class="controls">
+                        <input class="form-control" id="usuario" name="username" type="text" placeholder="Digite o seu login..." />
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label" for="inputEmail">Senha</label>
-                <div class="controls">
-                    <input class="form-control"  id="senha" name="senha" type="password" placeholder="Digite sua senha..." />
+                <div class="form-group">
+                    <label class="control-label" for="inputEmail">Senha</label>
+                    <div class="controls">
+                        <input class="form-control"  id="senha" name="password" type="password" placeholder="Digite sua senha..." />
+                    </div>
                 </div>
+
+
+                <button hidden="true" id="confirmaCadastroComSubmit" type="submit" class="btn btn-primary " onclick=""> Acessar</button>
             </div>
-
-
-            <button hidden="true" id="confirmaCadastroComSubmit" type="submit" class="btn btn-primary " onclick=""> Acessar</button>
         </form>
     </div>
 

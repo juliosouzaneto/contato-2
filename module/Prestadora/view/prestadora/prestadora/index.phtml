@@ -1,3 +1,5 @@
+
+
 <div class="topo-table">
     <a href="<?php echo $this->url('prestadora', array('action' => 'novo')) ?>" class="btn btn-success" title="Novo"><span class="glyphicon glyphicon-plus"></span></a>
 
@@ -17,17 +19,28 @@
 
     <form class="form-inline pull-right" role="form">
         <div class="form-group">
-            <label class="sr-only" for="localizar">Buscar...</label>
-            <input type="search" class="form-control" id="localizar" placeholder="Bucar...">
+            <select onclick="pesquisaPorData()" class="form-control" name="filtro_pesquisa" id="filtro_pesquisa">
+
+                <option value="0">Selecione o critério de busca...</option>
+                <option value="emp_prest_nome_fantasia">Nome Fantasia</option>
+                <option value="emp_prest_cnpj">Cnpj</option>
+                <option value="emp_prest_data_cadastro">Data Cadastro</option>
+                <option value="veiculo_placa">Pláca Veículo</option>
+            </select>
         </div>
-        <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
+        <div class="form-group">
+
+            <label class="sr-only" for="localizar">Buscar...</label>
+            <input type="search" class="form-control" id="valor_digitado_pesquisa" onkeyup="botaoPesquisar()" placeholder="Bucar...">
+        </div>
+        <button  type="button" class="btn btn-default"><span class="glyphicon glyphicon-search" onclick="botaoPesquisar()"></span></button>
     </form>
 </div>
 
 <br />
 
 <div class="corpo-table">
-    <table class="table table-striped table-bordered table-hover">
+    <table class="table table-striped table-bordered table-hover" id="table_empresa_prestadora">
         <thead>
             <tr>
                 <th>Código</th>
@@ -59,14 +72,28 @@
         </tbody>
     </table>
 
+    
     <ul class="pagination pull-right">
-        <li><a href="#">Anterior</a></li>
+        <!-- anterior page link -->
+        
+        <li  class="<?php if ($pagina != 1) echo ''; else echo 'disabled'; ?>"><a href="<?php echo $this->url('prestadora', array("action" => "index", "id" => $pagina - 1, "pagina" => $p = ($pagina - 1),)); ?>">
+                    Anterior
+                </a></li>
+<!--   <li><a href="<?php echo $this->url('prestadora', array("action" => "index", "id" => $pagina - 1, "pagina" => $p = ($pagina - 1),)); ?>">Anterior</a></li>
+
+
         <li class="active"><a href="#">1</a></li>
         <li><a href="#">2</a></li>
         <li><a href="#">3</a></li>
-        <li><a href="#">4</a></li>
-        <li><a href="#">Próximo</a></li>
+        <li><a href="#">4</a></li>-->
+       <!-- <li><a  href="<?php echo $this->url('prestadora', array("action" => "index", "id" => $pagina + 1, "pagina" => $pagina + 1,)); ?>">Próximo</a></li>-->
+        <!-- Next page link -->
+         <li  <?php if ($totalPagina > $pagina) echo ''; else echo 'class="disabled"'; ?>>
+             <a href="<?php echo $this->url('prestadora', array("action" => "index", "id" => $pagina + 1, "pagina" => $pagina + 1,)); ?>"> Proximo</a></li>
+
+
     </ul>
+    <?php echo 'Total de páginas' . $totalPagina; ?>
 </div>
 
 <!--================================ Div Modal Editar Prestadora========================================
@@ -591,6 +618,49 @@
                 });
 
 
+    }
+
+    function botaoPesquisar()
+    {
+        // alert('filtro_pesquisa');
+
+        var filtro_p = document.getElementById("filtro_pesquisa").value;
+
+        var valor_digitado_p = document.getElementById("valor_digitado_pesquisa").value;
+
+        //    alert(filtro_pesquisa);
+//
+        if (filtro_p == 0)
+        {
+            alert('Selecione um critério de busca');
+            $('#filtro_pesquisa').focus();
+            $('#valor_digitado_pesquisa').val('');
+        }
+
+        else {
+
+            $.ajax({
+                type: 'post',
+                cache: false,
+                data: {filtro_pesquisa: filtro_p, valor_digitado_pesquisa: valor_digitado_p},
+                url: "<?php echo $this->url('prestadora', array('action' => 'filtrar')); ?>",
+                // url: '/grande-gerador/lista',
+                beforeSend: function() {
+                },
+                success: function(data) {
+                    //  alert('achou php');
+
+
+                    $('#table_empresa_prestadora').html(data);
+                    console.log(data);
+
+                },
+                error: function() {
+                    alert('Nao achou o PHP')
+                }
+            });
+            event.preventDefault();
+        }
     }
 
 

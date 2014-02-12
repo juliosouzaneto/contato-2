@@ -1,0 +1,359 @@
+<?php echo $this->doctype(); ?>
+
+<html lang="pt-BR">
+    <head>
+        <meta charset="utf-8">
+         <iframe style="width:100%; height:300px; border:0;" frameborder="0" scrolling="no" src="http://www.salvador.ba.gov.br/Paginas/topo.aspx"></iframe>
+        
+
+
+
+
+<div class="panel panel-primary" style="width:500px; height: 300px; margin-left: 15%; top: 20px;">
+
+    <div class="panel-heading ">
+        <div class="panel-title">
+            Cadastro Grande Gerador     
+        </div>
+    </div  >
+    <form class="form-horizontal " role="form" method="POST" action="<?php echo $this->url('grande-gerador', array('action' => 'autenticar')); ?>">
+        <div class="panel-body">
+
+            <input type="hidden" name="novo_cadastro" id="novo_cadastro" value="true">
+            <div class="row" style="width:400px; height: 280px; margin-left: 2%;">
+                <div class="form-group">
+
+                    <div class="form-group">
+                        <label for="inputCnpj" class=" control-label">Informe seu CNPJ</label>
+                        <div class="">
+                            <input type="text" name="grande_gerador_cnpj" class="form-control cnpj" id="inputCnpj" placeholder="Digite seu CNPJ" value="<?php echo $this->escapeHtml($this->form['grande_gerador_cnpj']); ?>">               
+                        </div>
+                    </div>
+                    <div class="form-group" id="divDispalyChaveSeguranca" style="display: none">
+                        <label class="control-label">Informe a chame de segurança</label>
+                        <div class="">
+                            <input class="form-control"  type="password" name="grande_gerador_senha"  id="grande_gerador_senha">
+                        </div>
+                    </div>
+                </div>
+                <div class="">
+                    <button type="button" class="btn btn-primary " onclick="validaCadastro()" > Confirmar</button>
+                    <div id='div' style='display:none'> 
+                        <button hidden="true" id="confirmaCadastroComSubmit" type="submit" class="btn btn-primary " onclick="validaCadastro()" > Confirmar submit</button>
+                    </div>
+                    <a href="<?php echo $this->url('home'); ?>" class="btn btn-default">Cancelar</a> 
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script type="text/javascript">
+
+<?php $this->headScript()->captureStart(); ?>
+
+    $(document).ready(function() {
+        // jQuery.noConflict();
+        // alert('Teste');
+
+        $('.cnpj').mask("99.999.999/9999-99");
+
+    });
+
+
+
+
+    function validarCNPJ(cnpj) {
+
+
+        // alert('entrou em valida cnpj')
+
+        cnpj = cnpj.replace(/[^\d]+/g, '');
+
+        if (cnpj == '')
+            return false;
+
+        if (cnpj.length != 14)
+            return false;
+
+        // Elimina CNPJs invalidos conhecidos
+        if (cnpj == "00000000000000" ||
+                cnpj == "11111111111111" ||
+                cnpj == "22222222222222" ||
+                cnpj == "33333333333333" ||
+                cnpj == "44444444444444" ||
+                cnpj == "55555555555555" ||
+                cnpj == "66666666666666" ||
+                cnpj == "77777777777777" ||
+                cnpj == "88888888888888" ||
+                cnpj == "99999999999999")
+            return false;
+
+        // Valida DVs
+        tamanho = cnpj.length - 2
+        numeros = cnpj.substring(0, tamanho);
+        digitos = cnpj.substring(tamanho);
+        soma = 0;
+        pos = tamanho - 7;
+        for (i = tamanho; i >= 1; i--) {
+            soma += numeros.charAt(tamanho - i) * pos--;
+            if (pos < 2)
+                pos = 9;
+        }
+        resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
+        if (resultado != digitos.charAt(0))
+            return false;
+
+        tamanho = tamanho + 1;
+        numeros = cnpj.substring(0, tamanho);
+        soma = 0;
+        pos = tamanho - 7;
+        for (i = tamanho; i >= 1; i--) {
+            soma += numeros.charAt(tamanho - i) * pos--;
+            if (pos < 2)
+                pos = 9;
+        }
+        resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
+        if (resultado != digitos.charAt(1))
+            return false;
+
+        return true;
+
+    }
+
+
+
+    function validaCadastro()
+    {
+        // alert('valida cadastro')
+        var cnpj = document.getElementById('inputCnpj').value;
+
+        if (!validarCNPJ(cnpj))
+        {
+            $('#divDispalyChaveSeguranca').hide();
+            alert('CNPJ Inválido');
+            event.preventDefault();
+        }
+        if (validarCNPJ(cnpj))
+        {
+            // alert('cnpj válido');
+            vericaCadastroGrandeGerador();
+
+            //  event.preventDefault();
+        }
+
+//           var novo_cadastro = document.getElementById('novo_cadastro').value;
+//
+//            if (novo_cadastro == 'false')
+//            {
+//                alert('novo cadastro do if false');
+//                event.preventDefault();
+//            }
+//            if (novo_cadastro == 'true')
+//            {
+//                alert('novo cadastro do if true');
+//                event.preventDefault();
+//            }
+
+    }
+
+    function vericaCadastroGrandeGerador()
+    {
+        var contact;
+        //alert('Verifica cadastro grande gerador');
+        var cnpj2 = document.getElementById('inputCnpj').value;
+        var senha = document.getElementById('grande_gerador_senha').value;
+        //    alert(filtro_pesquisa);
+
+        // event.preventDefault();
+
+
+        if (cnpj2 != '') {
+            $.ajax({
+                type: 'post',
+                cache: false,
+                data: {cnpj: cnpj2},
+                url: "<?php echo $this->url('grande-gerador', array('action' => 'vericaCadastroGrandeGerador')); ?>",
+                // url: '/grande-gerador/lista',
+                beforeSend: function() {
+                },
+                success: function(data) {
+                    // alert(data.length);
+                    console.log(data);
+
+                    contact = JSON.parse(data);
+
+
+                    if (contact.grande_gerador_id != null)
+                    {
+
+                        if (contact.grande_gerador_senha == senha)
+                        {
+                            document.getElementById("confirmaCadastroComSubmit").click();
+                        }
+                        else {
+                            alert('Informe a senha');
+                            $('#novo_cadastro').val('false');
+                            $('#divDispalyChaveSeguranca').show();
+
+                        }
+                        //  event.preventDefault();
+
+                    }
+                    else {
+
+                        alert('Novo cadastro');
+                        $('#divDispalyChaveSeguranca').hide();
+                        $('#novo_cadastro').val('true');
+                        document.getElementById("confirmaCadastroComSubmit").click();
+
+                        //event.preventDefault();
+                        //console.log(contact);
+                    }
+
+
+                    // event.preventDefault();
+
+                },
+                error: function() {
+                    alert('Nao achou o PHP')
+                }
+            });
+
+
+
+
+        }
+
+
+
+
+
+
+
+
+        // alert(contact.grande_gerador_id);
+        // 
+
+
+
+
+
+    }
+
+
+
+    $(function() {
+        // variável para conter a url deletar
+        //var url_deletar = '<?php echo $this->url('grande-gerador', array("action" => "deletar")); ?>' + '/';
+
+        // qualquer link que tiver a url deletar vai sofrer um evento quando for clicada
+//        $('.cpf').focusout((function(event) {
+//            // variável contendo o id referente ao botão clicado
+//         //   var contato_id = $(this).attr('href').split(url_deletar).pop();
+//            // variável contendo mensagem da janela
+//            var mensagem = "Deseja realmente apagar o contato de ID " + contato_id + "?";
+//            // variável com resposta da mensagem colocada na janela
+//            var confirmacao = confirm(mensagem);
+//
+//            // se a confirmação for false o fluxo é interrompido
+//            if (!confirmacao)
+//                // elimar o evendo do botão clicado
+//                event.preventDefault();
+//        });
+    });
+
+<?php $this->headScript()->captureEnd(); ?>
+
+</script>
+
+
+         
+        <!-- Title Head -->
+        <?php
+        $NAME_APPLICATION = 'Grandes Geradoras';
+        echo $this
+                ->headTitle($NAME_APPLICATION)
+                ->setSeparator(' - ')
+                ->setAutoEscape(false)
+        ;
+        ?>
+
+        <!-- Meta Head -->
+       
+
+        <?php
+        echo $this
+                ->headMeta()
+                ->appendName('viewport', 'width=device-width, initial-scale=1.0')
+                ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
+        ;
+        ?>
+
+        <!-- Styles -->
+        <?php
+        echo $this
+                ->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
+                ->prependStylesheet($this->basePath() . '/css/style.css')
+                ->prependStylesheet($this->basePath() . '/css/bootstrap-theme.min.css')
+                ->prependStylesheet($this->basePath() . '/css/bootstrap.min.css')
+
+
+
+        ;
+        ?>
+
+        <!-- Scripts -->
+        <?php
+        echo $this
+                ->headScript()
+                ->prependFile($this->basePath() . '/js/jquery.maskedinput.js')
+                ->prependFile($this->basePath() . '/js/bootstrap.min.js')
+                ->prependFile($this->basePath() . '/js/jquery-2.0.3.min.js')
+                ->prependFile($this->basePath() . '/js/bootstrap-modal.js')
+                ->prependFile($this->basePath() . '/js/funcs.js')
+                ->prependFile($this->basePath() . '/js/respond.min.js', 'text/javascript', array('conditional' => 'lt IE 9',))
+                ->prependFile($this->basePath() . '/js/html5shiv.js', 'text/javascript', array('conditional' => 'lt IE 9',))
+        ;
+
+        echo $this->inlineScript();
+        ?>
+
+        <script type="text/javascript">
+            console.log('Oi');
+        </script>
+
+    </head>
+
+    <body>
+        
+        <div class="container">
+   
+
+
+
+            <div class="row marketing">
+<?php echo $this->content; ?>
+            </div>
+
+            <script type="text/javascript">
+                console.log('Content');
+            </script>
+
+
+
+
+
+            <!-- menssagem de erro, será exibida no tela. -->
+<?php echo $this->message(); ?>
+
+            <div class="footer">             
+                <p class="muted credit pull-right">Desenvolvido por <a href="http://">Cogel</a>.</p>
+            </div>
+        </div>
+
+
+    </body>
+    
+    <iframe style="width:100%; height:262px; border:0;" frameborder="0" scrolling="no" src="http://www.salvador.ba.gov.br/Paginas/rodape.aspx"></iframe>
+</html>

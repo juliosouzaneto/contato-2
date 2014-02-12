@@ -40,7 +40,7 @@
         </thead>
 
         <tbody>
-            <?php foreach ($this->contatos as $tipo_residuo) : ?>
+          <!--  <?php foreach ($this->contatos as $tipo_residuo) : ?>
                 <tr>
                     <td><?php echo $this->escapeHtml($tipo_residuo->grande_gerador_id); ?></td>
                     <td><?php echo $this->escapeHtml($tipo_residuo->grande_gerador_razao_social); ?></td>
@@ -53,7 +53,7 @@
                         <a class="btn btn-xs btn-danger" title="Deletar" href="<?php echo $this->url('contatos', array("action" => "deletar", "id" => $tipo_residuo->grande_gerador_id,)); ?>"><span class="glyphicon glyphicon-floppy-remove"></span></a>
                     </td>
                 </tr>
-            <?php endforeach; ?>
+            <?php endforeach; ?>-->
         </tbody>
     </table>
 

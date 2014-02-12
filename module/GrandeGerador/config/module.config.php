@@ -29,7 +29,7 @@ return array(
                     'route' => '/grande-gerador',
                     'defaults' => array(
                         'controller' => 'GrandeGeradorController',
-                        'action' => 'index',
+                        'action' => 'administracao',
                     ),
                 ),
             ),

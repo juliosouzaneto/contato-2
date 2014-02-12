@@ -37,10 +37,11 @@ return array(
             'prestadora' => array(
                 'type' => 'Segment',
                 'options' => array(
-                    'route' => '/prestadora[/:action][/:id]',
+                    'route' => '/prestadora[/:action][/:id][/:pagina]',
                     'constraints' => array(
                         'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                        'id' => '[0-9]+',
+                        'id' => '[-1-9]+',
+                        'pagina' => '[-1-9]+',
                     ),
                     'defaults' => array(
                         'controller' => 'PrestadoraController',

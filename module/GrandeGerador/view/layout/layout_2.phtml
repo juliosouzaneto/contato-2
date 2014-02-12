@@ -1,0 +1,152 @@
+<?php echo $this->doctype(); ?>
+
+<html lang="pt-BR">
+    <head>
+        <meta charset="utf-8">
+    <iframe style="width:100%; height:300px; border:0;" frameborder="0" scrolling="no" src="http://www.salvador.ba.gov.br/Paginas/topo.aspx"></iframe>
+    <div class="navbar navbar-inverse ">
+        <?php
+        $url_home = $this->url('home');
+        $url_sobre = $this->url('sobre');
+        $url_grande_gerador = $this->url('grande-gerador');
+        $url_prestadora = $this->url('prestadora');
+        ?>
+
+        <div class="container">
+            <div class="navbar-header">
+           
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="<?php echo $url_grande_gerador . '/administracao'; ?>">Home</a>
+               
+            </div>
+            <div class="navbar-collapse collapse">
+
+                <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Gerenciar Empresa Prestadora<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li <?php echo $this->menuAtivo($url_prestadora); ?>>
+                                <a href="<?php echo $url_prestadora . '/novo'; ?>">Cadastrar</a>
+                            </li>
+                            <li <?php echo $this->menuAtivo($url_prestadora); ?>>
+                                <a href="<?php echo $url_prestadora; ?>">Consultar</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Gerenciar Grande Gerador<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+
+                            <li <?php echo $this->menuAtivo($url_grande_gerador); ?>>
+                                <a href="<?php echo $url_grande_gerador . '/autenticar'; ?>">Cadastrar</a>
+                            </li>
+                            <li <?php echo $this->menuAtivo($url_grande_gerador); ?>>
+                                <a href="<?php echo $url_grande_gerador; ?>">Consultar</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <form class="navbar-form navbar-right">
+                    <div class="form-group">
+                        <input type="text" placeholder="Email" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" placeholder="Password" class="form-control">
+                    </div>
+                    <button type="submit" class="btn btn-success">Sign in</button>
+                </form>
+            </div><!--/.navbar-collapse -->
+        </div>
+    </div>
+    <!-- Title Head -->
+    <?php
+    $NAME_APPLICATION = 'Grandes Geradoras';
+    echo $this
+            ->headTitle($NAME_APPLICATION)
+            ->setSeparator(' - ')
+            ->setAutoEscape(false)
+    ;
+    ?>
+
+    <!-- Meta Head -->
+
+
+    <?php
+    echo $this
+            ->headMeta()
+            ->appendName('viewport', 'width=device-width, initial-scale=1.0')
+            ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
+    ;
+    ?>
+
+    <!-- Styles -->
+    <?php
+    echo $this
+            ->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
+            ->prependStylesheet($this->basePath() . '/css/style.css')
+            ->prependStylesheet($this->basePath() . '/css/bootstrap-theme.min.css')
+            ->prependStylesheet($this->basePath() . '/css/bootstrap.min.css')
+
+
+
+    ;
+    ?>
+
+    <!-- Scripts -->
+    <?php
+    echo $this
+            ->headScript()
+            ->prependFile($this->basePath() . '/js/jquery.maskedinput.js')
+            ->prependFile($this->basePath() . '/js/bootstrap.min.js')
+            ->prependFile($this->basePath() . '/js/jquery-2.0.3.min.js')
+            ->prependFile($this->basePath() . '/js/bootstrap-modal.js')
+            ->prependFile($this->basePath() . '/js/funcs.js')
+            ->prependFile($this->basePath() . '/js/respond.min.js', 'text/javascript', array('conditional' => 'lt IE 9',))
+            ->prependFile($this->basePath() . '/js/html5shiv.js', 'text/javascript', array('conditional' => 'lt IE 9',))
+    ;
+
+    echo $this->inlineScript();
+    ?>
+
+    <script type="text/javascript">
+        console.log('Oi');
+    </script>
+
+</head>
+
+<body>
+
+    <div class="container">
+
+
+
+
+        <div class="row marketing">
+            <?php echo $this->content; ?>
+        </div>
+
+        <script type="text/javascript">
+            console.log('Content');
+        </script>
+
+
+
+
+
+        <!-- menssagem de erro, será exibida no tela. -->
+        <?php echo $this->message(); ?>
+
+        <div class="footer">             
+            <p class="muted credit pull-right">Desenvolvido por <a href="http://">Cogel</a>.</p>
+        </div>
+    </div>
+
+
+</body>
+
+<iframe style="width:100%; height:262px; border:0;" frameborder="0" scrolling="no" src="http://www.salvador.ba.gov.br/Paginas/rodape.aspx"></iframe>
+</html>

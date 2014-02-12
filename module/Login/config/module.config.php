@@ -7,6 +7,7 @@ return array(
             'LoginController' => 'Login\Controller\HomeController',
             'LoginController' => 'Login\Controller\LoginController',
             'GrandeGeradorController' => 'GrandeGerador\Controller\GrandeGeradorController',
+            'AuthController' => 'Login\Controller\AuthController',
         ),
     ),
 # definir e gerenciar rotas
@@ -49,6 +50,21 @@ return array(
                     ),
                 ),
             ),
+            # segment para controller contatos
+            'auth' => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/auth[/:action][/:id]',
+                    'constraints' => array(
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id' => '[0-9]+',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'AuthController',
+                        'action' => 'index',
+                    ),
+                ),
+            ),
                    # segment para controller GrandeGerador
             'grande-gerador' => array(
                 'type' => 'Segment',
@@ -60,7 +76,7 @@ return array(
                     ),
                     'defaults' => array(
                         'controller' => 'GrandeGeradorController',
-                        'action' => 'index',
+                        'action' => 'administracao',
                     ),
                 ),
             ),

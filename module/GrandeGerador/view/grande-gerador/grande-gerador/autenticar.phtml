@@ -12,7 +12,7 @@
 
     <form d class="form-horizontal" role="form" method="POST" action="<?php echo $this->url('grande-gerador', array('action' => 'adicionar')); ?>">
         <div class="panel-body">
-            <div class="form-group"  >
+            <div class="row" style="width:700px; height: 300px; float: left">
                 <!-- ============Div Situação=================
                     Irá exibir a situação do grande gerador
                     só é exibida quando a situação é diferente de analisando
@@ -82,198 +82,159 @@
 
                 <!-- Inicio inputs do Formulário --> 
                 <div class="form-group">
-                    <label for="inputNomeFantasia" class="col-lg-3 col-md-3 control-label">Nome Fantasia</label>
-                    <div class="col-lg-9 col-md-9">
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-addon">Nome Fantasia </span>   
                         <input <?php echo $this->habilitaEdicao; ?>  type="text" name="grande_gerador_nome_fantasia" class="form-control" id="grande_gerador_nome_fantasia" placeholder="Digite o Nome Fantasia" value="<?php echo $this->escapeHtml($this->form['grande_gerador_nome_fantasia']); ?>">
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="inputRazaoSocial" class="col-lg-3 col-md-3 control-label">Razao Social</label>
-                    <div class="col-lg-9  col-md-9">
-                        <input <?php echo $this->habilitaEdicao; ?>  type="text" name="grande_gerador_razao_social" class="form-control" id="grande_gerador_razao_social" placeholder="Digite a Razao Social"  value="<?php echo $this->escapeHtml($this->form['grande_gerador_razao_social']); ?>"> 
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="inputCnpj" class="col-lg-3 col-md-3 control-label">CNPJ</label>
-                    <div class="col-lg-9  col-md-9">
+                        <span class="input-group-addon">CNPJ</span>
                         <input disabled type="text" name="grande_gerador_cnpj" class="form-control cnpj" id="grande_gerador_cnpj" placeholder="Digite seu telefone principal" value="<?php echo $this->escapeHtml($this->form['grande_gerador_cnpj']); ?>">               
                     </div>
                 </div>
 
-                <div class="form-group">
-
-                    <label for="inputAtividadePrincipal" class="col-lg-3  control-label">Atividade Princial</label>
-                    <div class="col-lg-5 ">
-                        <input <?php echo $this->habilitaEdicao; ?>  type="text" name="grande_gerador_atividade_principal" class="form-control" id="grande_gerador_atividade_principal" placeholder="Digite sua atividade principal" value="<?php echo $this->escapeHtml($this->form['grande_gerador_atividade_principal']); ?>">               
+                <div class="form-group ">
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-addon">Razao Social</span>
+                        <input <?php echo $this->habilitaEdicao; ?>  type="text" name="grande_gerador_razao_social" class="form-control" id="grande_gerador_razao_social" placeholder="Digite a Razao Social"  value="<?php echo $this->escapeHtml($this->form['grande_gerador_razao_social']); ?>"> 
                     </div>
-                    <label for="inputAtividadePrincial" class="col-lg-2 col-md-3 control-label">Código (CNAE)</label>
-                    <div class="col-lg-2 ">
+                </div>
+
+                <div class="form-group ">
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-addon">Ativ. Principal</span>
+                        <input <?php echo $this->habilitaEdicao; ?>  type="text" name="grande_gerador_atividade_principal" class="form-control" id="grande_gerador_atividade_principal" placeholder="Digite sua atividade principal" value="<?php echo $this->escapeHtml($this->form['grande_gerador_atividade_principal']); ?>">               
+                        <span class="input-group-addon">Código (CNAE)</span>
                         <input <?php echo $this->habilitaEdicao; ?>   type="text" name="grande_gerador_codigo_atividade_principal" class="form-control" id="grande_gerador_codigo_atividade_principal" placeholder="Digite o código (CNAE)" value="<?php echo $this->escapeHtml($this->form['grande_gerador_codigo_atividade_principal']); ?>">               
                     </div>
-
                 </div>
-
-
-                <div class="form-group">
-                    <label for="inputRua" class="col-lg-3 col-md-3 control-label">Endereço</label>
-                    <div class="col-lg-9  col-md-9">
-                        <input <?php echo $this->habilitaEdicao; ?>  type="text" name="grande_gerador_rua" class="form-control" id="inputTelefoneSecundario" placeholder="Digite a Rua" value="<?php echo $this->escapeHtml($this->form['grande_gerador_rua']); ?>">
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="inputBairro" class="col-lg-3 col-md-3 control-label">Bairro</label>
-                    <div class="col-lg-9  col-md-9">
+                <div class="form-group ">
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-addon">Endereço</span>
+                        <input <?php echo $this->habilitaEdicao; ?>  type="text" name="grande_gerador_rua" class="form-control" id="inputTelefoneSecundario" placeholder="Digite o endereço" value="<?php echo $this->escapeHtml($this->form['grande_gerador_rua']); ?>">
+                        <span class="input-group-addon">Bairro</span>
                         <input <?php echo $this->habilitaEdicao; ?>  type="text" name="grande_gerador_endereco" class="form-control" id="inputTelefoneSecundario" placeholder="Digite o seu bairro" value="<?php echo $this->escapeHtml($this->form['grande_gerador_endereco']); ?>">
                     </div>
                 </div>
-
-                <div class="form-group">
-                    <label for="inputCep" class="col-lg-3 col-md-3 control-label">CEP</label>
-                    <div class="col-lg-9  col-md-9">
+                <div class="form-group ">
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-addon">Cep</span>
                         <input <?php echo $this->habilitaEdicao; ?>   type="text" name="grande_gerador_cep" class="form-control cep" id="inputTelefoneSecundario" placeholder="Digite o cep" value="<?php echo $this->escapeHtml($this->form['grande_gerador_cep']); ?>">
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="inputTelefone" class="col-lg-3 col-md-3 control-label">Telefone</label>
-                    <div class="col-lg-9  col-md-9">
+                        <span class="input-group-addon">Telefone</span>
                         <input <?php echo $this->habilitaEdicao; ?>  type="text" name="grande_gerador_telefone" class="form-control telefone" id="inputTelefoneSecundario" placeholder="Digite seu telefone" value="<?php echo $this->escapeHtml($this->form['grande_gerador_telefone']); ?>">
                     </div>
                 </div>
-
-                <div class="form-group">
-
-                    <label for="inputEmail" class="col-lg-3 col-md-3 control-label" pattern="^@\w{2,}" >Email</label>
-                    <div class="col-lg-9  col-md-9">
+                <div class="form-group ">
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-addon">Email</span>
                         <input <?php echo $this->habilitaEdicao; ?>  type="text" name="grande_gerador_email" class="form-control" id="grande_gerador_email" placeholder="Digite seu Email" onblur="validaEmail()" value="<?php echo $this->escapeHtml($this->form['grande_gerador_email']); ?>">
-                    </div>
-                    <label for="inputEmail" class="col-lg-3 col-md-3 control-label"></label>
-                    <div class="col-lg-9  col-md-9"  id="email" style="display:none; color: red;"><label > Email inválido</label></div>
-
-                </div>
-
-                <div class="form-group">
-                    <label for="inputRespLegal" class="col-lg-3 col-md-3 control-label">Responsavel Legal</label>
-                    <div class="col-lg-9 ">
+                        <span class="input-group-addon">Responsavel Legal</span>
                         <input <?php echo $this->habilitaEdicao; ?>  type="text" name="grande_gerador_resp_legal" class="form-control" id="inputRespLegal" placeholder="Digite o Responsavel Legal" value="<?php echo $this->escapeHtml($this->form['grande_gerador_resp_legal']); ?>">
                     </div>
-                </div>  
+                    <div class="col-lg-9  col-md-9"  id="displayEmail" style="display:none; color: red; font-size: 12px;"><label > Email inválido</label></div>
+                </div>
 
-                <div class=" form-group">
-                    <div class="form-group">
-                        <label for="inputRespLegal" class="col-lg-3 col-md-3 control-label">Chave de Segurança</label>
-                        <div class="col-lg-3 ">
-                            <input <?php echo $this->habilitaEdicao; ?>  type="PASSWORD" name="grande_gerador_senha" class="form-control" id="grande_gerador_senha"  value="<?php echo $this->escapeHtml($this->form['grande_gerador_senha']); ?>">
-                        </div>
-
-                        <label for="inputRespLegal" class="col-lg-3 control-label">Redigitar Chave de Segurança</label>
-                        <div class="col-lg-3 ">
-                            <input <?php echo $this->habilitaEdicao; ?>  type="PASSWORD" name="grande_gerador_senha_confirmacao" class="form-control" id="grande_gerador_senha_confirmacao" onblur="validaSenha()"  value="<?php echo $this->escapeHtml($this->form['grande_gerador_senha']); ?>">
-                        </div>
-                        <div class="col-lg-9  col-md-9"  id="displaySenha" style="display:none; color: red;"><label >As Chaves de Segurança não Correspondem</label></div>
+                <div class="form-group ">
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-addon">Chave de Segurança</span>
+                        <input <?php echo $this->habilitaEdicao; ?>  type="PASSWORD" name="grande_gerador_senha" class="form-control" id="grande_gerador_senha"  value="<?php echo $this->escapeHtml($this->form['grande_gerador_senha']); ?>">
+                        <span class="input-group-addon">Redigitar Chave de Segurança</span>
+                        <input <?php echo $this->habilitaEdicao; ?>  type="PASSWORD" name="grande_gerador_senha_confirmacao" class="form-control" id="grande_gerador_senha_confirmacao" onblur="validaSenha()"  value="<?php echo $this->escapeHtml($this->form['grande_gerador_senha']); ?>">
                     </div>
-
+                    <div class="col-lg-9  col-md-9"  id="displaySenha" style="display:none; color: red;"><label >As Chaves de Segurança não Correspondem</label></div>
                 </div>
                 <!-- Fim inputs do Formulário grande gerador--> 
             </div>
+        </div>
 
-
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <div class="panel-title">
-                        Resíduos Gerados         
-                    </div>
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <div class="panel-title">
+                    Resíduos Gerados         
                 </div>
-                <div class="corpo-table panel-body">
-                    <table class="table table-striped table-bordered table-hover">
-                        <thead>
-                            <tr>
-                                <th>Tipo Residuo</th>
-                                <th>Descricao</th>
-                                <th>Quantidade Gerada</th>
-                                <th>Peso Específico (kg/m3)</th>
-                                <th>Tipo de acondicionador</th>  
-                                <th>Empresa Prestadora</th>  
-                                <th>Local de destinação dos resíduos</th>  
-                            </tr>
-                        </thead>
+            </div>
+            <div class="corpo-table panel-body">
+                <table class="table table-striped table-bordered table-hover" style="font-size: 11px">
+                    <thead>
+                        <tr>
+                            <th>Tipo Residuo</th>
+                            <th>Descricao</th>
+                            <th>Quantidade Gerada</th>
+                            <th>Peso Específico (kg/m3)</th>
+                            <th>Tipo de acondicionador</th>  
+                            <th>Empresa Prestadora</th>  
+                            <th>Local de destinação dos resíduos</th>  
+                        </tr>
+                    </thead>
 
-                        <tbody>
+                    <tbody>
 
-                            <tr>
-                                <td>Umido</td>
-                                <td><textarea <?php echo $this->habilitaEdicao; ?>  rows="3" cols="40" name="residuo_para_coleta_umido_desc" class="form-control " id="inputRespLegal" placeholder="Digite"   ><?php echo $this->residuoParaColeta->residuo_para_coleta_umido_desc ?></textarea></td>
-                                <td><textarea <?php echo $this->habilitaEdicao; ?>  rows="3" cols="2"  name="residuo_para_coleta_umido_qtd_gerada" class="form-control numer" id="inputRespLegal" placeholder="Digite"> <?php echo $this->residuoParaColeta->residuo_para_coleta_umido_qtd_gerada ?></textarea></td>
-                                <td><textarea <?php echo $this->habilitaEdicao; ?>  rows="3" cols="2"  name="residuo_para_coleta_umido_peso" class="form-control numer" id="inputRespLegal" placeholder="Digite"><?php echo $this->residuoParaColeta->residuo_para_coleta_umido_peso ?></textarea></td>
-                                <td><textarea <?php echo $this->habilitaEdicao; ?>  rows="3" cols="30" name="residuo_para_coleta_umido_tipo_acodic" class="form-control" id="inputRespLegal" placeholder="Digite"><?php echo $this->residuoParaColeta->residuo_para_coleta_umido_tipo_acodic ?></textarea></td>
-                                <td><div class="form-group">
+                        <tr>
+                            <td>Umido</td>
+                            <td><textarea <?php echo $this->habilitaEdicao; ?>  rows="3" cols="40" name="residuo_para_coleta_umido_desc" class="form-control " id="inputRespLegal" placeholder="Digite"   ><?php echo $this->residuoParaColeta->residuo_para_coleta_umido_desc ?></textarea></td>
+                            <td><textarea <?php echo $this->habilitaEdicao; ?>  rows="3" cols="2"  name="residuo_para_coleta_umido_qtd_gerada" class="form-control numer" id="inputRespLegal" placeholder="Digite"> <?php echo $this->residuoParaColeta->residuo_para_coleta_umido_qtd_gerada ?></textarea></td>
+                            <td><textarea <?php echo $this->habilitaEdicao; ?>  rows="3" cols="2"  name="residuo_para_coleta_umido_peso" class="form-control numer" id="inputRespLegal" placeholder="Digite"><?php echo $this->residuoParaColeta->residuo_para_coleta_umido_peso ?></textarea></td>
+                            <td><textarea <?php echo $this->habilitaEdicao; ?>  rows="3" cols="30" name="residuo_para_coleta_umido_tipo_acodic" class="form-control" id="inputRespLegal" placeholder="Digite"><?php echo $this->residuoParaColeta->residuo_para_coleta_umido_tipo_acodic ?></textarea></td>
+                            <td><div class="form-group">
 
-                                        <div >
-                                            <!--  Lista as empresas prestadora  -->
-                                            <select <?php echo $this->habilitaEdicao; ?>  class="combobox form-control" name="emp_prestadora_fk" id="emp_prestadora_fk" itemscope="4564"  >
-                                                <option  value="0"> 
-                                                    Selecione uma empresa prestadora
-                                                </option>
-                                                <?php foreach ($this->empresaPrestadora as $tipo_residuo) : ?>
-                                                    <option  value="<?= $tipo_residuo->emp_prest_id ?>">  <?php echo $this->escapeHtml($tipo_residuo->emp_prest_nome_fantasia); ?></option>
-                                                <?php endforeach; ?>
-                                            </select>
-                                            </td> 
+                                    <div >
+                                        <!--  Lista as empresas prestadora  -->
+                                        <select <?php echo $this->habilitaEdicao; ?>  class="combobox form-control" name="emp_prestadora_fk" id="emp_prestadora_fk" itemscope="4564"  >
+                                            <option  value="0"> 
+                                                Selecione uma empresa prestadora
+                                            </option>
+                                            <?php foreach ($this->empresaPrestadora as $tipo_residuo) : ?>
+                                                <option  value="<?= $tipo_residuo->emp_prest_id ?>">  <?php echo $this->escapeHtml($tipo_residuo->emp_prest_nome_fantasia); ?></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                        </td> 
 
-                                        </div>
                                     </div>
-                                <td><textarea <?php echo $this->habilitaEdicao; ?>  rows="3" cols="30" name="residuo_para_coleta_umido_local_destinacao" class="form-control" id="inputRespLegal" placeholder="Digite"><?php echo $this->residuoParaColeta->residuo_para_coleta_umido_local_destinacao ?></textarea></td>
+                                </div>
+                            <td><textarea <?php echo $this->habilitaEdicao; ?>  rows="3" cols="30" name="residuo_para_coleta_umido_local_destinacao" class="form-control" id="inputRespLegal" placeholder="Digite"><?php echo $this->residuoParaColeta->residuo_para_coleta_umido_local_destinacao ?></textarea></td>
 
-                            </tr>
-                            <tr>
-                                <td>Secos</td>
-                                <td><textarea <?php echo $this->habilitaEdicao; ?>  rows="3" cols="40" name="residuo_para_coleta_solido_desc" class="form-control " id="inputRespLegal" placeholder="Digite"   ><?php echo $this->residuoParaColeta->residuo_para_coleta_solido_desc ?></textarea></td>
-                                <td><textarea <?php echo $this->habilitaEdicao; ?>  rows="3" cols="2" name="residuo_para_coleta_solido_qtd_gerada" class="form-control numer" id="inputRespLegal" placeholder="Digite"> <?php echo $this->residuoParaColeta->residuo_para_coleta_solido_qtd_gerada ?></textarea></td>
-                                <td><textarea <?php echo $this->habilitaEdicao; ?>  rows="3" cols="2" name="residuo_para_coleta_solido_peso" class="form-control numer" id="inputRespLegal" placeholder="Digite"><?php echo $this->residuoParaColeta->residuo_para_coleta_solido_peso ?></textarea></td>
-                                <td><textarea <?php echo $this->habilitaEdicao; ?>  rows="3" cols="30" name="residuo_para_coleta_solido_tipo_acodic" class="form-control" id="inputRespLegal" placeholder="Digite"><?php echo $this->residuoParaColeta->residuo_para_coleta_solido_tipo_acodic ?></textarea></td>
-                                <td><label for="inputEmail" class="col-lg-3 col-md-3 control-label" pattern="^@\w{2,}" >Cooperativa</label>
-                                    <select <?php echo $this->habilitaEdicao; ?>  class="combobox form-control" name="residuo_para_coleta_solido_nome_cooperativa" id="residuo_para_coleta_solido_nome_cooperativa" onclick="analisaCooperativa(this)"   >
-                                        <option  value="0">Selecione uma Cooperativa</option>
-                                        <option  value="Cooperativa Pega Tudo">Cooperativa Pega Tudo</option>
-                                        <option  value="Reciclagem com Qualidade">Reciclagem com Qualidade</option>
-                                        <option  value="Qualidade na Reciclagem">Qualidade na Reciclagem</option>
-                                        <option  value="Outros">Outros</option>
-                                    </select>
-                                </td>
-                                <td><textarea <?php echo $this->habilitaEdicao; ?>  rows="3" cols="30" name="residuo_para_coleta_solido_local_destinacao" class="form-control" id="inputRespLegal" placeholder="Digite"><?php echo $this->residuoParaColeta->residuo_para_coleta_solido_local_destinacao ?></textarea></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+                        </tr>
+                        <tr>
+                            <td>Secos</td>
+                            <td><textarea <?php echo $this->habilitaEdicao; ?>  rows="3" cols="40" name="residuo_para_coleta_solido_desc" class="form-control " id="inputRespLegal" placeholder="Digite"   ><?php echo $this->residuoParaColeta->residuo_para_coleta_solido_desc ?></textarea></td>
+                            <td><textarea <?php echo $this->habilitaEdicao; ?>  rows="3" cols="2" name="residuo_para_coleta_solido_qtd_gerada" class="form-control numer" id="inputRespLegal" placeholder="Digite"> <?php echo $this->residuoParaColeta->residuo_para_coleta_solido_qtd_gerada ?></textarea></td>
+                            <td><textarea <?php echo $this->habilitaEdicao; ?>  rows="3" cols="2" name="residuo_para_coleta_solido_peso" class="form-control numer" id="inputRespLegal" placeholder="Digite"><?php echo $this->residuoParaColeta->residuo_para_coleta_solido_peso ?></textarea></td>
+                            <td><textarea <?php echo $this->habilitaEdicao; ?>  rows="3" cols="30" name="residuo_para_coleta_solido_tipo_acodic" class="form-control" id="inputRespLegal" placeholder="Digite"><?php echo $this->residuoParaColeta->residuo_para_coleta_solido_tipo_acodic ?></textarea></td>
+                            <td><label for="inputEmail" class="col-lg-3 col-md-3 control-label" pattern="^@\w{2,}" >Cooperativa</label>
+                                <select <?php echo $this->habilitaEdicao; ?>  class="combobox form-control" name="residuo_para_coleta_solido_nome_cooperativa" id="residuo_para_coleta_solido_nome_cooperativa" onclick="analisaCooperativa(this)"   >
+                                    <option  value="0">Selecione uma Cooperativa</option>
+                                    <option  value="Cooperativa Pega Tudo">Cooperativa Pega Tudo</option>
+                                    <option  value="Reciclagem com Qualidade">Reciclagem com Qualidade</option>
+                                    <option  value="Qualidade na Reciclagem">Qualidade na Reciclagem</option>
+                                    <option  value="Outros">Outros</option>
+                                </select>
+                            </td>
+                            <td><textarea <?php echo $this->habilitaEdicao; ?>  rows="3" cols="30" name="residuo_para_coleta_solido_local_destinacao" class="form-control" id="inputRespLegal" placeholder="Digite"><?php echo $this->residuoParaColeta->residuo_para_coleta_solido_local_destinacao ?></textarea></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
+        </div>
 
+        <div class="panel-footer">
 
+            <button <?php echo $this->habilitaEdicao; ?>  type="submit" class="btn btn-primary" onclick=" validaCadastro(), salvarResiduoBanco()" >Salvar Grande Gerador</button>
+            <!--  O botão cancelar irá redirecionar para a página lista grande geradores (página index) 
+                se botão cancelar igual a home o botão é exibido
+            -->
+            <?php
+            $bCancelar;
+            if ($this->usuario == 'grande_gerador'):
+                $bCancelar = 'home';
+                ?>
+                <a href="<?php echo $this->url($bCancelar) ?>" class="btn btn-default">Cancelar</a>
 
-            <div class="panel-footer">
-
-                <button <?php echo $this->habilitaEdicao; ?>  type="submit" class="btn btn-primary" onclick=" validaCadastro(), salvarResiduoBanco()" >Salvar Grande Gerador</button>
-                <!--  O botão cancelar irá redirecionar para a página lista grande geradores (página index) 
-                    se botão cancelar igual a home o botão é exibido
-                -->
                 <?php
-                $bCancelar;
-                if ($this->usuario == 'grande_gerador'):
-                    $bCancelar = 'home';
-                    ?>
-                    <a href="<?php echo $this->url($bCancelar) ?>" class="btn btn-default">Cancelar</a>
-
-                    <?php
-                else:
-                    $bCancelar = 'index';
-                    ?>
-                    <a href="<?php echo $this->url($bCancelar) ?>" class="btn btn-default">Cancelar</a>        
-                <?php endif; ?>
+            else:
+                $bCancelar = 'index';
+                ?>
+                <a href="<?php echo $this->url($bCancelar) ?>" class="btn btn-default">Cancelar</a>        
+            <?php endif; ?>
 
 
-            </div>
+        </div>
     </form>
 </div>
 
@@ -315,11 +276,11 @@
          * se grande_gerador_id for diferente de vazio é selecionado a cooperativa do grande gerador
          * na combox cooperativa
          */
-        <?php
-        if ($this->form['grande_gerador_id'] != ''):
-            ?>
-                    $('#residuo_para_coleta_solido_nome_cooperativa').append('<option value="<?php echo $this->residuoParaColeta->residuo_para_coleta_solido_nome_cooperativa ?>" selected="selected"> <?php echo $this->residuoParaColeta->residuo_para_coleta_solido_nome_cooperativa ?> </option>');
-        <?php endif; ?>
+<?php
+if ($this->form['grande_gerador_id'] != ''):
+    ?>
+            $('#residuo_para_coleta_solido_nome_cooperativa').append('<option value="<?php echo $this->residuoParaColeta->residuo_para_coleta_solido_nome_cooperativa ?>" selected="selected"> <?php echo $this->residuoParaColeta->residuo_para_coleta_solido_nome_cooperativa ?> </option>');
+<?php endif; ?>
 
 
         //  $('#residuo_para_coleta_solido_nome_cooperativa').val(<?php echo $this->residuoParaColeta->residuo_para_coleta_solido_nome_cooperativa ?>);
@@ -332,11 +293,12 @@
 
         var obj = document.getElementById("grande_gerador_email");
         var txt = obj.value;
+        
 
         if ((txt.length != 0) && ((txt.indexOf("@") < 1) || (txt.indexOf('.') < 7)))
         {
             $('#grande_gerador_email').css('border', 'solid 1px red');
-            $("#displaySenha").show();
+            $("#displayEmail").show();
             // alert('Email incorreto');
             //obj.focus();
 
@@ -345,7 +307,7 @@
         else
         {
             $('#grande_gerador_email').css('border', '1px solid #ccc');
-            $("#email").hide();
+            $("#displayEmail").hide();
             return true;
         }
 
